@@ -1,8 +1,3 @@
 using UnityEngine;
 
-namespace Sources.Level
-{
-    public class Road : MonoBehaviour
-    {
-    }
-}
+namespace Sources.Level { public class Road : MonoBehaviour { } }
