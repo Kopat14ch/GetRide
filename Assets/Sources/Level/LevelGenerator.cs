@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Sources.Level.Roads;
-using Sources.Models;
+using Sources.Spawners;
 using UnityEngine;
 
 namespace Sources.Level
@@ -9,16 +9,18 @@ namespace Sources.Level
     public class LevelGenerator : MonoBehaviour
     {
         [SerializeField] private int _roadCount = 3;
-        [SerializeField] private Road _roadTemplate;
+        [SerializeField] private EnemySpawner _enemySpawner;
+        [SerializeField] private Road _roadOneStripeTemplate;
         [SerializeField] private Road _roadNoStripe;
         [SerializeField] private CenterRoad _centerRoad;
         [SerializeField] private StartRoad _startRoad;
         [SerializeField] private EndRoad _endRoad;
 
-
         private RoadContainer[] _roadContainers;
-        private List<Road> _roads = new List<Road>();
-
+        private List<Road> _roads;
+        
+        public IReadOnlyList<Road> Roads => _roads.GetRange(0, _roads.Count).AsReadOnly();
+        
         private void Awake()
         {
             _roadContainers = GetComponentsInChildren<RoadContainer>();
@@ -27,23 +29,22 @@ namespace Sources.Level
 
         private void Start()
         {
-            
             for (int i = 0; i < _roadCount; i++)
             {
                 foreach (var roadContainer in _roadContainers)
                 {
-                    CreateRoad(roadContainer.gameObject, i == 0 ? _roadNoStripe : _roadTemplate);
+                    CreateRoad(roadContainer.gameObject, i == 0 ? _roadNoStripe : _roadOneStripeTemplate);
                 }
                 
-                CreateRoad(_centerRoad.gameObject, _roadNoStripe);
+                CreateRoad(_centerRoad.gameObject, _roadNoStripe, false);
             }
             
-            CreateRoad(_roadNoStripe,_centerRoad.GetComponentsInChildren<Road>().Last().GetComponent<Renderer>(), _startRoad.gameObject);
-            CreateRoad(_roadNoStripe, _centerRoad.GetComponentsInChildren<Road>().First().GetComponent<Renderer>(), _endRoad.gameObject, false);
-
+            _enemySpawner.Spawn(Roads, _centerRoad);
+            CreateCenterRoad(_roadNoStripe,_centerRoad.GetComponentsInChildren<Road>().Last().GetComponent<Renderer>(), _startRoad.gameObject);
+            CreateCenterRoad(_roadNoStripe, _centerRoad.GetComponentsInChildren<Road>().First().GetComponent<Renderer>(), _endRoad.gameObject, false);
         }
 
-        private void CreateRoad(GameObject container, Road template)
+        private void CreateRoad(GameObject container, Road template, bool canAdd = true)
         {
             Road tempRoad;
 
@@ -64,11 +65,12 @@ namespace Sources.Level
                 
                 tempRoad = road;
             }
-            
-            _roads.Add(tempRoad);
+
+            if (canAdd)
+                _roads.Add(tempRoad);
         }
         
-        private void CreateRoad(Road template, Renderer objectRenderer, GameObject container, bool isRight = true)
+        private void CreateCenterRoad(Road template, Renderer objectRenderer, GameObject container, bool isRight = true)
         {
             Vector3 tempPosition = GetNormalPosition(objectRenderer, isRight);
             

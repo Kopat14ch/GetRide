@@ -1,27 +1,19 @@
 using DG.Tweening;
 using Sources.Level;
+using Sources.Level;
 using Sources.StringController;
 using Sources.Views;
 using UnityEngine;
 
 namespace Sources.PlayerScripts
 {
-    [RequireComponent(typeof(PlayerView))]
-    public class PlayerMovement : MonoBehaviour
+    public class Movement : MonoBehaviour
     {
-        [Header(HeaderNames.Objects)]
-        [SerializeField] private LevelPoint _endPoint;
+        [SerializeField] private PlayerView _view;
         
-        [Header(HeaderNames.Properties)]
-        [SerializeField] private float _timeToEndPoint;
-        
-        private PlayerView _view;
         private Tweener _tweener;
-
-        private void Awake()
-        {
-            _view = GetComponent<PlayerView>();
-        }
+        private LevelPoint _endPoint;
+        private float _timeToEndPoint;
 
         private void OnEnable()
         {
@@ -31,6 +23,11 @@ namespace Sources.PlayerScripts
         private void OnDisable()
         {
             _view.Click -= Move;
+        }
+
+        public void Init(LevelPoint point)
+        {
+            _endPoint = point;
         }
 
         private void Move()
