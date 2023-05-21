@@ -1,16 +1,19 @@
 using UnityEngine;
-using UnityEngine.UI;
 
-namespace Sources.Level.Roads {
+namespace Sources.Level.Roads
+{
     public class Road : MonoBehaviour
     {
-        public void TryDeleteRectTransform()
+        public LevelPoint Point { get; private set; }
+
+        private void Awake()
         {
-            if (TryGetComponent(out LayoutElement layoutElement) && TryGetComponent(out RectTransform rectTransform))
-            {
-                Destroy(layoutElement);
-                Destroy(rectTransform);
-            }
+            Point = GetComponentInChildren<LevelPoint>();
         }
-    } 
+
+        public void ChangePoint()
+        {
+            Point.ChangePosition();
+        }
+    }
 }

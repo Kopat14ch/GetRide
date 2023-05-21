@@ -1,24 +1,31 @@
 using System.Collections.Generic;
 using System.Linq;
 using Sources.Level.Roads;
-using Sources.Models;
+using Sources.Spawners;
+using Sources.StringController;
 using UnityEngine;
 
 namespace Sources.Level
 {
     public class LevelGenerator : MonoBehaviour
     {
-        [SerializeField] private int _roadCount = 3;
-        [SerializeField] private Road _roadTemplate;
+        [Header(HeaderNames.Objects)] 
+        [SerializeField] private PlayerSpawner _playerSpawner;
+        [SerializeField] private EnemySpawner _enemySpawner;
+        [SerializeField] private Road _roadOneStripeTemplate;
         [SerializeField] private Road _roadNoStripe;
         [SerializeField] private CenterRoad _centerRoad;
         [SerializeField] private StartRoad _startRoad;
         [SerializeField] private EndRoad _endRoad;
 
+        [Header(HeaderNames.Properties)] 
+        [SerializeField] private int _roadCount;
 
         private RoadContainer[] _roadContainers;
-        private List<Road> _roads = new List<Road>();
+        private List<Road> _roads;
 
+        private IReadOnlyList<Road> Roads => _roads.GetRange(0, _roads.Count).AsReadOnly();
+        
         private void Awake()
         {
             _roadContainers = GetComponentsInChildren<RoadContainer>();
@@ -27,48 +34,63 @@ namespace Sources.Level
 
         private void Start()
         {
-            
             for (int i = 0; i < _roadCount; i++)
             {
+                int valueToRotate = 0;
+
                 foreach (var roadContainer in _roadContainers)
                 {
-                    CreateRoad(roadContainer.gameObject, i == 0 ? _roadNoStripe : _roadTemplate);
+                    if (valueToRotate > 0)
+                    {
+                        CreateRoad(roadContainer.gameObject, i == 0 ? _roadNoStripe : _roadOneStripeTemplate, true);
+                    }
+                    else
+                    {
+                        CreateRoad(roadContainer.gameObject, i == 0 ? _roadNoStripe : _roadOneStripeTemplate);
+                        ++valueToRotate;
+                    }
                 }
-                
-                CreateRoad(_centerRoad.gameObject, _roadNoStripe);
+
+                CreateRoad(_centerRoad.gameObject, _roadNoStripe, canAdd: false);
             }
             
-            CreateRoad(_roadNoStripe,_centerRoad.GetComponentsInChildren<Road>().Last().GetComponent<Renderer>(), _startRoad.gameObject);
-            CreateRoad(_roadNoStripe, _centerRoad.GetComponentsInChildren<Road>().First().GetComponent<Renderer>(), _endRoad.gameObject, false);
-
+            CreateCenterRoad(_roadNoStripe,_centerRoad.GetComponentsInChildren<Road>().Last().GetComponent<Renderer>(), _startRoad.gameObject);
+            CreateCenterRoad(_roadNoStripe, _centerRoad.GetComponentsInChildren<Road>().First().GetComponent<Renderer>(), _endRoad.gameObject, false);
+            
+            _playerSpawner.Spawn(_endRoad, _startRoad);
+            _enemySpawner.Spawn(Roads, _centerRoad);
         }
 
-        private void CreateRoad(GameObject container, Road template)
+        private void CreateRoad(GameObject container, Road template, bool canChangePoint = false, bool canAdd = true)
         {
-            Road tempRoad;
+            Road road;
 
-            if (container == null) 
+            if (container == null)
                 return;
 
             if (container.GetComponentsInChildren<Road>().Length > 0)
             {
                 Renderer containerRenderer = container.GetComponentsInChildren<Road>().Last().GetComponent<Renderer>();
                 Vector3 tempPosition = GetNormalPosition(containerRenderer);
-                
-                Road road = Instantiate(template, tempPosition, Quaternion.identity, container.transform);
-                tempRoad = road;
+
+                road = Instantiate(template, tempPosition, Quaternion.identity, container.transform);
+
             }
             else
             {
-                Road road = Instantiate(template, container.transform.position, Quaternion.identity, container.transform);
-                
-                tempRoad = road;
+                road = Instantiate(template, container.transform.position, Quaternion.identity, container.transform);
             }
-            
-            _roads.Add(tempRoad);
+
+
+            if (canChangePoint)
+                road.ChangePoint();
+
+
+            if (canAdd)
+                _roads.Add(road);
         }
         
-        private void CreateRoad(Road template, Renderer objectRenderer, GameObject container, bool isRight = true)
+        private void CreateCenterRoad(Road template, Renderer objectRenderer, GameObject container, bool isRight = true)
         {
             Vector3 tempPosition = GetNormalPosition(objectRenderer, isRight);
             
@@ -80,8 +102,7 @@ namespace Sources.Level
             Vector3 tempPosition = objectRenderer.bounds.max;
 
             tempPosition.z = objectRenderer.transform.position.z;
-
-
+            
             if (isRight)
                 tempPosition.x += objectRenderer.bounds.extents.x;
             else 
