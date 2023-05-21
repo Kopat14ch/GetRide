@@ -14,6 +14,7 @@ namespace Sources.Level
         [SerializeField] private EnemySpawner _enemySpawner;
         [SerializeField] private Road _roadOneStripeTemplate;
         [SerializeField] private Road _roadNoStripe;
+        [SerializeField] private Road _mediumRoad;
         [SerializeField] private CenterRoad _centerRoad;
         [SerializeField] private StartRoad _startRoad;
         [SerializeField] private EndRoad _endRoad;
@@ -54,8 +55,8 @@ namespace Sources.Level
                 CreateRoad(_centerRoad.gameObject, _roadNoStripe, canAdd: false);
             }
             
-            CreateCenterRoad(_roadNoStripe,_centerRoad.GetComponentsInChildren<Road>().Last().GetComponent<Renderer>(), _startRoad.gameObject);
-            CreateCenterRoad(_roadNoStripe, _centerRoad.GetComponentsInChildren<Road>().First().GetComponent<Renderer>(), _endRoad.gameObject, false);
+            CreateCenterRoad(_mediumRoad,_centerRoad.GetComponentsInChildren<Road>().Last().GetComponent<Renderer>(), _startRoad.gameObject);
+            CreateCenterRoad(_mediumRoad, _centerRoad.GetComponentsInChildren<Road>().First().GetComponent<Renderer>(), _endRoad.gameObject, false);
             
             _playerSpawner.Spawn(_endRoad, _startRoad);
             _enemySpawner.Spawn(Roads, _centerRoad);
@@ -71,7 +72,7 @@ namespace Sources.Level
             if (container.GetComponentsInChildren<Road>().Length > 0)
             {
                 Renderer containerRenderer = container.GetComponentsInChildren<Road>().Last().GetComponent<Renderer>();
-                Vector3 tempPosition = GetNormalPosition(containerRenderer);
+                Vector3 tempPosition = GetNormalPosition(containerRenderer, template);
 
                 road = Instantiate(template, tempPosition, Quaternion.identity, container.transform);
 
@@ -92,23 +93,26 @@ namespace Sources.Level
         
         private void CreateCenterRoad(Road template, Renderer objectRenderer, GameObject container, bool isRight = true)
         {
-            Vector3 tempPosition = GetNormalPosition(objectRenderer, isRight);
+            Vector3 tempPosition = GetNormalPosition(objectRenderer, template, isRight);
             
             Road road = Instantiate(template, tempPosition, Quaternion.identity, container.transform);
         }
 
-        private Vector3 GetNormalPosition(Renderer objectRenderer, bool isRight = true)
+        private Vector3 GetNormalPosition(Renderer objectRenderer, Road template, bool isRight = true)
         {
-            Vector3 tempPosition = objectRenderer.bounds.max;
+            Bounds objectBounds = objectRenderer.bounds;
+            Bounds templateBounds = template.GetComponent<Renderer>().bounds;
+            Vector3 positionObject = objectBounds.max;
 
-            tempPosition.z = objectRenderer.transform.position.z;
-            
+            positionObject.z = objectRenderer.transform.position.z;
+
             if (isRight)
-                tempPosition.x += objectRenderer.bounds.extents.x;
-            else 
-                tempPosition.x = -(tempPosition.x + objectRenderer.bounds.extents.x);
-
-            return tempPosition;
+                positionObject.x = objectBounds.max.x + templateBounds.max.x;
+            else
+                positionObject.x = objectBounds.min.x + templateBounds.min.x;
+            
+            
+            return positionObject;
         }
     }
 }
