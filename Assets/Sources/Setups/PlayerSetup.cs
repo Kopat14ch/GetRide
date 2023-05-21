@@ -2,25 +2,23 @@ using Sources.Level;
 using Sources.Models;
 using Sources.PlayerScripts;
 using Sources.Presenters;
+using Sources.StringController;
 using Sources.Views;
 using UnityEngine;
 
 namespace Sources.Setups
 {
-    [RequireComponent(typeof(PlayerView))]
-    [RequireComponent(typeof(Movement))]
     public class PlayerSetup : MonoBehaviour
     {
-        private PlayerView _view;
+        [Header(HeaderNames.Objects)]
+        [SerializeField] private PlayerView _view;
+
         private Player _model;
         private PlayerPresenter _presenter;
-        private Movement _movement;
+        private Character _character;
 
         private void Awake()
         {
-            _view = GetComponent<PlayerView>();
-            _movement = GetComponent<Movement>();
-            
             _model = new Player();
             _presenter = new PlayerPresenter(_model, _view);
         }
@@ -29,9 +27,10 @@ namespace Sources.Setups
         
         private void OnDisable() => _presenter.Disable();
 
-        public void SetMovementPoint(LevelPoint point)
+        public void Init(LevelPoint point, Character character)
         {
-            _movement.Init(point);
+            _character = character;
+            character.Movement.Init(point, _view);
         }
     }
 }
