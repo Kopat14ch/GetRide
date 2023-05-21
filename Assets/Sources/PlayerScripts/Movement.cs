@@ -1,6 +1,5 @@
 using DG.Tweening;
 using Sources.Level;
-using Sources.Level;
 using Sources.StringController;
 using Sources.Views;
 using UnityEngine;
@@ -13,7 +12,7 @@ namespace Sources.PlayerScripts
         
         private Tweener _tweener;
         private LevelPoint _endPoint;
-        private float _timeToEndPoint;
+        private float _timeToEndPoint = 2f;
 
         private void OnEnable()
         {
