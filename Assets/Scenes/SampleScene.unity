@@ -219,14 +219,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerSpawner: {fileID: 386300497}
-  _enemySpawner: {fileID: 386300496}
+  _enemiesSpawner: {fileID: 386300496}
   _roadOneStripeTemplate: {fileID: 6257292374226135502, guid: ad48d5e5d5fe36a4c8f3e78fb4c61405, type: 3}
   _roadNoStripe: {fileID: 672137166060206559, guid: c070f9ab68837b442913744d8d8fe940, type: 3}
   _mediumRoad: {fileID: 1699720131605234994, guid: 03399013863c5f74f844941fa17d3ecb, type: 3}
   _centerRoad: {fileID: 1009959058}
   _startRoad: {fileID: 1731951705}
   _endRoad: {fileID: 1228665281}
-  _roadCount: 5
+  _roadCount: 1
 --- !u!114 &386300496
 MonoBehaviour:
   m_ObjectHideFlags: 0
