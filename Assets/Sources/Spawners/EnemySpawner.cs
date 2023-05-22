@@ -12,10 +12,9 @@ namespace Sources.Spawners
 
         public void Spawn(IReadOnlyList<Road> roads, CenterRoad centerRoad)
         {
-            Debug.Log(roads.Count);
             foreach (var road in roads)
             {
-                Instantiate(_enemyPrefab, road.LevelPoint.GetPosition, Quaternion.Euler(centerRoad.Position), road.LevelPoint.transform);
+                Instantiate(_enemyPrefab, road.Point.GetPosition, Quaternion.Euler(centerRoad.Position), road.Point.transform);
             }
         }
     }
