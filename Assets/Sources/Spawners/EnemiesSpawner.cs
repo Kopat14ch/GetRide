@@ -21,7 +21,7 @@ namespace Sources.Spawners
                 var enemy = Instantiate(_enemyPrefab, roads[randomValue].Point.GetPosition, Quaternion.Euler(centerRoad.Position), roads[randomValue].Point.transform);
                 var tempValue = randomValue % 2 == 0 ? randomValue + 1 : randomValue - 1;
                 
-                enemy.Init(roads[tempValue].Point, playerView);
+                enemy.Init(roads[tempValue].Point, playerView, roads[randomValue]);
                 i++;
             }
         }

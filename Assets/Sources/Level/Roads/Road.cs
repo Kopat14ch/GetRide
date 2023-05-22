@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace Sources.Level.Roads
 {
+    [RequireComponent(typeof(BoxCollider))]
     public class Road : MonoBehaviour
     {
         public LevelPoint Point { get; private set; }
@@ -15,5 +16,7 @@ namespace Sources.Level.Roads
         {
             Point.ChangePosition();
         }
+
+        public Bounds ColliderBounds => GetComponent<BoxCollider>().bounds;
     }
 }

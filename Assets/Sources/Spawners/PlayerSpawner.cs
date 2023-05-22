@@ -13,7 +13,7 @@ namespace Sources.Spawners
         public PlayerSetup Spawn(EndRoad endRoad, StartRoad startRoad)
         {
             Road tempRoad = startRoad.GetComponentInChildren<Road>();
-            
+
             Character character = Instantiate(_template, tempRoad.transform.localPosition, Quaternion.identity);
 
             tempRoad = endRoad.GetComponentInChildren<Road>();
