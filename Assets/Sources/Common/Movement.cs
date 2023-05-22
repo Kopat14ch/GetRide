@@ -8,7 +8,6 @@ namespace Sources.Common
     public class Movement : MonoBehaviour
     {
         private PlayerView _view;
-        private Tweener _tweener;
         private LevelPoint _endPoint;
         private float _timeToEndPoint = 2f;
         
@@ -25,6 +24,6 @@ namespace Sources.Common
             _view.Click += Move;
         }
 
-        private void Move() => _tweener = transform.DOMove(_endPoint.GetPosition, _timeToEndPoint);
+        private void Move() => transform.DOMove(_endPoint.GetPosition, _timeToEndPoint);
     }
 }

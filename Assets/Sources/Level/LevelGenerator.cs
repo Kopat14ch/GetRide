@@ -4,7 +4,6 @@ using Sources.Level.Roads;
 using Sources.Setups;
 using Sources.Spawners;
 using Sources.StringController;
-using Sources.Views;
 using UnityEngine;
 
 namespace Sources.Level
@@ -84,11 +83,9 @@ namespace Sources.Level
                 road = Instantiate(template, container.transform.position, Quaternion.identity, container.transform);
             }
 
-
             if (canChangePoint)
                 road.ChangePoint();
-
-
+            
             if (canAdd)
                 _roads.Add(road);
         }
@@ -112,8 +109,7 @@ namespace Sources.Level
                 positionObject.x = objectBounds.max.x + templateBounds.max.x;
             else
                 positionObject.x = objectBounds.min.x + templateBounds.min.x;
-            
-            
+
             return positionObject;
         }
     }

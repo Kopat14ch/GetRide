@@ -15,7 +15,6 @@ namespace Sources.Setups
 
         private Player _model;
         private PlayerPresenter _presenter;
-        private Character _character;
 
         public PlayerView View => _view;
 
@@ -31,7 +30,6 @@ namespace Sources.Setups
 
         public void Init(LevelPoint point, Character character)
         {
-            _character = character;
             character.Movement.Init(point, _view);
         }
     }
