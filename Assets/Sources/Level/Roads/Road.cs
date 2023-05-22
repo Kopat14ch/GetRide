@@ -1,14 +1,19 @@
 using UnityEngine;
 
-namespace Sources.Level.Roads 
+namespace Sources.Level.Roads
 {
     public class Road : MonoBehaviour
     {
-        public LevelPoint LevelPoint { get; private set; }
+        public LevelPoint Point { get; private set; }
 
         private void Awake()
         {
-            LevelPoint = GetComponentInChildren<LevelPoint>();
+            Point = GetComponentInChildren<LevelPoint>();
         }
-    } 
+
+        public void ChangePoint()
+        {
+            Point.ChangePosition();
+        }
+    }
 }

@@ -1,4 +1,5 @@
 using System;
+using Sources.StringController;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,6 +7,7 @@ namespace Sources.Views
 {
     public class PlayerView : MonoBehaviour
     {
+        [Header(HeaderNames.Objects)]
         [SerializeField] private Button _playButton;
 
         public event Action Click;

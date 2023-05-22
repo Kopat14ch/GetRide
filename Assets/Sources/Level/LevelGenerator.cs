@@ -1,25 +1,33 @@
 using System.Collections.Generic;
 using System.Linq;
 using Sources.Level.Roads;
+using Sources.Setups;
 using Sources.Spawners;
+using Sources.StringController;
+using Sources.Views;
 using UnityEngine;
 
 namespace Sources.Level
 {
     public class LevelGenerator : MonoBehaviour
     {
-        [SerializeField] private int _roadCount = 3;
-        [SerializeField] private EnemySpawner _enemySpawner;
+        [Header(HeaderNames.Objects)] 
+        [SerializeField] private PlayerSpawner _playerSpawner;
+        [SerializeField] private EnemiesSpawner _enemiesSpawner;
         [SerializeField] private Road _roadOneStripeTemplate;
         [SerializeField] private Road _roadNoStripe;
+        [SerializeField] private Road _mediumRoad;
         [SerializeField] private CenterRoad _centerRoad;
         [SerializeField] private StartRoad _startRoad;
         [SerializeField] private EndRoad _endRoad;
 
+        [Header(HeaderNames.Properties)] 
+        [SerializeField] private int _roadCount;
+
         private RoadContainer[] _roadContainers;
         private List<Road> _roads;
-        
-        public IReadOnlyList<Road> Roads => _roads.GetRange(0, _roads.Count).AsReadOnly();
+
+        private IReadOnlyList<Road> Roads => _roads.GetRange(0, _roads.Count).AsReadOnly();
         
         private void Awake()
         {
@@ -31,65 +39,82 @@ namespace Sources.Level
         {
             for (int i = 0; i < _roadCount; i++)
             {
+                int valueToRotate = 0;
+
                 foreach (var roadContainer in _roadContainers)
                 {
-                    CreateRoad(roadContainer.gameObject, i == 0 ? _roadNoStripe : _roadOneStripeTemplate);
+                    if (valueToRotate > 0)
+                    {
+                        CreateRoad(roadContainer.gameObject, i == 0 ? _roadNoStripe : _roadOneStripeTemplate, true);
+                    }
+                    else
+                    {
+                        CreateRoad(roadContainer.gameObject, i == 0 ? _roadNoStripe : _roadOneStripeTemplate);
+                        ++valueToRotate;
+                    }
                 }
-                
-                CreateRoad(_centerRoad.gameObject, _roadNoStripe, false);
+
+                CreateRoad(_centerRoad.gameObject, _roadNoStripe, canAdd: false);
             }
             
-            _enemySpawner.Spawn(Roads, _centerRoad);
-            CreateCenterRoad(_roadNoStripe,_centerRoad.GetComponentsInChildren<Road>().Last().GetComponent<Renderer>(), _startRoad.gameObject);
-            CreateCenterRoad(_roadNoStripe, _centerRoad.GetComponentsInChildren<Road>().First().GetComponent<Renderer>(), _endRoad.gameObject, false);
+            CreateCenterRoad(_mediumRoad,_centerRoad.GetComponentsInChildren<Road>().Last().GetComponent<Renderer>(), _startRoad.gameObject);
+            CreateCenterRoad(_mediumRoad, _centerRoad.GetComponentsInChildren<Road>().First().GetComponent<Renderer>(), _endRoad.gameObject, false);
+            
+            PlayerSetup playerSetup = _playerSpawner.Spawn(_endRoad, _startRoad);
+            _enemiesSpawner.Spawn(Roads, _centerRoad, playerSetup.View);
         }
 
-        private void CreateRoad(GameObject container, Road template, bool canAdd = true)
+        private void CreateRoad(GameObject container, Road template, bool canChangePoint = false, bool canAdd = true)
         {
-            Road tempRoad;
+            Road road;
 
-            if (container == null) 
+            if (container == null)
                 return;
 
             if (container.GetComponentsInChildren<Road>().Length > 0)
             {
                 Renderer containerRenderer = container.GetComponentsInChildren<Road>().Last().GetComponent<Renderer>();
-                Vector3 tempPosition = GetNormalPosition(containerRenderer);
-                
-                Road road = Instantiate(template, tempPosition, Quaternion.identity, container.transform);
-                tempRoad = road;
+                Vector3 tempPosition = GetNormalPosition(containerRenderer, template);
+
+                road = Instantiate(template, tempPosition, Quaternion.identity, container.transform);
+
             }
             else
             {
-                Road road = Instantiate(template, container.transform.position, Quaternion.identity, container.transform);
-                
-                tempRoad = road;
+                road = Instantiate(template, container.transform.position, Quaternion.identity, container.transform);
             }
 
+
+            if (canChangePoint)
+                road.ChangePoint();
+
+
             if (canAdd)
-                _roads.Add(tempRoad);
+                _roads.Add(road);
         }
         
         private void CreateCenterRoad(Road template, Renderer objectRenderer, GameObject container, bool isRight = true)
         {
-            Vector3 tempPosition = GetNormalPosition(objectRenderer, isRight);
+            Vector3 tempPosition = GetNormalPosition(objectRenderer, template, isRight);
             
             Road road = Instantiate(template, tempPosition, Quaternion.identity, container.transform);
         }
 
-        private Vector3 GetNormalPosition(Renderer objectRenderer, bool isRight = true)
+        private Vector3 GetNormalPosition(Renderer objectRenderer, Road template, bool isRight = true)
         {
-            Vector3 tempPosition = objectRenderer.bounds.max;
+            Bounds objectBounds = objectRenderer.bounds;
+            Bounds templateBounds = template.GetComponent<Renderer>().bounds;
+            Vector3 positionObject = objectBounds.max;
 
-            tempPosition.z = objectRenderer.transform.position.z;
-
+            positionObject.z = objectRenderer.transform.position.z;
 
             if (isRight)
-                tempPosition.x += objectRenderer.bounds.extents.x;
-            else 
-                tempPosition.x = -(tempPosition.x + objectRenderer.bounds.extents.x);
-
-            return tempPosition;
+                positionObject.x = objectBounds.max.x + templateBounds.max.x;
+            else
+                positionObject.x = objectBounds.min.x + templateBounds.min.x;
+            
+            
+            return positionObject;
         }
     }
 }
