@@ -17,6 +17,8 @@ namespace Sources.Setups
         private PlayerPresenter _presenter;
         private Character _character;
 
+        public PlayerView View => _view;
+
         private void Awake()
         {
             _model = new Player();

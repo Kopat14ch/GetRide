@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using Sources.Level.Roads;
+using Sources.Setups;
 using Sources.Spawners;
 using Sources.StringController;
+using Sources.Views;
 using UnityEngine;
 
 namespace Sources.Level
@@ -11,7 +13,7 @@ namespace Sources.Level
     {
         [Header(HeaderNames.Objects)] 
         [SerializeField] private PlayerSpawner _playerSpawner;
-        [SerializeField] private EnemySpawner _enemySpawner;
+        [SerializeField] private EnemiesSpawner _enemiesSpawner;
         [SerializeField] private Road _roadOneStripeTemplate;
         [SerializeField] private Road _roadNoStripe;
         [SerializeField] private Road _mediumRoad;
@@ -58,8 +60,8 @@ namespace Sources.Level
             CreateCenterRoad(_mediumRoad,_centerRoad.GetComponentsInChildren<Road>().Last().GetComponent<Renderer>(), _startRoad.gameObject);
             CreateCenterRoad(_mediumRoad, _centerRoad.GetComponentsInChildren<Road>().First().GetComponent<Renderer>(), _endRoad.gameObject, false);
             
-            _playerSpawner.Spawn(_endRoad, _startRoad);
-            _enemySpawner.Spawn(Roads, _centerRoad);
+            PlayerSetup playerSetup = _playerSpawner.Spawn(_endRoad, _startRoad);
+            _enemiesSpawner.Spawn(Roads, _centerRoad, playerSetup.View);
         }
 
         private void CreateRoad(GameObject container, Road template, bool canChangePoint = false, bool canAdd = true)

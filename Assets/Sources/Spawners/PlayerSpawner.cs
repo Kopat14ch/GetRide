@@ -10,7 +10,7 @@ namespace Sources.Spawners
         [SerializeField] private Character _template;
         [SerializeField] private PlayerSetup _playerSetup;
 
-        public void Spawn(EndRoad endRoad, StartRoad startRoad)
+        public PlayerSetup Spawn(EndRoad endRoad, StartRoad startRoad)
         {
             Road tempRoad = startRoad.GetComponentInChildren<Road>();
             
@@ -18,6 +18,8 @@ namespace Sources.Spawners
 
             tempRoad = endRoad.GetComponentInChildren<Road>();
             _playerSetup.Init(tempRoad.Point, character);
+
+            return _playerSetup;
         }
     }
 }

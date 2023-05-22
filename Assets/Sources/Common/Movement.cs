@@ -3,7 +3,7 @@ using Sources.Level;
 using Sources.Views;
 using UnityEngine;
 
-namespace Sources.PlayerScripts
+namespace Sources.Common
 {
     public class Movement : MonoBehaviour
     {
@@ -25,9 +25,6 @@ namespace Sources.PlayerScripts
             _view.Click += Move;
         }
 
-        private void Move()
-        {
-            _tweener = transform.DOMove(_endPoint.GetPosition, _timeToEndPoint);
-        }
+        private void Move() => _tweener = transform.DOMove(_endPoint.GetPosition, _timeToEndPoint);
     }
 }
