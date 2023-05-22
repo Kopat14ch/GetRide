@@ -14,7 +14,7 @@ namespace Sources.Spawners
         {
             Road tempRoad = startRoad.GetComponentInChildren<Road>();
             
-            Character character = Instantiate(_template, tempRoad.transform.localPosition, Quaternion.identity, tempRoad.transform);
+            Character character = Instantiate(_template, tempRoad.transform.localPosition, Quaternion.identity);
 
             tempRoad = endRoad.GetComponentInChildren<Road>();
             _playerSetup.Init(tempRoad.Point, character);
