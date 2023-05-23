@@ -239,7 +239,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 158bd81f6220471d8f7ce6a5bb969366, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyPrefab: {fileID: 2174097046154036954, guid: bb1ff1302c93b6e48b445df2f11f05c3, type: 3}
+  _enemyPrefab: {fileID: 7693974506123628729, guid: a0ee0b35209a4ce489144c1684151d51, type: 3}
 --- !u!114 &386300497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252,7 +252,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f89cd0243874d77b0fa89d65bca382c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _template: {fileID: 2938264880571310621, guid: 3a3f435f9558e074c86874d2d87668fc, type: 3}
+  _template: {fileID: 8864230761412744096, guid: c20901ba8f20d9046b726f0321076a8c, type: 3}
   _playerSetup: {fileID: 2093208373}
 --- !u!1 &705507993
 GameObject:

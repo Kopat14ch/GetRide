@@ -27,10 +27,7 @@ namespace Sources.Views
             _playButton.onClick.AddListener(OnClick);
         }
 
-        private void OnDisable()
-        {
-            _playButton.onClick.RemoveListener(OnClick);
-        }
+        private void OnDisable() => _playButton.onClick.RemoveListener(OnClick);
         
         private void Validate()
         {

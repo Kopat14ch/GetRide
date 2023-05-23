@@ -28,9 +28,9 @@ namespace Sources.Setups
         
         private void OnDisable() => _presenter.Disable();
 
-        public void Init(LevelPoint point, Character character)
+        public void Init(LevelPoint point, Character character, float timeToEndPoint = 4f)
         {
-            character.Movement.Init(point, _view);
+            character.Movement.Init(point, _view, timeToEndPoint);
         }
     }
 }
