@@ -1,10 +1,9 @@
-using UnityEngine;
-
 namespace Sources.Models
 {
     public class Player
     {
-        public Player() { }
+        public readonly float TimeToEndPoint = 4f;
+
         
     }
 }

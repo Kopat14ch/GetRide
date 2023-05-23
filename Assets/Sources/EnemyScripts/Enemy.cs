@@ -30,23 +30,17 @@ namespace Sources.EnemyScripts
             _canDrag = true;
         }
 
-        private void OnEnable()
-        {
-            _playerInput.Enable();
-        }
+        private void OnEnable() => _playerInput.Enable();
 
-        private void OnDisable()
-        {
-            _playerInput.Disable();
-        }
+        private void OnDisable() => _playerInput.Disable();
 
-        public void Init(LevelPoint point, PlayerView view, Road road)
+        public void Init(LevelPoint point, PlayerView view, Road road, float timeToEndPoint = 2f)
         {
             _playerView = view;
 
             _playerView.Click += DisableDrag;
             
-            GetComponent<Movement>().Init(point, view);
+            GetComponent<Movement>().Init(point, view, timeToEndPoint);
             _currentRoad = road;
             
         }
@@ -63,6 +57,7 @@ namespace Sources.EnemyScripts
         private IEnumerator Drag()
         {
             float initialDistance = Vector3.Distance(transform.position,_camera.transform.position);
+            
             while (_playerInput.Player.Drag.ReadValue<float>() != 0)
             {
                 Ray ray = _camera.ScreenPointToRay(Mouse.current.position.ReadValue());

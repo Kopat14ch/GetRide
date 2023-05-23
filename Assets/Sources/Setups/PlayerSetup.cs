@@ -30,7 +30,7 @@ namespace Sources.Setups
 
         public void Init(LevelPoint point, Character character)
         {
-            character.Movement.Init(point, _view);
+            character.Movement.Init(point, _view, _model.TimeToEndPoint);
         }
     }
 }

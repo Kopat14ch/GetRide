@@ -60,7 +60,7 @@ namespace Sources.Level
             CreateCenterRoad(_mediumRoad, _centerRoad.GetComponentsInChildren<Road>().First().GetComponent<Renderer>(), _endRoad.gameObject, false);
             
             PlayerSetup playerSetup = _playerSpawner.Spawn(_endRoad, _startRoad);
-            _enemiesSpawner.Spawn(Roads, _centerRoad, playerSetup.View);
+            _enemiesSpawner.Spawn(Roads, playerSetup.View);
         }
 
         private void CreateRoad(GameObject container, Road template, bool canChangePoint = false, bool canAdd = true)
