@@ -9,7 +9,8 @@ namespace Sources.Views
     {
         [Header(HeaderNames.Objects)]
         [SerializeField] private Button _playButton;
-
+        [SerializeField] private Slider _progressBar;
+        
         public event Action Click;
 
         private void OnEnable()
@@ -28,7 +29,17 @@ namespace Sources.Views
         }
 
         private void OnDisable() => _playButton.onClick.RemoveListener(OnClick);
-        
+
+        public void SetProgressBarValue(float currentProgress)
+        {
+            _progressBar.value = currentProgress;
+        }
+
+        public void SetMaxSliderValue(Vector3 startPos, Vector3 endPos)
+        {
+            _progressBar.maxValue = Vector2.Distance(startPos, endPos) / 100;
+        }
+
         private void Validate()
         {
             if (_playButton == null)
