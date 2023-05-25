@@ -1,4 +1,5 @@
 using DG.Tweening;
+using Sources.EnemyScripts;
 using Sources.Level;
 using Sources.PlayerScripts;
 using Sources.Views;
@@ -8,30 +9,58 @@ namespace Sources.Common
 {
     public class Movement : MonoBehaviour
     {
-        private PlayerView _view;
+        private const float MoveToValue = 1.5f;
+
         private LevelPoint _endPoint;
         private Tweener _tweener;
         private float _timeToEndPoint;
         private float _currentPosition;
 
+        public PlayerView PlayerView { get; private set; }
+
         private void OnDestroy()
         {
-            _view.Click -= Move;
+            PlayerView.Click -= Move;
         }
 
         public void Init(LevelPoint point, PlayerView view, float timeToEndPoint)
         {
             _endPoint = point;
-            _view = view;
+            PlayerView = view;
             
             if (TryGetComponent(out Character character)) 
                 view.SetMaxSliderValue(transform.position, _endPoint.GetPosition);
 
-            _view.Click += Move;
+            PlayerView.Click += Move;
 
             _timeToEndPoint = timeToEndPoint;
 
             _currentPosition = Vector3.Distance(transform.position, _endPoint.GetPosition);
+        }
+
+        public void MoveTo(Vector3 position, Enemy enemy = null, PlayerView playerView = null)
+        {
+            if (_tweener != null)
+                _tweener.Kill();
+
+            _tweener = transform.DOMove(position, MoveToValue);
+
+            TryUpdateChangePosition();
+
+            if (enemy != null)
+            {
+                _tweener.OnComplete(() => OnCompleteEnemy(enemy));
+            }
+            else if (playerView != null)
+            {
+                _tweener.OnComplete(playerView.EnableStartButton);
+            }
+        }
+
+        private void OnCompleteEnemy(Enemy enemy)
+        {
+            enemy.View.Enable();
+            enemy.EnableDrag();
         }
 
         private void ChangePosition()
@@ -40,14 +69,20 @@ namespace Sources.Common
 
             float result = _currentPosition - progress;
 
-            _view.SetProgressBarValue(result);
+            PlayerView.SetProgressBarValue(result);
         }
 
         private void Move()
         {
             _tweener = transform.DOMove(_endPoint.GetPosition, _timeToEndPoint);
+            
+            TryUpdateChangePosition();
+                
+        }
 
-            if (TryGetComponent(out Character character))
+        private void TryUpdateChangePosition()
+        {
+            if (TryGetComponent(out Character character)) 
                 _tweener.OnUpdate(ChangePosition);
         }
     }

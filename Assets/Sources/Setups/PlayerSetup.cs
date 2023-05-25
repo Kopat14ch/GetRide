@@ -1,3 +1,4 @@
+using System;
 using Sources.Level;
 using Sources.Models;
 using Sources.PlayerScripts;
@@ -13,14 +14,15 @@ namespace Sources.Setups
         [Header(HeaderNames.Objects)]
         [SerializeField] private PlayerView _view;
 
-        private Player _model;
+        private PlayerModel _model;
         private PlayerPresenter _presenter;
+        private Character _character;
 
         public PlayerView View => _view;
 
         private void Awake()
         {
-            _model = new Player();
+            _model = new PlayerModel();
             _presenter = new PlayerPresenter(_model, _view);
         }
 
@@ -28,9 +30,16 @@ namespace Sources.Setups
         
         private void OnDisable() => _presenter.Disable();
 
+        private void OnDestroy()
+        {
+            _view.Click -= _character.SetLastPosition;
+        }
+
         public void Init(LevelPoint point, Character character)
         {
-            character.Movement.Init(point, _view, _model.TimeToEndPoint);
+            _character = character;
+            _character.Movement.Init(point, _view, _model.TimeToEndPoint);
+            _view.Click += _character.SetLastPosition;
         }
     }
 }

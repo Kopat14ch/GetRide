@@ -1,3 +1,4 @@
+using Sources.Common;
 using UnityEngine;
 
 namespace Sources.Level.Roads
@@ -5,6 +6,7 @@ namespace Sources.Level.Roads
     [RequireComponent(typeof(BoxCollider))]
     public class Road : MonoBehaviour
     {
+
         private BoxCollider _boxCollider;
         public LevelPoint Point { get; private set; }
 
@@ -12,16 +14,20 @@ namespace Sources.Level.Roads
         {
             Point = GetComponentInChildren<LevelPoint>();
             _boxCollider = GetComponent<BoxCollider>();
+
         }
 
-        public void ChangePoint()
+        public void ChangeChildPosition()
         {
             Vector3 colliderCenter = _boxCollider.center;
-            colliderCenter.z *= -1;
+            colliderCenter.z = -colliderCenter.z;
             
             Point.ChangePosition();
+            
+            
             _boxCollider.center = colliderCenter;
         }
+        
 
         public Bounds ColliderBounds => _boxCollider.bounds;
     }

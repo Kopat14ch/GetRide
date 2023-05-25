@@ -32,13 +32,23 @@ namespace Sources.Views
 
         public void SetProgressBarValue(float currentProgress) => _progressBar.value = currentProgress;
         public void SetMaxSliderValue(Vector3 startPos, Vector3 endPos) => _progressBar.maxValue = Vector2.Distance(startPos, endPos);
-        
+        public void EnableStartButton() => _playButton.gameObject.SetActive(true);
+ 
         private void Validate()
         {
             if (_playButton == null)
                 throw new InvalidOperationException();
         }
 
-        private void OnClick() => Click?.Invoke();
+        private void OnClick()
+        {
+            if (_playButton.isActiveAndEnabled)
+            {
+                DisableStartButton();
+                Click?.Invoke();
+            }
+        }
+
+        private void DisableStartButton() => _playButton.gameObject.SetActive(false);
     }
 }
