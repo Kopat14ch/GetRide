@@ -5,10 +5,10 @@ namespace Sources.Presenters
 {
     public class PlayerPresenter
     {
-        private readonly Player _model;
+        private readonly PlayerModel _model;
         private readonly PlayerView _view;
 
-        public PlayerPresenter(Player model, PlayerView view)
+        public PlayerPresenter(PlayerModel model, PlayerView view)
         {
             _model = model;
             _view = view;

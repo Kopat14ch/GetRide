@@ -64,7 +64,7 @@ namespace Sources.Level
             }
 
             if (canChangePoint)
-                road.ChangePoint();
+                road.ChangeChildPosition();
             
             if (canAdd)
                 _roads.Add(road);
