@@ -36,29 +36,9 @@ namespace Sources.Level
 
         private void Start()
         {
-            for (int i = 0; i < _roadCount; i++)
-            {
-                int valueToRotate = 0;
+            CreateMainRoad();
+            CreateSideRoads();
 
-                foreach (var roadContainer in _roadContainers)
-                {
-                    if (valueToRotate > 0)
-                    {
-                        CreateRoad(roadContainer.gameObject, i == 0 ? _roadNoStripe : _roadOneStripeTemplate, true);
-                    }
-                    else
-                    {
-                        CreateRoad(roadContainer.gameObject, i == 0 ? _roadNoStripe : _roadOneStripeTemplate);
-                        ++valueToRotate;
-                    }
-                }
-
-                CreateRoad(_centerRoad.gameObject, _roadNoStripe, canAdd: false);
-            }
-            
-            CreateCenterRoad(_mediumRoad,_centerRoad.GetComponentsInChildren<Road>().Last().GetComponent<Renderer>(), _startRoad.gameObject);
-            CreateCenterRoad(_mediumRoad, _centerRoad.GetComponentsInChildren<Road>().First().GetComponent<Renderer>(), _endRoad.gameObject, false);
-            
             PlayerSetup playerSetup = _playerSpawner.Spawn(_endRoad, _startRoad);
             _enemiesSpawner.Spawn(Roads, playerSetup.View);
         }
@@ -88,6 +68,35 @@ namespace Sources.Level
             
             if (canAdd)
                 _roads.Add(road);
+        }
+
+        private void CreateMainRoad()
+        {
+            for (int i = 0; i < _roadCount; i++)
+            {
+                int valueToRotate = 0;
+
+                foreach (var roadContainer in _roadContainers)
+                {
+                    if (valueToRotate > 0)
+                    {
+                        CreateRoad(roadContainer.gameObject, i == 0 ? _roadNoStripe : _roadOneStripeTemplate, true);
+                    }
+                    else
+                    {
+                        CreateRoad(roadContainer.gameObject, i == 0 ? _roadNoStripe : _roadOneStripeTemplate);
+                        ++valueToRotate;
+                    }
+                }
+
+                CreateRoad(_centerRoad.gameObject, _roadNoStripe, canAdd: false);
+            }
+        }
+
+        private void CreateSideRoads()
+        {
+            CreateCenterRoad(_mediumRoad,_centerRoad.GetComponentsInChildren<Road>().Last().GetComponent<Renderer>(), _startRoad.gameObject);
+            CreateCenterRoad(_mediumRoad, _centerRoad.GetComponentsInChildren<Road>().First().GetComponent<Renderer>(), _endRoad.gameObject, false);
         }
         
         private void CreateCenterRoad(Road template, Renderer objectRenderer, GameObject container, bool isRight = true)

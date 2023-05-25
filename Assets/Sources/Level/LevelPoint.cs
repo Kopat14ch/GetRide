@@ -8,7 +8,7 @@ namespace Sources.Level
 
         public void ChangePosition()
         {
-            transform.localPosition = new Vector3(0,0, transform.localPosition.z * -1);
+            transform.localPosition = new Vector3(0,0, -transform.localPosition.z);
         }
     }
 }
