@@ -10,9 +10,10 @@ namespace Sources.Common
     {
         private PlayerView _view;
         private LevelPoint _endPoint;
-        private float _timeToEndPoint;
         private Tweener _tweener;
-        
+        private float _timeToEndPoint;
+        private float _currentPosition;
+
         private void OnDestroy()
         {
             _view.Click -= Move;
@@ -24,18 +25,22 @@ namespace Sources.Common
             _view = view;
             
             if (TryGetComponent(out Character character)) 
-                view.SetMaxSliderValue(_endPoint.GetPosition, transform.position);
+                view.SetMaxSliderValue(transform.position, _endPoint.GetPosition);
 
             _view.Click += Move;
 
             _timeToEndPoint = timeToEndPoint;
+
+            _currentPosition = Vector3.Distance(transform.position, _endPoint.GetPosition);
         }
 
         private void ChangePosition()
         {
-            var progress = Vector2.Distance(_endPoint.GetPosition, transform.position) / 100;
+            float progress = Vector3.Distance(transform.position, _endPoint.GetPosition);
 
-            _view.SetProgressBarValue(progress);
+            float result = _currentPosition - progress;
+
+            _view.SetProgressBarValue(result);
         }
 
         private void Move()

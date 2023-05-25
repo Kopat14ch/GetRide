@@ -17,6 +17,7 @@ namespace Sources.Spawners
         public void Spawn(IReadOnlyList<Road> roads, PlayerView playerView)
         {
             int step = 2;
+            int nextIndex = 1;
             _minTimeToEndPoint = 2f;
             _maxTimeToEndPoint = 5f;
             
@@ -24,26 +25,26 @@ namespace Sources.Spawners
             for (int i = 0; i < roads.Count; i++)
             {
                 int randomValue = Random.Range(i, i + step);
-                int tempValue;
+                int roadIndex;
 
                 var enemy = Instantiate(_enemyPrefab, roads[randomValue].Point.GetPosition, Quaternion.identity, roads[randomValue].Point.transform);
 
                 if (randomValue % 2 == 0)
                 {
-                    tempValue = randomValue + 1;
+                    roadIndex = randomValue + nextIndex;
 
                     if (_rotateY < 0)
-                        _rotateY *= -1;
+                        _rotateY = -_rotateY;
                 }
                 else
                 {
-                    tempValue = randomValue - 1;
+                    roadIndex = randomValue - nextIndex;
                     
                     if (_rotateY > 0)
-                        _rotateY *= -1;
+                        _rotateY = -_rotateY;
                 }
                 
-                enemy.Init(roads[tempValue].Point, playerView, roads[randomValue], Random.Range(_minTimeToEndPoint, _maxTimeToEndPoint));
+                enemy.Init(roads[roadIndex].Point, playerView, roads[randomValue], Random.Range(_minTimeToEndPoint, _maxTimeToEndPoint));
                 enemy.transform.Rotate(0,_rotateY,0);
 
                 _minTimeToEndPoint++;
