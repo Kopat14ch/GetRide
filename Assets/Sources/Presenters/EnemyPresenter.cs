@@ -16,17 +16,10 @@ namespace Sources.Presenters
 
         public void Enable()
         {
-            _model.ChangeTime += OnChangeTime;
         }
 
         public void Disable()
         {
-            _model.ChangeTime -= OnChangeTime;
-        }
-
-        private void OnChangeTime(float time)
-        {
-            _view.SetTimeToEndPoint(time);
         }
     }
 }

@@ -35,8 +35,11 @@ namespace Sources.Setups
             _view.Click -= _character.SetLastPosition;
         }
 
-        public void Init(LevelPoint point, Character character)
+        public void Init(LevelPoint point, Character character, int addTimeCount)
         {
+            for (int i = 0; i < addTimeCount; i++)
+                _model.AddTime();
+
             _character = character;
             _character.Movement.Init(point, _view, _model.TimeToEndPoint);
             _view.Click += _character.SetLastPosition;

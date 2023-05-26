@@ -65,15 +65,7 @@ namespace Sources.EnemyScripts
 
         public void Rotate(float rotateEnemyValue)
         {
-            float uiRotateZ = 180;
-            float rotateUIValue = 90;
-            
             transform.Rotate(0,rotateEnemyValue,0);
-
-            if (rotateEnemyValue < 0)
-                uiRotateZ = 0;
-            
-            View.UI.transform.Rotate(rotateUIValue,0,uiRotateZ);
         }
 
         private void TryDrag()

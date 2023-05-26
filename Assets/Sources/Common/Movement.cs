@@ -59,7 +59,6 @@ namespace Sources.Common
 
         private void OnCompleteEnemy(Enemy enemy)
         {
-            enemy.View.Enable();
             enemy.EnableDrag();
         }
 

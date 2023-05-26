@@ -1,4 +1,5 @@
-﻿using Sources.Level.Roads;
+﻿using System.Collections.Generic;
+using Sources.Level.Roads;
 using Sources.PlayerScripts;
 using Sources.Setups;
 using UnityEngine;
@@ -12,8 +13,14 @@ namespace Sources.Spawners
 
         private readonly Vector3 _rotateValue = new Vector3(0,-90,0);
 
-        public PlayerSetup Spawn(EndRoad endRoad, StartRoad startRoad)
+        public PlayerSetup Spawn(EndRoad endRoad, StartRoad startRoad, IReadOnlyCollection<Road> roads)
         {
+            int startAddValue = 2;
+            int addTimeValue = 0;
+
+            for (int i = startAddValue; i < roads.Count; i++)
+                addTimeValue++;
+
             Road tempRoad = startRoad.GetComponentInChildren<Road>();
 
             Character character = Instantiate(_template, tempRoad.Point.GetPosition, Quaternion.identity);
@@ -21,7 +28,7 @@ namespace Sources.Spawners
 
             tempRoad = endRoad.GetComponentInChildren<Road>();
             
-            _playerSetup.Init(tempRoad.Point, character);
+            _playerSetup.Init(tempRoad.Point, character, addTimeValue);
 
             return _playerSetup;
         }

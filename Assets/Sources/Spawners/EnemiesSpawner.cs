@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Sources.EnemyScripts;
 using Sources.Level.Roads;
-using Sources.Setups;
 using Sources.Views;
 using UnityEngine;
 
@@ -20,8 +19,11 @@ namespace Sources.Spawners
         {
             int step = 2;
             int nextIndex = 1;
-            _minTimeToEndPoint = 2f;
-            _maxTimeToEndPoint = 5f;
+            _maxTimeToEndPoint = roads.Count;
+            _minTimeToEndPoint = 2.5f;
+
+            if (_maxTimeToEndPoint <= _minTimeToEndPoint)
+                _maxTimeToEndPoint = _minTimeToEndPoint + 1;
             
 
             for (int i = 0; i < roads.Count; i++)
@@ -45,15 +47,22 @@ namespace Sources.Spawners
                     if (_rotateValue > 0)
                         _rotateValue = -_rotateValue;
                 }
-                
+
                 enemy.Init(roads[roadIndex].Point, playerView, roads[randomValue], Random.Range(_minTimeToEndPoint, _maxTimeToEndPoint));
                 enemy.Rotate(_rotateValue);
 
                 enemy.Collider.CollisionACharacter += _enemyList.MoveLastPositionAll;
                 _enemyList.AddEnemy(enemy);
+
+                if (_maxTimeToEndPoint - 1 <= _minTimeToEndPoint)
+                {
+                    _maxTimeToEndPoint = _minTimeToEndPoint + 1;
+                }
+                else
+                {
+                    _maxTimeToEndPoint--;
+                }
                 
-                _minTimeToEndPoint++;
-                _maxTimeToEndPoint++;
                 i++;
             }
         }

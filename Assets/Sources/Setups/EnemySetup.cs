@@ -23,15 +23,13 @@ namespace Sources.Setups
         private void OnEnable() => _presenter.Enable();
 
         private void OnDisable() => _presenter.Disable();
-
-        private void OnDestroy() => _playerView.Click -= _view.Disable;
+        
         
         public void Init(float timeToEndPoint, PlayerView playerView)
         {
+
             _model.SetTimeToEndPoint(timeToEndPoint);
             _playerView = playerView;
-
-            _playerView.Click += _view.Disable;
         }
     }
 }

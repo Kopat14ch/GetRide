@@ -39,7 +39,7 @@ namespace Sources.Level
             CreateMainRoad();
             CreateSideRoads();
 
-            PlayerSetup playerSetup = _playerSpawner.Spawn(_endRoad, _startRoad);
+            PlayerSetup playerSetup = _playerSpawner.Spawn(_endRoad, _startRoad, Roads);
             _enemiesSpawner.Spawn(Roads, playerSetup.View);
         }
 

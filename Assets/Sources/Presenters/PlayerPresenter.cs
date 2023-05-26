@@ -16,14 +16,18 @@ namespace Sources.Presenters
 
         public void Enable()
         {
-            
+            _model.TimeChanged += OnTimeChanged;
         }
 
         public void Disable()
         {
+            _model.TimeChanged -= OnTimeChanged;
+        }
+
+        private void OnTimeChanged(float time)
+        {
             
         }
-        
 
     }
 }
