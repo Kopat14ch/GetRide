@@ -7,6 +7,8 @@ using Sources.Setups;
 using Sources.Views;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.iOS;
+using Device = Agava.WebUtility.Device;
 
 namespace Sources.EnemyScripts
 {
@@ -60,7 +62,7 @@ namespace Sources.EnemyScripts
 
             Movement.Init(point, view, timeToEndPoint);
             _currentRoad = road;
-            _setup.Init(timeToEndPoint, view);
+            _setup.Init(timeToEndPoint);
         }
 
         public void Rotate(float rotateEnemyValue)
@@ -70,7 +72,7 @@ namespace Sources.EnemyScripts
 
         private void TryDrag()
         {
-            Ray ray = _camera.ScreenPointToRay(Mouse.current.position.ReadValue());
+            Ray ray = _camera.ScreenPointToRay(_playerInput.Player.Position.ReadValue<Vector2>());
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit) && hit.collider.TryGetComponent(out Enemy enemy) && enemy == this && _canDrag)
@@ -80,10 +82,10 @@ namespace Sources.EnemyScripts
         private IEnumerator Drag()
         {
             float initialDistance = Vector3.Distance(transform.position,_camera.transform.position);
-            
+
             while (_playerInput.Player.Drag.ReadValue<float>() != 0)
             {
-                Ray ray = _camera.ScreenPointToRay(Mouse.current.position.ReadValue());
+                Ray ray = _camera.ScreenPointToRay(_playerInput.Player.Position.ReadValue<Vector2>());
                 var position = transform.position;
                 float positionZ = Vector3.SmoothDamp(position, ray.GetPoint(initialDistance), ref _velocity,
                     MouseDragSpeed).z;
@@ -110,7 +112,7 @@ namespace Sources.EnemyScripts
             
             _playerView.Click -= DisableDrag;
         }
-        
+
         private void SetLastPosition() => LastPosition = transform.position;
     }
 }

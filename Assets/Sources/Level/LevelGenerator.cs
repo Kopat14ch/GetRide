@@ -26,6 +26,8 @@ namespace Sources.Level
         private RoadContainer[] _roadContainers;
         private List<Road> _roads;
 
+        public int RoadCount => _roadCount;
+        
         private IReadOnlyList<Road> Roads => _roads.GetRange(0, _roads.Count).AsReadOnly();
         
         private void Awake()
@@ -98,7 +100,7 @@ namespace Sources.Level
             CreateCenterRoad(_mediumRoad,_centerRoad.GetComponentsInChildren<Road>().Last().GetComponent<Renderer>(), _startRoad.gameObject);
             CreateCenterRoad(_mediumRoad, _centerRoad.GetComponentsInChildren<Road>().First().GetComponent<Renderer>(), _endRoad.gameObject, false);
         }
-        
+
         private void CreateCenterRoad(Road template, Renderer objectRenderer, GameObject container, bool isRight = true)
         {
             Vector3 tempPosition = GetNormalPosition(objectRenderer, template, isRight);

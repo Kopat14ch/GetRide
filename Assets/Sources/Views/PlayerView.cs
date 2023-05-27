@@ -1,4 +1,5 @@
 using System;
+using Sources.EnemyScripts;
 using Sources.StringController;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,9 +9,20 @@ namespace Sources.Views
     public class PlayerView : MonoBehaviour
     {
         [Header(HeaderNames.Objects)]
-        [SerializeField] private Button _playButton;
         [SerializeField] private Slider _progressBar;
+
+        private PlayerInput _playerInput;
+        private Camera _camera;
         
+        public bool CanPlay { get; private set; }
+
+        private void Awake()
+        {
+            _playerInput = new PlayerInput();
+            _camera = Camera.main;
+            EnablePlay();
+        }
+
         public event Action Click;
 
         private void OnEnable()
@@ -25,30 +37,37 @@ namespace Sources.Views
                 throw e;
             }
             
-            _playButton.onClick.AddListener(OnClick);
+            _playerInput.Enable();
+
+            _playerInput.Player.Play.performed += ctx => OnClick();
         }
 
-        private void OnDisable() => _playButton.onClick.RemoveListener(OnClick);
+        private void OnDisable()
+        {
+            _playerInput.Disable();
+        }
 
         public void SetProgressBarValue(float currentProgress) => _progressBar.value = currentProgress;
         public void SetMaxSliderValue(Vector3 startPos, Vector3 endPos) => _progressBar.maxValue = Vector2.Distance(startPos, endPos);
-        public void EnableStartButton() => _playButton.gameObject.SetActive(true);
- 
+        public void EnablePlay() => CanPlay = true;
+        public void DisablePlay() => CanPlay = false;
+
         private void Validate()
         {
-            if (_playButton == null)
-                throw new InvalidOperationException();
+            if (_progressBar == null)
+                throw new NullReferenceException();
         }
 
         private void OnClick()
         {
-            if (_playButton.isActiveAndEnabled)
+            Ray ray = _camera.ScreenPointToRay(_playerInput.Player.Position.ReadValue<Vector2>());
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit) && hit.collider.TryGetComponent(out Enemy enemy) == false && CanPlay)
             {
-                DisableStartButton();
+                DisablePlay();
                 Click?.Invoke();
             }
         }
-
-        private void DisableStartButton() => _playButton.gameObject.SetActive(false);
     }
 }

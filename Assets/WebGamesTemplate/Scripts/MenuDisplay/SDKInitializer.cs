@@ -9,13 +9,7 @@ public class SDKInitializer : MonoBehaviour
 
     private IEnumerator Start()
     {
-#if UNITY_EDITOR
-        yield break;
-#endif
-
-#if YANDEX_GAMES
         yield return YandexGamesSdk.Initialize(OnYandexSDKInitialize);
-#endif
     }
 
     private void OnYandexSDKInitialize()

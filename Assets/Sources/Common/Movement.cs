@@ -18,11 +18,8 @@ namespace Sources.Common
 
         public PlayerView PlayerView { get; private set; }
 
-        private void OnDestroy()
-        {
-            PlayerView.Click -= Move;
-        }
-
+        private void OnDestroy() => PlayerView.Click -= Move;
+        
         public void Init(LevelPoint point, PlayerView view, float timeToEndPoint)
         {
             _endPoint = point;
@@ -48,18 +45,9 @@ namespace Sources.Common
             TryUpdateChangePosition();
 
             if (enemy != null)
-            {
                 _tweener.OnComplete(() => OnCompleteEnemy(enemy));
-            }
             else if (playerView != null)
-            {
-                _tweener.OnComplete(playerView.EnableStartButton);
-            }
-        }
-
-        private void OnCompleteEnemy(Enemy enemy)
-        {
-            enemy.EnableDrag();
+                _tweener.OnComplete(playerView.EnablePlay);
         }
 
         private void ChangePosition()
@@ -76,7 +64,6 @@ namespace Sources.Common
             _tweener = transform.DOMove(_endPoint.GetPosition, _timeToEndPoint);
             
             TryUpdateChangePosition();
-                
         }
 
         private void TryUpdateChangePosition()
@@ -84,5 +71,7 @@ namespace Sources.Common
             if (TryGetComponent(out Character character)) 
                 _tweener.OnUpdate(ChangePosition);
         }
+
+        private void OnCompleteEnemy(Enemy enemy) => enemy.EnableDrag();
     }
 }
