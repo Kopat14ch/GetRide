@@ -28,11 +28,10 @@ namespace Sources.Common
             if (TryGetComponent(out Character character)) 
                 view.SetMaxSliderValue(transform.position, _endPoint.GetPosition);
 
-            PlayerView.Click += Move;
-
             _timeToEndPoint = timeToEndPoint;
-
             _currentPosition = Vector3.Distance(transform.position, _endPoint.GetPosition);
+            
+            PlayerView.Click += Move;
         }
 
         public void MoveTo(Vector3 position, Enemy enemy = null, PlayerView playerView = null)

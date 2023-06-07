@@ -7,6 +7,8 @@ namespace Sources.EnemyScripts
     {
         private readonly List<Enemy> _enemies = new List<Enemy>();
 
+        public IReadOnlyList<Enemy> Enemies => _enemies.GetRange(0, _enemies.Count);
+
         public void AddEnemy(Enemy enemy)
         {
             if (_enemies.Contains(enemy) == false)
@@ -16,7 +18,8 @@ namespace Sources.EnemyScripts
         public void MoveLastPositionAll()
         {
             foreach (var enemy in _enemies)
-                enemy.Movement.MoveTo(enemy.LastPosition, enemy);
+                if (enemy.Movement.isActiveAndEnabled)
+                    enemy.Movement.MoveTo(enemy.LastPosition, enemy);
         }
     }
 }

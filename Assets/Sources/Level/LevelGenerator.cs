@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Sources.Boosters;
 using Sources.Level.Roads;
 using Sources.Setups;
 using Sources.Spawners;
@@ -19,10 +20,14 @@ namespace Sources.Level
         [SerializeField] private CenterRoad _centerRoad;
         [SerializeField] private StartRoad _startRoad;
         [SerializeField] private EndRoad _endRoad;
-
+        [SerializeField] private BoostersList _boosters;
+        
         [Header(HeaderNames.Properties)] 
         [SerializeField] private int _roadCount;
 
+        private const int MaxRoad = 6;
+        private const int MinRoad = 1;
+        
         private RoadContainer[] _roadContainers;
         private List<Road> _roads;
 
@@ -43,8 +48,10 @@ namespace Sources.Level
 
             PlayerSetup playerSetup = _playerSpawner.Spawn(_endRoad, _startRoad, Roads);
             _enemiesSpawner.Spawn(Roads, playerSetup.View);
+            
+            _boosters.MagicSetEnemies(_enemiesSpawner.Enemies);
         }
-
+        
         private void CreateRoad(GameObject container, Road template, bool canChangePoint = false, bool canAdd = true)
         {
             Road road;
@@ -58,7 +65,6 @@ namespace Sources.Level
                 Vector3 tempPosition = GetNormalPosition(containerRenderer, template);
 
                 road = Instantiate(template, tempPosition, Quaternion.identity, container.transform);
-
             }
             else
             {
@@ -87,6 +93,7 @@ namespace Sources.Level
                     else
                     {
                         CreateRoad(roadContainer.gameObject, i == 0 ? _roadNoStripe : _roadOneStripeTemplate);
+                        
                         ++valueToRotate;
                     }
                 }
@@ -105,7 +112,7 @@ namespace Sources.Level
         {
             Vector3 tempPosition = GetNormalPosition(objectRenderer, template, isRight);
             
-            Road road = Instantiate(template, tempPosition, Quaternion.identity, container.transform);
+            Instantiate(template, tempPosition, Quaternion.identity, container.transform);
         }
 
         private Vector3 GetNormalPosition(Renderer objectRenderer, Road template, bool isRight = true)
@@ -123,5 +130,7 @@ namespace Sources.Level
 
             return positionObject;
         }
+
+        private void OnValidate() => _roadCount = Mathf.Clamp(_roadCount, MinRoad, MaxRoad);
     }
 }

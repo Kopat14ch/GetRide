@@ -6,9 +6,6 @@ namespace Sources.Level
     {
         public Vector3 GetPosition => transform.position;
 
-        public void ChangePosition()
-        {
-            transform.localPosition = new Vector3(transform.localPosition.x,transform.localPosition.y, -transform.localPosition.z);
-        }
+        public void ChangePosition() => transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, -transform.localPosition.z);
     }
 }
