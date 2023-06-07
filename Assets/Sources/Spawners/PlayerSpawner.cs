@@ -2,12 +2,14 @@
 using Sources.Level.Roads;
 using Sources.PlayerScripts;
 using Sources.Setups;
+using Sources.StringController;
 using UnityEngine;
 
 namespace Sources.Spawners
 {
     public class PlayerSpawner : MonoBehaviour
     {
+        [Header(HeaderNames.Objects)]
         [SerializeField] private Character _template;
         [SerializeField] private PlayerSetup _playerSetup;
 

@@ -1,26 +1,18 @@
-using System;
 using System.Collections;
 using Sources.Common;
 using Sources.Level;
 using Sources.Level.Roads;
-using Sources.Setups;
 using Sources.Views;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.iOS;
-using Device = Agava.WebUtility.Device;
 
 namespace Sources.EnemyScripts
 {
     [RequireComponent(typeof(Movement))]
-    [RequireComponent(typeof(EnemySetup))]
     [RequireComponent(typeof(EnemyCollider))]
-    [RequireComponent(typeof(EnemyView))]
     public class Enemy : MonoBehaviour
     {
         private const float MouseDragSpeed = 0.1f;
-
-        private EnemySetup _setup;
+        
         private Camera _camera;
         private PlayerView _playerView;
         private PlayerInput _playerInput;
@@ -31,7 +23,6 @@ namespace Sources.EnemyScripts
         public Vector3 LastPosition { get; private set; }
 
         public Movement Movement { get; private set; }
-        public EnemyView View { get; private set; }
         public EnemyCollider Collider { get; private set; }
 
         private void Awake()
@@ -40,11 +31,9 @@ namespace Sources.EnemyScripts
             _playerInput = new PlayerInput();
             _velocity = Vector3.zero;
             _playerInput.Player.Drag.performed += ctx => TryDrag();
-            
-            _setup = GetComponent<EnemySetup>();
+
             Movement = GetComponent<Movement>();
             Collider = GetComponent<EnemyCollider>();
-            View = GetComponent<EnemyView>();
         }
 
         private void OnEnable() => _playerInput.Enable();
@@ -62,7 +51,6 @@ namespace Sources.EnemyScripts
 
             Movement.Init(point, view, timeToEndPoint);
             _currentRoad = road;
-            _setup.Init(timeToEndPoint);
         }
 
         public void Rotate(float rotateEnemyValue)

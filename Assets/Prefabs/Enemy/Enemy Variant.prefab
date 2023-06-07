@@ -112,8 +112,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 910802054be7403b8d8a7a1618ab0ef6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _timeToEndPoint: {fileID: 0}
-  _ui: {fileID: 0}
 --- !u!114 &2040065167589834388
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,19 +124,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63faacd2f03006f4d9fe56300bd8ab1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2564544420563367319
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6373979294780489137}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f864d34c74484629848037097238c22d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _view: {fileID: 457110365027907425}
 --- !u!114 &7048159130525541965
 MonoBehaviour:
   m_ObjectHideFlags: 0

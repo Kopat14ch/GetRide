@@ -13,18 +13,19 @@ namespace Sources.Views
 
         private PlayerInput _playerInput;
         private Camera _camera;
-        
-        public bool CanPlay { get; private set; }
+
+        public event Action Click;
+
+        private bool _canPlay; 
 
         private void Awake()
         {
             _playerInput = new PlayerInput();
             _camera = Camera.main;
+            
             EnablePlay();
         }
-
-        public event Action Click;
-
+        
         private void OnEnable()
         {
             try
@@ -42,15 +43,11 @@ namespace Sources.Views
             _playerInput.Player.Play.performed += ctx => OnClick();
         }
 
-        private void OnDisable()
-        {
-            _playerInput.Disable();
-        }
-
+        private void OnDisable() => _playerInput.Disable();
+        
         public void SetProgressBarValue(float currentProgress) => _progressBar.value = currentProgress;
         public void SetMaxSliderValue(Vector3 startPos, Vector3 endPos) => _progressBar.maxValue = Vector2.Distance(startPos, endPos);
-        public void EnablePlay() => CanPlay = true;
-        public void DisablePlay() => CanPlay = false;
+        public void EnablePlay() => _canPlay = true;
 
         private void Validate()
         {
@@ -63,11 +60,13 @@ namespace Sources.Views
             Ray ray = _camera.ScreenPointToRay(_playerInput.Player.Position.ReadValue<Vector2>());
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit) && hit.collider.TryGetComponent(out Enemy enemy) == false && CanPlay)
+            if (Physics.Raycast(ray, out hit) && hit.collider.TryGetComponent(out Enemy enemy) == false && _canPlay)
             {
                 DisablePlay();
                 Click?.Invoke();
             }
         }
+
+        private void DisablePlay() => _canPlay = false;
     }
 }
