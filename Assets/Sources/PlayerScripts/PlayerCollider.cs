@@ -19,7 +19,7 @@ namespace Sources.PlayerScripts
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent(out Enemy enemy))
+            if (other.TryGetComponent(out EnemyTransformation enemy))
                 _movement.MoveTo(_character.LastPosition, playerView: _movement.PlayerView);
         }
     }

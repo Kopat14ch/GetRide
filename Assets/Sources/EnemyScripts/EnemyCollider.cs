@@ -6,7 +6,7 @@ namespace Sources.EnemyScripts
 {
     public class EnemyCollider : MonoBehaviour
     {
-        private Enemy _enemy;
+        private EnemyTransformation _enemyTransformation;
 
         public event Action CollisionACharacter;
         

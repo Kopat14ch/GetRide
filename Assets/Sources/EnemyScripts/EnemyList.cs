@@ -5,14 +5,14 @@ namespace Sources.EnemyScripts
 {
     public class EnemyList : MonoBehaviour
     {
-        private readonly List<Enemy> _enemies = new List<Enemy>();
+        private readonly List<EnemyTransformation> _enemies = new List<EnemyTransformation>();
 
-        public IReadOnlyList<Enemy> Enemies => _enemies.GetRange(0, _enemies.Count);
+        public IReadOnlyList<EnemyTransformation> Enemies => _enemies.GetRange(0, _enemies.Count);
 
-        public void AddEnemy(Enemy enemy)
+        public void AddEnemy(EnemyTransformation enemyTransformation)
         {
-            if (_enemies.Contains(enemy) == false)
-                _enemies.Add(enemy);
+            if (_enemies.Contains(enemyTransformation) == false)
+                _enemies.Add(enemyTransformation);
         }
 
         public void MoveLastPositionAll()
