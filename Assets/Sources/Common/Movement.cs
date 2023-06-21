@@ -34,7 +34,7 @@ namespace Sources.Common
             PlayerView.Click += Move;
         }
 
-        public void MoveTo(Vector3 position, Enemy enemy = null, PlayerView playerView = null)
+        public void MoveTo(Vector3 position, EnemyTransformation enemyTransformation = null, PlayerView playerView = null, BoosterView boosterView = null)
         {
             if (_tweener != null)
                 _tweener.Kill();
@@ -43,11 +43,13 @@ namespace Sources.Common
 
             TryUpdateChangePosition();
 
-            if (enemy != null)
-                _tweener.OnComplete(() => OnCompleteEnemy(enemy));
+            if (enemyTransformation != null)
+                _tweener.OnComplete(() => OnRestartEnemy(enemyTransformation));
             else if (playerView != null)
-                _tweener.OnComplete(playerView.EnablePlay);
+                _tweener.OnComplete(() => OnRestartPlayer(playerView));
         }
+
+        public void SetTimeToEndPoint(float value) => _timeToEndPoint = value;
 
         private void ChangePosition()
         {
@@ -61,6 +63,8 @@ namespace Sources.Common
         private void Move()
         {
             _tweener = transform.DOMove(_endPoint.GetPosition, _timeToEndPoint);
+
+            _tweener.OnComplete(PlayerEnd);
             
             TryUpdateChangePosition();
         }
@@ -71,6 +75,10 @@ namespace Sources.Common
                 _tweener.OnUpdate(ChangePosition);
         }
 
-        private void OnCompleteEnemy(Enemy enemy) => enemy.EnableDrag();
+        private void PlayerEnd() => PlayerView.ShowEndPanel();
+
+        private void OnRestartPlayer(PlayerView playerView) => playerView.EnablePlay();
+        
+        private void OnRestartEnemy(EnemyTransformation enemyTransformation) => enemyTransformation.EnableDrag();
     }
 }

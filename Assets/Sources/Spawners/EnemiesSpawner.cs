@@ -10,14 +10,14 @@ namespace Sources.Spawners
     public class EnemiesSpawner : MonoBehaviour
     {
         [Header(HeaderNames.Objects)]
-        [SerializeField] private Enemy _enemyPrefab;
+        [SerializeField] private EnemyTransformation _enemyTransformationPrefab;
         [SerializeField] private EnemyList _enemyList;
 
         private float _minTimeToEndPoint;
         private float _maxTimeToEndPoint;
         private float _rotateValue = -90f;
 
-        public IReadOnlyList<Enemy> Enemies => _enemyList.Enemies;
+        public IReadOnlyList<EnemyTransformation> Enemies => _enemyList.Enemies;
 
         public void Spawn(IReadOnlyList<Road> roads, PlayerView playerView)
         {
@@ -34,7 +34,7 @@ namespace Sources.Spawners
                 int randomValue = Random.Range(i, i + step);
                 int roadIndex;
 
-                Enemy enemy = Instantiate(_enemyPrefab, roads[randomValue].Point.GetPosition, Quaternion.identity, roads[randomValue].Point.transform);
+                EnemyTransformation enemyTransformation = Instantiate(_enemyTransformationPrefab, roads[randomValue].Point.GetPosition, Quaternion.identity, roads[randomValue].Point.transform);
 
                 if (randomValue % 2 == 0)
                 {
@@ -51,11 +51,11 @@ namespace Sources.Spawners
                         _rotateValue = -_rotateValue;
                 }
 
-                enemy.Init(roads[roadIndex].Point, playerView, roads[randomValue], Random.Range(_minTimeToEndPoint, _maxTimeToEndPoint));
-                enemy.Rotate(_rotateValue);
-                enemy.Collider.CollisionACharacter += _enemyList.MoveLastPositionAll;
+                enemyTransformation.Init(roads[roadIndex].Point, playerView, roads[randomValue], Random.Range(_minTimeToEndPoint, _maxTimeToEndPoint));
+                enemyTransformation.Rotate(_rotateValue);
+                enemyTransformation.Collider.CollisionACharacter += _enemyList.MoveLastPositionAll;
                 
-                _enemyList.AddEnemy(enemy);
+                _enemyList.AddEnemy(enemyTransformation);
 
                 if (_maxTimeToEndPoint - 1 <= _minTimeToEndPoint)
                     _maxTimeToEndPoint = _minTimeToEndPoint + 1;

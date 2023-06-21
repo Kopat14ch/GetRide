@@ -49,7 +49,7 @@ namespace Sources.Level
             PlayerSetup playerSetup = _playerSpawner.Spawn(_endRoad, _startRoad, Roads);
             _enemiesSpawner.Spawn(Roads, playerSetup.View);
             
-            _boosters.MagicSetEnemies(_enemiesSpawner.Enemies);
+            _boosters.InitBoosters(_enemiesSpawner.Enemies, playerSetup.Character);
         }
         
         private void CreateRoad(GameObject container, Road template, bool canChangePoint = false, bool canAdd = true)

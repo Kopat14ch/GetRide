@@ -12,10 +12,11 @@ namespace Sources.Views
         private Booster _booster;
         private Button _button;
         private TextMeshProUGUI _countText;
+        
 
         public event Action<Booster> BoosterActivated;
 
-        private void Awake()
+        public void Initialize()
         {
             _booster = GetComponent<Booster>();
             _button = GetComponentInChildren<Button>();
@@ -43,7 +44,7 @@ namespace Sources.Views
         {
             if (_countText == null)
                 return;
-            
+
             _countText.text = count.ToString();
         }
 

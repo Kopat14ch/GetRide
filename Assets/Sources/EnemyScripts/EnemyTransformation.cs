@@ -9,7 +9,7 @@ namespace Sources.EnemyScripts
 {
     [RequireComponent(typeof(Movement))]
     [RequireComponent(typeof(EnemyCollider))]
-    public class Enemy : MonoBehaviour
+    public class EnemyTransformation : MonoBehaviour
     {
         private const float MouseDragSpeed = 0.1f;
         
@@ -21,7 +21,6 @@ namespace Sources.EnemyScripts
         private bool _canDrag;
 
         public Vector3 LastPosition { get; private set; }
-
         public Movement Movement { get; private set; }
         public EnemyCollider Collider { get; private set; }
 
@@ -63,7 +62,7 @@ namespace Sources.EnemyScripts
             Ray ray = _camera.ScreenPointToRay(_playerInput.Player.Position.ReadValue<Vector2>());
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit) && hit.collider.TryGetComponent(out Enemy enemy) && enemy == this && _canDrag)
+            if (Physics.Raycast(ray, out hit) && hit.collider.TryGetComponent(out EnemyTransformation enemy) && enemy == this && _canDrag)
                 StartCoroutine(Drag());
         }
 

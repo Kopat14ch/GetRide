@@ -5,7 +5,7 @@ namespace Sources.Boosters
 {
     public class MagicTrafficLight : Booster
     {
-        private readonly List<Enemy> _enemies = new List<Enemy>();
+        private readonly List<EnemyTransformation> _enemies = new List<EnemyTransformation>();
         
         public override void Activate()
         {
@@ -19,6 +19,6 @@ namespace Sources.Boosters
             }
         }
         
-        public void SetEnemies(IReadOnlyList<Enemy> enemies) => _enemies.AddRange(enemies);
+        public void SetEnemies(IReadOnlyList<EnemyTransformation> enemies) => _enemies.AddRange(enemies);
     }
 }
