@@ -6,7 +6,7 @@ namespace Sources.PlayerScripts
     [RequireComponent(typeof(Movement))]
     public class Character : MonoBehaviour
     {
-        public float Speed { get; private set; } = 4.5f;
+        public float TimeToEndPoint { get; private set; } = 3.5f;
 
         private void Awake() => Movement = GetComponent<Movement>();
         
@@ -16,8 +16,8 @@ namespace Sources.PlayerScripts
 
         public void SetLastPosition() => LastPosition = transform.position;
 
-        public void AddSpeed(float value) => Speed += value;
+        public void AddTimeToEndPoint(float value) => TimeToEndPoint += value;
 
-        public void SetSpeed(float value) => Movement.SetTimeToEndPoint(value);
+        public void SetTimeToEndPoint(float value) => Movement.SetTimeToEndPoint(value);
     }
 }

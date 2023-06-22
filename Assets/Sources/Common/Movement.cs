@@ -38,7 +38,7 @@ namespace Sources.Common
         {
             if (_tweener != null)
                 _tweener.Kill();
-
+            
             _tweener = transform.DOMove(position, MoveToValue);
 
             TryUpdateChangePosition();
@@ -64,8 +64,9 @@ namespace Sources.Common
         {
             _tweener = transform.DOMove(_endPoint.GetPosition, _timeToEndPoint);
 
-            _tweener.OnComplete(PlayerEnd);
-            
+            if (TryGetComponent(out Character character) )
+                _tweener.OnComplete(PlayerEnd);
+
             TryUpdateChangePosition();
         }
 

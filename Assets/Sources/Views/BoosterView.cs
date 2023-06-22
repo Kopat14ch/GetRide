@@ -12,7 +12,6 @@ namespace Sources.Views
         private Booster _booster;
         private Button _button;
         private TextMeshProUGUI _countText;
-        
 
         public event Action<Booster> BoosterActivated;
 

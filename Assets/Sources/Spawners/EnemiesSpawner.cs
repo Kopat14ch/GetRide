@@ -13,18 +13,27 @@ namespace Sources.Spawners
         [SerializeField] private EnemyTransformation _enemyTransformationPrefab;
         [SerializeField] private EnemyList _enemyList;
 
+        private int _seed;
         private float _minTimeToEndPoint;
         private float _maxTimeToEndPoint;
         private float _rotateValue = -90f;
 
         public IReadOnlyList<EnemyTransformation> Enemies => _enemyList.Enemies;
 
+
+        public void Initialize(int seed)
+        {
+            _seed = seed;
+        }
+
         public void Spawn(IReadOnlyList<Road> roads, PlayerView playerView)
         {
+            Random.InitState(_seed);
             int step = 2;
             int nextIndex = 1;
-            _maxTimeToEndPoint = roads.Count;
-            _minTimeToEndPoint = 2.5f;
+            
+            _maxTimeToEndPoint = roads.Count + step;
+            _minTimeToEndPoint = 2f;
 
             if (_maxTimeToEndPoint <= _minTimeToEndPoint)
                 _maxTimeToEndPoint = _minTimeToEndPoint + 1;

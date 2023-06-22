@@ -12,13 +12,16 @@ namespace Sources.EnemyScripts
     public class EnemyTransformation : MonoBehaviour
     {
         private const float MouseDragSpeed = 0.1f;
-        
+        private const int Reduce = 2;
+
         private Camera _camera;
         private PlayerView _playerView;
         private PlayerInput _playerInput;
         private Road _currentRoad;
         private Vector3 _velocity;
         private bool _canDrag;
+        private float _timeToEndPoint;
+        private float _addTimeToEndPoint;
 
         public Vector3 LastPosition { get; private set; }
         public Movement Movement { get; private set; }
@@ -44,6 +47,7 @@ namespace Sources.EnemyScripts
         public void Init(LevelPoint point, PlayerView view, Road road, float timeToEndPoint)
         {
             _playerView = view;
+            _timeToEndPoint = timeToEndPoint;
 
             EnableDrag();
             _playerView.Click += SetLastPosition;
@@ -82,6 +86,9 @@ namespace Sources.EnemyScripts
                 position.Set(position.x, position.y, positionZ);
                 transform.position = position;
                 
+                _addTimeToEndPoint = Vector3.Distance(_currentRoad.Point.GetPosition, transform.position) / Reduce;
+                Movement.SetTimeToEndPoint(_timeToEndPoint + _addTimeToEndPoint);
+
                 yield return null;
             }
         }

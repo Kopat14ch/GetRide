@@ -9,7 +9,7 @@ namespace Sources.Boosters
 
         public override void Activate()
         {
-            _character.SetSpeed(BoostValue);
+            _character.SetTimeToEndPoint(BoostValue);
         }
 
         public void SetCharacter(Character character)

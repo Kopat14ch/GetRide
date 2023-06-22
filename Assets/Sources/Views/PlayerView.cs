@@ -66,18 +66,13 @@ namespace Sources.Views
 
         private void OnClick()
         {
-            if (EventSystem.current.IsPointerOverGameObject())
-                return;
-
             Ray ray = _camera.ScreenPointToRay(_playerInput.Player.Position.ReadValue<Vector2>());
             RaycastHit hit;
 
-            Debug.Log(Physics.Raycast(ray, out hit));
-            
             if (Physics.Raycast(ray, out hit))
             {
                 EnemyTransformation enemy = hit.collider.GetComponent<EnemyTransformation>();
-    
+
                 if (enemy == null && CanPlay)
                 {
                     DisablePlay();
