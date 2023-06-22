@@ -23,7 +23,7 @@ namespace Sources.Level
         [SerializeField] private BoostersList _boosters;
         
         [Header(HeaderNames.Properties)] 
-        [SerializeField] private int _roadCount;
+        [SerializeField, Range(MinRoad, MaxRoad)] private int _roadCount;
 
         private const int MaxRoad = 6;
         private const int MinRoad = 1;
@@ -50,6 +50,13 @@ namespace Sources.Level
             _enemiesSpawner.Spawn(Roads, playerSetup.View);
             
             _boosters.InitBoosters(_enemiesSpawner.Enemies, playerSetup.Character);
+        }
+
+        public void SetRoadCount(int roadsCount)
+        {
+            roadsCount = Mathf.Clamp(roadsCount, MinRoad, MaxRoad);
+
+            _roadCount = roadsCount;
         }
         
         private void CreateRoad(GameObject container, Road template, bool canChangePoint = false, bool canAdd = true)
@@ -130,7 +137,5 @@ namespace Sources.Level
 
             return positionObject;
         }
-
-        private void OnValidate() => _roadCount = Mathf.Clamp(_roadCount, MinRoad, MaxRoad);
     }
 }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using IJunior.TypedScenes;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Sources.Level
@@ -10,6 +11,8 @@ namespace Sources.Level
         private void Awake()
         {
             _menuButton.onClick.AddListener(SetMenuScene);
+            
+            gameObject.SetActive(false);
         }
 
         public void Show()
@@ -20,7 +23,8 @@ namespace Sources.Level
 
         private void SetMenuScene()
         {
-            
+            LevelsMenu.Load();
+            Time.timeScale = 1f;
         }
     }
 }

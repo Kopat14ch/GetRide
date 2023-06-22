@@ -20,8 +20,8 @@ namespace Sources.Setups
         public void Init(LevelPoint point, Character character, int speedValue)
         {
             Character = character;
-            Character.AddSpeed(speedValue);
-            Character.Movement.Init(point, _view, Character.Speed);
+            Character.AddTimeToEndPoint(speedValue);
+            Character.Movement.Init(point, _view, Character.TimeToEndPoint);
             
             _view.Click += Character.SetLastPosition;
         }
