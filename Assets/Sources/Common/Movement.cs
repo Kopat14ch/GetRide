@@ -4,6 +4,7 @@ using Sources.Level;
 using Sources.PlayerScripts;
 using Sources.Views;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Sources.Common
 {
@@ -17,6 +18,7 @@ namespace Sources.Common
         private float _currentPosition;
 
         public PlayerView PlayerView { get; private set; }
+        public UnityAction MovedBack;
 
         private void OnDestroy() => PlayerView.Click -= Move;
         
@@ -34,7 +36,7 @@ namespace Sources.Common
             PlayerView.Click += Move;
         }
 
-        public void MoveTo(Vector3 position, EnemyTransformation enemyTransformation = null, PlayerView playerView = null, BoosterView boosterView = null)
+        public void MoveTo(Vector3 position, EnemyTransformation enemyTransformation = null, PlayerView playerView = null)
         {
             if (_tweener != null)
                 _tweener.Kill();
@@ -44,9 +46,16 @@ namespace Sources.Common
             TryUpdateChangePosition();
 
             if (enemyTransformation != null)
+            {
                 _tweener.OnComplete(() => OnRestartEnemy(enemyTransformation));
+            }
             else if (playerView != null)
+            {
                 _tweener.OnComplete(() => OnRestartPlayer(playerView));
+                
+                playerView.EnableGlitch();
+            }
+                
         }
 
         public void SetTimeToEndPoint(float value) => _timeToEndPoint = value;
@@ -78,7 +87,11 @@ namespace Sources.Common
 
         private void PlayerEnd() => PlayerView.ShowEndPanel();
 
-        private void OnRestartPlayer(PlayerView playerView) => playerView.EnablePlay();
+        private void OnRestartPlayer(PlayerView playerView)
+        {
+            playerView.EnablePlay();
+            playerView.DisableGlitch();
+        }
         
         private void OnRestartEnemy(EnemyTransformation enemyTransformation) => enemyTransformation.EnableDrag();
     }
