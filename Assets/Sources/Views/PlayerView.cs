@@ -1,4 +1,5 @@
 using System;
+using Kino;
 using Sources.EnemyScripts;
 using Sources.Level;
 using Sources.StringController;
@@ -13,10 +14,10 @@ namespace Sources.Views
         [Header(HeaderNames.Objects)]
         [SerializeField] private Slider _progressBar;
         [SerializeField] private EndPanel _endPanel;
+        [SerializeField] private AnalogGlitch _glitch;
 
         private PlayerInput _playerInput;
         private Camera _camera;
-        private bool _isUI;
 
         public event Action Click;
 
@@ -53,7 +54,17 @@ namespace Sources.Views
         {
             _endPanel.Show();
         }
-        
+
+        public void EnableGlitch()
+        {
+            _glitch.enabled = true;
+        }
+
+        public void DisableGlitch()
+        {
+            _glitch.enabled = false;
+        }
+
         public void SetProgressBarValue(float currentProgress) => _progressBar.value = currentProgress;
         public void SetMaxSliderValue(Vector3 startPos, Vector3 endPos) => _progressBar.maxValue = Vector2.Distance(startPos, endPos);
         public void EnablePlay() => CanPlay = true;
@@ -69,7 +80,7 @@ namespace Sources.Views
             Ray ray = _camera.ScreenPointToRay(_playerInput.Player.Position.ReadValue<Vector2>());
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out hit) && EventSystem.current.IsPointerOverGameObject() == false)
             {
                 EnemyTransformation enemy = hit.collider.GetComponent<EnemyTransformation>();
 
