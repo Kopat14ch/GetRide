@@ -20,8 +20,6 @@ namespace Sources.Presenters
             _model.CountChanged += OnCountChanged;
 
             _view.BoosterActivated += OnBoosterActivated;
-
-            _model.AddBoost();
         }
         
         public void Disable()
@@ -38,7 +36,7 @@ namespace Sources.Presenters
 
         private void OnBoosterActivated(Booster booster)
         {
-            _model.Activate();
+            _model.TryActivate();
         }
     }
 }

@@ -6,15 +6,24 @@ namespace Sources.LevelMenu
 {
     public class LevelButtons : MonoBehaviour
     {
-        private void Awake()
+        public int LevelNumber { get; private set; }
+        
+        public void Initialize()
         {
-            List<LevelButton> numbers = GetComponentsInChildren<LevelButton>().ToList();
+            List<LevelButton> levelButtons = GetComponentsInChildren<LevelButton>().ToList();
 
-            foreach (var levelButton in numbers)
-                levelButton.Initialize();
-            
-            for (int i = 0; i < numbers.Count; i++)
-                numbers[i].SetNumber(i + 1);
+
+            for (int i = 0; i < levelButtons.Count; i++)
+            {
+                levelButtons[i].Initialize();
+                levelButtons[i].SetNumber(i + 1);
+                levelButtons[i].ButtonClicked += SetCurrentNumber;
+            }
+        }
+
+        private void SetCurrentNumber(int number)
+        {
+            LevelNumber = number;
         }
     }
 }

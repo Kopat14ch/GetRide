@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Sources.Common;
 using UnityEngine;
 
 namespace Sources.Music
@@ -9,18 +10,26 @@ namespace Sources.Music
     {
         [SerializeField] private List<AudioClip> _audioClips;
 
-        private Coroutine _audioSwitchWork;
         private AudioSource _audioSource;
+        private Coroutine _audioSwitchWork;
         private int _currentClipIndex;
 
-        private void Awake()
+
+        public void Initialize()
         {
             DontDestroyOnLoad(gameObject);
-
-            _currentClipIndex = 0;
             _audioSource = GetComponent<AudioSource>();
             
+            _currentClipIndex = 0;
             SetClip();
+        }
+
+        public float GetVolume() => _audioSource.volume;
+        public void SetVolume(float value)
+        {
+            _audioSource.volume = value;
+            
+            Saver.Instance.SaveMusicVolume(value);
         }
 
         private void SetClip()
