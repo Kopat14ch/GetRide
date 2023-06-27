@@ -22,9 +22,9 @@ namespace Sources.LevelMenu.Language
             _successfully = GetComponentInChildren<Successfully>();
 
             if (_localization.CurrentLanguage == LanguageSelect.ToString())
-                Enable();
+                EnableSuccessfully();
             else
-                Disable();
+                DisableSuccessfully();
         }
 
         private void OnEnable()
@@ -43,16 +43,14 @@ namespace Sources.LevelMenu.Language
             English,
             Turkish
         }
+        
+        public void Enable() => gameObject.SetActive(true);
+        
+        public void Disable() => gameObject.SetActive(false);
+        
+        public void EnableSuccessfully() => _successfully.Enable();
 
-        public void Enable()
-        {
-            _successfully.Enable();
-        }
-
-        public void Disable()
-        {
-            _successfully.Disable();
-        }
+        public void DisableSuccessfully() => _successfully.Disable();
 
         private void OnButtonClick()
         {

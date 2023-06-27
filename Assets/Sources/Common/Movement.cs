@@ -1,3 +1,4 @@
+using Agava.YandexGames;
 using DG.Tweening;
 using Sources.EnemyScripts;
 using Sources.Level;
@@ -73,8 +74,11 @@ namespace Sources.Common
         {
             _tweener = transform.DOMove(_endPoint.GetPosition, _timeToEndPoint);
 
-            if (TryGetComponent(out Character character) )
+            if (TryGetComponent(out Character character))
+            {
                 _tweener.OnComplete(PlayerEnd);
+            }
+                
 
             TryUpdateChangePosition();
         }
@@ -85,7 +89,11 @@ namespace Sources.Common
                 _tweener.OnUpdate(ChangePosition);
         }
 
-        private void PlayerEnd() => PlayerView.ShowEndPanel();
+        private void PlayerEnd()
+        {
+            PlayerView.ShowEndPanel();
+            
+        }
 
         private void OnRestartPlayer(PlayerView playerView)
         {

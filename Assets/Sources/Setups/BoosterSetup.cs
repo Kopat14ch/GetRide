@@ -1,4 +1,5 @@
 ﻿using Sources.Boosters;
+using Sources.Common;
 using Sources.Models;
 using Sources.Presenters;
 using Sources.Views;
@@ -17,11 +18,11 @@ namespace Sources.Setups
 
         public void Initialize(PlayerView playerView)
         {
+            _model = new BoosterModel(_booster, _particleSystem, playerView);
             _booster = GetComponent<Booster>();
             _particleSystem = GetComponentInChildren<ParticleSystem>();
             _view = GetComponent<BoosterView>();
-            
-            _model = new BoosterModel(_booster, _particleSystem, playerView);
+
             _presenter = new BoosterPresenter(_model, _view);
         }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using Sources.Boosters;
+using Sources.Common;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,6 +21,8 @@ namespace Sources.Views
             _booster = GetComponent<Booster>();
             _button = GetComponentInChildren<Button>();
             _countText = GetComponentInChildren<TextMeshProUGUI>();
+
+            _countText.text = Saver.Instance.GetSavedBoosterCount(_booster).ToString();
         }
 
         private void OnEnable()
@@ -43,7 +46,7 @@ namespace Sources.Views
         {
             if (_countText == null)
                 return;
-
+            
             _countText.text = count.ToString();
         }
 
