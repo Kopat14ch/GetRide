@@ -11,8 +11,7 @@ namespace Sources.LevelMenu
         public void Initialize()
         {
             List<LevelButton> levelButtons = GetComponentsInChildren<LevelButton>().ToList();
-
-
+            
             for (int i = 0; i < levelButtons.Count; i++)
             {
                 levelButtons[i].Initialize();

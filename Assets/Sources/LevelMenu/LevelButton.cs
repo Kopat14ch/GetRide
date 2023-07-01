@@ -9,7 +9,7 @@ namespace Sources.LevelMenu
     public class LevelButton : MonoBehaviour
     {
         [SerializeField] private LevelMenuBootstrap _levelMenuBootstrap;
-        
+
         private TextMeshProUGUI _textNumber;
         private Button _button;
         private int _number;
@@ -33,6 +33,7 @@ namespace Sources.LevelMenu
         private void OnButtonClick()
         {
             ButtonClicked?.Invoke(_number);
+
             IJunior.TypedScenes.Level.Load(_levelMenuBootstrap);
         }
     }

@@ -14,9 +14,7 @@ namespace Sources.Bootstraps
         [SerializeField] private PlayerView _playerView;
         [SerializeField] private LevelGenerator _levelGenerator;
         [SerializeField] private EnemiesSpawner _enemiesSpawner;
-        [SerializeField] private SettingsMenu _settings;
 
-        private LevelMenuBootstrap _levelMenuBootstrap;
         private int _roadCount;
         private int _seed;
 
@@ -24,7 +22,6 @@ namespace Sources.Bootstraps
         {
             _enemiesSpawner.Initialize(_seed);
             _levelGenerator.SetRoadCount(_roadCount);
-            _settings.Initialize(_levelMenuBootstrap);
 
             foreach (var boosterView in _boostersList.BoosterViews)
                 boosterView.Initialize();
@@ -33,13 +30,14 @@ namespace Sources.Bootstraps
                 boosterSetup.Initialize(_playerView);
             foreach (var boosterSetup in _boostersList.BoosterSetups)
                 boosterSetup.Initialize(_playerView);
+            
+            SettingsMenu.Instance.EnableMenuButton();
         }
 
         public void OnSceneLoaded(LevelMenuBootstrap levelMenuBootstrap)
         {
             _roadCount = LevelConfig.GetRoads(levelMenuBootstrap.GetLevelNumber());
             _seed = LevelConfig.GetSeed(levelMenuBootstrap.GetLevelNumber());
-            _levelMenuBootstrap = levelMenuBootstrap;
         }
     }
 }

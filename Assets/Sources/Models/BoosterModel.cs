@@ -33,7 +33,7 @@ namespace Sources.Models
 
             if (Count <= 0)
             {
-                VideoAd.Show(onRewardedCallback: AddBoost);
+                VideoAd.Show(onOpenCallback: () => Time.timeScale = 0f, onRewardedCallback: AddBoost, onCloseCallback: () => Time.timeScale = 1f);
 
                 return;
             }

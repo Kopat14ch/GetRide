@@ -22,19 +22,42 @@ namespace Sources.Bootstraps
 
         private IEnumerator Start()
         {
-            yield return YandexGamesSdk.Initialize(Init);
+            if (YandexGamesSdk.IsInitialized)
+                Init();
+            else
+                yield return YandexGamesSdk.Initialize(Init);
         }
-
+        
+        public float GetMusicVolume => _musicController.GetVolume();
+        public int GetLevelNumber() => _levelButtons.LevelNumber;
+        public void SetAudioVolume(float value) => _musicController.SetVolume(value);
+        
         private void Init()
         {
+            if (Saver.IsLoaded)
+            {
+                OnLoaded();
+                
+                return;
+            }
+
             _saver.Initialize();
+            _saver.Loaded += OnLoaded;
+        }
+
+        private void OnLoaded()
+        {
             _levelButtons.Initialize();
             _musicController.Initialize();
             _settings.Initialize(this);
+            
+            if (Saver.IsLoaded == false)
+            {
+                _saver.Loaded -= OnLoaded;
+            }
+            
+            SettingsMenu.Instance.DisableMenuButton();
+            SettingsMenu.Instance.DisablePanel();
         }
-
-        public int GetLevelNumber() => _levelButtons.LevelNumber;
-        public float GetAudioSourceValue() => _musicController.GetVolume();
-        public void SetAudioVolume(float value) => _musicController.SetVolume(value);
     }
 }

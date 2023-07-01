@@ -23,8 +23,9 @@ namespace Sources.Level
 
         private void SetMenuScene()
         {
-            LevelsMenu.Load();
             Time.timeScale = 1f;
+
+            LevelsMenu.Load();
         }
     }
 }

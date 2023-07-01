@@ -3,24 +3,27 @@ using Agava.YandexGames;
 using Sources.Boosters;
 using Sources.Models;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Scripting;
 
 namespace Sources.Common
 {
     public class Saver : MonoBehaviour
     {
-        public static Saver Instance;
-
+        public UnityAction Loaded;
+        
+        public static Saver Instance { get; private set; }
+        public static bool IsLoaded { get; private set; }
         public SaveData SaveData { get; private set; }
 
         public void Initialize()
         {
-
             if (Instance == null)
             {
                 transform.parent = null;
                 DontDestroyOnLoad(gameObject);
                 Instance = this;
+                IsLoaded = false;
                 Load();
             }
             else
@@ -48,16 +51,11 @@ namespace Sources.Common
         public void SaveMusicVolume(float value)
         {
             SaveData.MusicVolumeValue = value;
-            SaveData.CanMusicChanged = true;
+            SaveData.MusicChanged = true;
             
             PlayerAccount.SetCloudSaveData(JsonUtility.ToJson(SaveData));
         }
-
-        public void Load()
-        {
-            PlayerAccount.GetCloudSaveData(onSuccessCallback: jsonData => SaveData = JsonUtility.FromJson<SaveData>(jsonData));
-        }
-
+        
         public int GetSavedBoosterCount(Booster booster)
         {
             switch (booster)
@@ -71,6 +69,18 @@ namespace Sources.Common
 
             return 0;
         }
+
+        private void Load()
+        {
+            PlayerAccount.GetCloudSaveData(onSuccessCallback: OnLoaded);
+        }
+
+        private void OnLoaded(string jsonLoaded)
+        {
+            SaveData = JsonUtility.FromJson<SaveData>(jsonLoaded);
+            Loaded?.Invoke();
+            IsLoaded = true;
+        }
     }
     
     [Serializable]
@@ -79,6 +89,6 @@ namespace Sources.Common
         [field: Preserve] public int MagicTrafficLightCount;
         [field: Preserve] public int MagicPotionCount;
         [field: Preserve] public float MusicVolumeValue;
-        [field: Preserve] public bool CanMusicChanged;
+        [field: Preserve] public bool MusicChanged;
     }
 }

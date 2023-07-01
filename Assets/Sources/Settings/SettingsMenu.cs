@@ -1,5 +1,7 @@
-﻿using Sources.Bootstraps;
+﻿using System;
+using Sources.Bootstraps;
 using Sources.Common;
+using Sources.Level;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,28 +13,34 @@ namespace Sources.Settings
         [SerializeField] private Button _toggle;
         [SerializeField] private Sprite _enableSprite;
         [SerializeField] private Sprite _disableSpite;
-        
+        [SerializeField] private ExitMenuButton _exitMenuButton;
+
+        public static SettingsMenu Instance { get; private set; }
+
         private Panel _panel;
         private LevelMenuBootstrap _levelMenuBootstrap;
+        
 
         public void Initialize(LevelMenuBootstrap levelMenuBootstrap)
         {
-            _panel = GetComponentInChildren<Panel>();
-
-            _panel.Disable();
-            _toggle.GetComponent<Image>().sprite = _enableSprite;
-            _levelMenuBootstrap = levelMenuBootstrap;
-
-            if (Saver.Instance.SaveData.CanMusicChanged)
+            if (Instance == null)
             {
-                _audioSlider.value = Saver.Instance.SaveData.MusicVolumeValue;
-                _levelMenuBootstrap.SetAudioVolume(Saver.Instance.SaveData.MusicVolumeValue);
+                transform.parent = null;
+                DontDestroyOnLoad(gameObject);
+                Instance = this;
+                
+                _panel = GetComponentInChildren<Panel>();
+                _toggle.GetComponent<Image>().sprite = _enableSprite;
+                _levelMenuBootstrap = levelMenuBootstrap;
+
+                _audioSlider.value = levelMenuBootstrap.GetMusicVolume;
+
+                DisablePanel();
             }
             else
             {
-                _audioSlider.value = levelMenuBootstrap.GetAudioSourceValue();
+                Destroy(gameObject);
             }
-            
         }
 
         private void OnEnable()
@@ -47,18 +55,33 @@ namespace Sources.Settings
             _audioSlider.onValueChanged.RemoveListener(OnAudioSliderChangeValue);
         }
 
+        public void EnableMenuButton() => _exitMenuButton.Enable();
+        public void DisableMenuButton() => _exitMenuButton.Disable();
+
+        public void DisablePanel()
+        {
+            _toggle.GetComponent<Image>().sprite = _enableSprite;
+            _panel.Disable();
+        }
+
+        private void EnablePanel()
+        {
+            _toggle.GetComponent<Image>().sprite = _disableSpite;
+            _panel.Enable();
+        }
+
         private void Toggle()
         {
             if (_panel.isActiveAndEnabled)
             {
-                _toggle.GetComponent<Image>().sprite = _enableSprite;
-                _panel.Disable();
+                DisablePanel();
+
                 Time.timeScale = 1f;
             }
             else
             {
-                _toggle.GetComponent<Image>().sprite = _disableSpite;
-                _panel.Enable();
+                EnablePanel();
+
                 Time.timeScale = 0f;
             }
         }
