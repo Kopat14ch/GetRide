@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using Agava.YandexGames;
-using Sources.Common;
+﻿using Sources.Leaderboard;
+using Sources.Level;
 using Sources.LevelMenu;
 using Sources.Music;
 using Sources.Settings;
@@ -10,31 +9,26 @@ namespace Sources.Bootstraps
 {
     public class LevelMenuBootstrap : MonoBehaviour
     {
-        [SerializeField] private Saver _saver;
         [SerializeField] private LevelButtons _levelButtons;
         [SerializeField] private MusicController _musicController;
         [SerializeField] private SettingsMenu _settings;
-
+        [SerializeField] private LevelConfig _levelConfig;
+        [SerializeField] private LeaderboardUI _leaderboardUI;
+        
+        public float GetMusicVolume => _musicController.GetVolume();
+        public int GetLevelNumber() => _levelButtons.LevelNumber;
+        public void SetAudioVolume(float value) => _musicController.SetVolume(value);
+        
         private void Awake()
         {
-            YandexGamesSdk.CallbackLogging = true;
-        }
-
-        private IEnumerator Start()
-        {
-            yield return YandexGamesSdk.Initialize(Init);
-        }
-
-        private void Init()
-        {
-            _saver.Initialize();
-            _levelButtons.Initialize();
+            _levelConfig.Initialize();
             _musicController.Initialize();
             _settings.Initialize(this);
-        }
+            _levelButtons.Initialize();
+            _leaderboardUI.Initialize();
 
-        public int GetLevelNumber() => _levelButtons.LevelNumber;
-        public float GetAudioSourceValue() => _musicController.GetVolume();
-        public void SetAudioVolume(float value) => _musicController.SetVolume(value);
+            SettingsMenu.Instance.DisableMenuButton();
+            SettingsMenu.Instance.DisablePanel();
+        }
     }
 }

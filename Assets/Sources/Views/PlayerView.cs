@@ -1,4 +1,5 @@
 using System;
+using Agava.YandexGames;
 using Kino;
 using Sources.EnemyScripts;
 using Sources.Level;
@@ -18,16 +19,24 @@ namespace Sources.Views
 
         private PlayerInput _playerInput;
         private Camera _camera;
+        private int _maxMoveEnemies;
+        private int _enemyMoveCount;
+        private int _levelNumber;
+        private bool _isUI;
 
         public event Action Click;
+        public event Action DraggingEnemy;
 
         public bool CanPlay { get; private set; }
 
-        private void Awake()
+        public void Initialize(int maxMoveEnemies, int levelNumber)
         {
             _playerInput = new PlayerInput();
             _camera = Camera.main;
+            _maxMoveEnemies = maxMoveEnemies;
 
+            _levelNumber = levelNumber;
+            
             EnablePlay();
         }
         
@@ -50,24 +59,20 @@ namespace Sources.Views
 
         private void OnDisable() => _playerInput.Disable();
 
+        private void Update() => _isUI = EventSystem.current.IsPointerOverGameObject();
+
         public void ShowEndPanel()
         {
-            _endPanel.Show();
-        }
+            bool isExcess = _enemyMoveCount > _maxMoveEnemies;
 
-        public void EnableGlitch()
-        {
-            _glitch.enabled = true;
-        }
-
-        public void DisableGlitch()
-        {
-            _glitch.enabled = false;
+            _endPanel.Show(_maxMoveEnemies, _enemyMoveCount, isExcess, _levelNumber);
         }
 
         public void SetProgressBarValue(float currentProgress) => _progressBar.value = currentProgress;
         public void SetMaxSliderValue(Vector3 startPos, Vector3 endPos) => _progressBar.maxValue = Vector2.Distance(startPos, endPos);
         public void EnablePlay() => CanPlay = true;
+        public void EnableGlitch() => _glitch.enabled = true;
+        public void DisableGlitch() => _glitch.enabled = false;
 
         private void Validate()
         {
@@ -80,14 +85,19 @@ namespace Sources.Views
             Ray ray = _camera.ScreenPointToRay(_playerInput.Player.Position.ReadValue<Vector2>());
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit) && EventSystem.current.IsPointerOverGameObject() == false)
+            if (Physics.Raycast(ray, out hit) && _isUI == false)
             {
                 EnemyTransformation enemy = hit.collider.GetComponent<EnemyTransformation>();
-
+                
                 if (enemy == null && CanPlay)
                 {
                     DisablePlay();
                     Click?.Invoke();
+                }
+                else if (enemy != null && CanPlay)
+                {
+                    DraggingEnemy?.Invoke();
+                    _enemyMoveCount++;
                 }
             }
         }

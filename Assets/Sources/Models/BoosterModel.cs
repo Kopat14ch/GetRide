@@ -14,6 +14,7 @@ namespace Sources.Models
         private readonly PlayerView _playerView;
         
         public event Action<int> CountChanged;
+        public event Action VideoShowed;
         
         public int Count { get; private set; }
 
@@ -33,8 +34,7 @@ namespace Sources.Models
 
             if (Count <= 0)
             {
-                VideoAd.Show(onRewardedCallback: AddBoost);
-
+                VideoShowed?.Invoke();
                 return;
             }
             
@@ -46,7 +46,7 @@ namespace Sources.Models
             CountChanged?.Invoke(Count);
         }
 
-        private void AddBoost()
+        public void AddBoost()
         {
             Count++;
             Saver.Instance.SaveBooster(this, _booster);

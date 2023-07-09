@@ -138,13 +138,13 @@ TextureImporter:
         height: 100
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 8, y: 8, z: 8, w: 8}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f9a678cc148c45e4387fa7b084e13fcd
-      internalID: 112011229
+      spriteID: a8b7abc0110d84240863b4a64828758c
+      internalID: 1174996367
       vertices: []
       indices: 
       edges: []
@@ -164,8 +164,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2294f9fdf52af7443937465edc383df4
-      internalID: -1993645369
+      spriteID: 7ea77d6008fadaa46b173487b2e72fd6
+      internalID: -980413410
       vertices: []
       indices: 
       edges: []
@@ -185,8 +185,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b60675fde81b65a4b9ae53354ee38a18
-      internalID: 759051162
+      spriteID: 4ca420d829fff1b4e85e8fe0f504b3bb
+      internalID: -1995426433
       vertices: []
       indices: 
       edges: []
@@ -195,9 +195,9 @@ TextureImporter:
       name: UI_3
       rect:
         serializedVersion: 2
-        x: 301
+        x: 300
         y: 900
-        width: 98
+        width: 100
         height: 100
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -206,8 +206,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b30bd88e09527924c8b60772440dbe4c
-      internalID: -927916121
+      spriteID: 8719b9146ace8e1409d4b7d681812b21
+      internalID: -39664730
       vertices: []
       indices: 
       edges: []
@@ -227,8 +227,71 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 370056af9d88b414ca44ae56451205f0
-      internalID: 350540166
+      spriteID: 53f7521f4f88e154ba3786a75ff6adc5
+      internalID: -1588823593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_5
+      rect:
+        serializedVersion: 2
+        x: 500
+        y: 900
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 35c901b3d28bbb3458314553303e572b
+      internalID: 85577960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_6
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 900
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 531b5f20665c13748a90cd1ad27a6509
+      internalID: 685331402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_7
+      rect:
+        serializedVersion: 2
+        x: 700
+        y: 900
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 990cd660b3aa23a45b63922c78941596
+      internalID: -1579972944
       vertices: []
       indices: 
       edges: []
@@ -236,7 +299,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 255b9e369420cd745af9e7838573be27
+    spriteID: 2545ec5bef8b5f548b24786da043d2e6
     internalID: 0
     vertices: []
     indices: 
@@ -244,11 +307,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      UI_1: -1993645369
-      UI_4: 350540166
-      UI_2: 759051162
-      UI_3: -927916121
-      UI_0: 112011229
+      UI_1: -980413410
+      UI_4: -1588823593
+      UI_2: -1995426433
+      UI_3: -39664730
+      UI_0: 1174996367
+      UI_7: -1579972944
+      UI_6: 685331402
+      UI_5: 85577960
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

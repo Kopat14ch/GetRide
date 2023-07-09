@@ -1,4 +1,5 @@
 ﻿using System;
+using Agava.YandexGames;
 using Sources.Boosters;
 using Sources.Common;
 using TMPro;
@@ -10,18 +11,23 @@ namespace Sources.Views
     [RequireComponent(typeof(Booster))]
     public class BoosterView : MonoBehaviour
     {
+        private VideoImage _videoImage;
         private Booster _booster;
         private Button _button;
         private TextMeshProUGUI _countText;
 
         public event Action<Booster> BoosterActivated;
+        public event Action VideoAwardReceived;
 
         public void Initialize()
         {
             _booster = GetComponent<Booster>();
             _button = GetComponentInChildren<Button>();
             _countText = GetComponentInChildren<TextMeshProUGUI>();
+            _videoImage = GetComponentInChildren<VideoImage>();
 
+            TryActiveVideoImage();
+            
             _countText.text = Saver.Instance.GetSavedBoosterCount(_booster).ToString();
         }
 
@@ -47,8 +53,11 @@ namespace Sources.Views
             if (_countText == null)
                 return;
             
+            TryActiveVideoImage();
             _countText.text = count.ToString();
         }
+
+        public void ShowVideo() => VideoAd.Show(onOpenCallback: () => Time.timeScale = 0f, onRewardedCallback: () => VideoAwardReceived?.Invoke(), onCloseCallback: () => Time.timeScale = 1f);
 
         private void Validate()
         {
@@ -59,6 +68,20 @@ namespace Sources.Views
         private void OnButtonClicked()
         {
             BoosterActivated?.Invoke(_booster);
+        }
+
+        private void TryActiveVideoImage()
+        {
+            if (Saver.Instance.GetSavedBoosterCount(_booster) == 0)
+            {
+                _videoImage.Enable();
+                _button.GetComponent<Image>().color = _button.colors.disabledColor;
+            }
+            else
+            {
+                _button.GetComponent<Image>().color = _button.colors.normalColor;
+                _videoImage.Disable();
+            }
         }
     }
 }

@@ -22,8 +22,7 @@ namespace Sources.Level
         [SerializeField] private EndRoad _endRoad;
         [SerializeField] private BoostersList _boosters;
         
-        [Header(HeaderNames.Properties)] 
-        [SerializeField, Range(MinRoad, MaxRoad)] private int _roadCount;
+        private int _roadCount;
 
         private const int MaxRoad = 6;
         private const int MinRoad = 1;

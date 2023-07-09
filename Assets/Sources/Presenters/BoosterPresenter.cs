@@ -18,17 +18,31 @@ namespace Sources.Presenters
         public void Enable()
         {
             _model.CountChanged += OnCountChanged;
+            _model.VideoShowed += OnVideoShowed;
 
             _view.BoosterActivated += OnBoosterActivated;
+            _view.VideoAwardReceived += OnVideoAwardReceived;
         }
         
         public void Disable()
         {
             _model.CountChanged -= OnCountChanged;
+            _model.VideoShowed -= OnVideoShowed;
             
             _view.BoosterActivated -= OnBoosterActivated;
+            _view.VideoAwardReceived -= OnVideoAwardReceived;
         }
 
+        private void OnVideoShowed()
+        {
+            _view.ShowVideo();
+        }
+
+        private void OnVideoAwardReceived()
+        {
+            _model.AddBoost();
+        }
+        
         private void OnCountChanged(int count)
         {
             _view.SetCount(count);
