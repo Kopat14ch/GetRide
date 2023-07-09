@@ -1,0 +1,214 @@
+﻿{
+  "Levels": [
+    {
+      "Number": 1,
+      "RoadsCount": 1,
+      "Seed": 742,
+      "MaxEnemiesDraggingCount": 1,
+      "Score": 0
+    },
+    {
+      "Number": 2,
+      "RoadsCount": 1,
+      "Seed": 436,
+      "MaxEnemiesDraggingCount": 2,
+      "Score": 0
+    },
+    {
+      "Number": 3,
+      "RoadsCount": 2,
+      "Seed": 576,
+      "MaxEnemiesDraggingCount": 3,
+      "Score": 0
+    },
+    {
+      "Number": 4,
+      "RoadsCount": 2,
+      "Seed": 483,
+      "MaxEnemiesDraggingCount": 4,
+      "Score": 0
+    },
+    {
+      "Number": 5,
+      "RoadsCount": 2,
+      "Seed": 612,
+      "MaxEnemiesDraggingCount": 5,
+      "Score": 0
+    },
+    {
+      "Number": 6,
+      "RoadsCount": 3,
+      "Seed": 53,
+      "MaxEnemiesDraggingCount": 6,
+      "Score": 0
+    },
+    {
+      "Number": 7,
+      "RoadsCount": 2,
+      "Seed": 53,
+      "MaxEnemiesDraggingCount": 6,
+      "Score": 0
+    },
+    {
+      "Number": 8,
+      "RoadsCount": 2,
+      "Seed": 53,
+      "MaxEnemiesDraggingCount": 6,
+      "Score": 0
+    },
+    {
+      "Number": 9,
+      "RoadsCount": 3,
+      "Seed": 53,
+      "MaxEnemiesDraggingCount": 6,
+      "Score": 0
+    },
+    {
+      "Number": 10,
+      "RoadsCount": 3,
+      "Seed": 53,
+      "MaxEnemiesDraggingCount": 6,
+      "Score": 0
+    },
+    {
+      "Number": 11,
+      "RoadsCount": 3,
+      "Seed": 53,
+      "MaxEnemiesDraggingCount": 6,
+      "Score": 0
+    },
+    {
+      "Number": 12,
+      "RoadsCount": 4,
+      "Seed": 53,
+      "MaxEnemiesDraggingCount": 6,
+      "Score": 0
+    },
+    {
+      "Number": 13,
+      "RoadsCount": 3,
+      "Seed": 53,
+      "MaxEnemiesDraggingCount": 6,
+      "Score": 0
+    },
+    {
+      "Number": 14,
+      "RoadsCount": 3,
+      "Seed": 53,
+      "MaxEnemiesDraggingCount": 6,
+      "Score": 0
+    },
+    {
+      "Number": 15,
+      "RoadsCount": 4,
+      "Seed": 53,
+      "MaxEnemiesDraggingCount": 6,
+      "Score": 0
+    },
+    {
+      "Number": 16,
+      "RoadsCount": 4,
+      "Seed": 53,
+      "MaxEnemiesDraggingCount": 6,
+      "Score": 0
+    },
+    {
+      "Number": 17,
+      "RoadsCount": 4,
+      "Seed": 53,
+      "MaxEnemiesDraggingCount": 6,
+      "Score": 0
+    },
+    {
+      "Number": 18,
+      "RoadsCount": 5,
+      "Seed": 53,
+      "MaxEnemiesDraggingCount": 6,
+      "Score": 0
+    },
+    {
+      "Number": 19,
+      "RoadsCount": 4,
+      "Seed": 53,
+      "MaxEnemiesDraggingCount": 6,
+      "Score": 0
+    },
+    {
+      "Number": 20,
+      "RoadsCount": 4,
+      "Seed": 53,
+      "MaxEnemiesDraggingCount": 6,
+      "Score": 0
+    },
+    {
+      "Number": 21,
+      "RoadsCount": 5,
+      "Seed": 53,
+      "MaxEnemiesDraggingCount": 6,
+      "Score": 0
+    },
+    {
+      "Number": 22,
+      "RoadsCount": 5,
+      "Seed": 53,
+      "MaxEnemiesDraggingCount": 6,
+      "Score": 0
+    },
+    {
+      "Number": 23,
+      "RoadsCount": 5,
+      "Seed": 53,
+      "MaxEnemiesDraggingCount": 6,
+      "Score": 0
+    },
+    {
+      "Number": 24,
+      "RoadsCount": 6,
+      "Seed": 53,
+      "MaxEnemiesDraggingCount": 6,
+      "Score": 0
+    },
+    {
+      "Number": 25,
+      "RoadsCount": 6,
+      "Seed": 53,
+      "MaxEnemiesDraggingCount": 6,
+      "Score": 0
+    },
+    {
+      "Number": 26,
+      "RoadsCount": 6,
+      "Seed": 53,
+      "MaxEnemiesDraggingCount": 6,
+      "Score": 0
+    },
+    {
+      "Number": 27,
+      "RoadsCount": 6,
+      "Seed": 53,
+      "MaxEnemiesDraggingCount": 6,
+      "Score": 0
+    },
+    {
+      "Number": 28,
+      "RoadsCount": 6,
+      "Seed": 53,
+      "MaxEnemiesDraggingCount": 6,
+      "Score": 0
+    },
+    {
+      "Number": 29,
+      "RoadsCount": 6,
+      "Seed": 53,
+      "MaxEnemiesDraggingCount": 6,
+      "Score": 0
+    },
+    {
+      "Number": 30,
+      "RoadsCount": 6,
+      "Seed": 53,
+      "MaxEnemiesDraggingCount": 6,
+      "Score": 0
+    }
+  ]
+}

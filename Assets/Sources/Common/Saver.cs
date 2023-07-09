@@ -1,17 +1,15 @@
 using System;
 using Agava.YandexGames;
 using Sources.Boosters;
+using Sources.Level;
 using Sources.Models;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.Scripting;
 
 namespace Sources.Common
 {
     public class Saver : MonoBehaviour
     {
-        public UnityAction Loaded;
-        
         public static Saver Instance { get; private set; }
         public static bool IsLoaded { get; private set; }
         public SaveData SaveData { get; private set; }
@@ -55,6 +53,25 @@ namespace Sources.Common
             
             PlayerAccount.SetCloudSaveData(JsonUtility.ToJson(SaveData));
         }
+
+        public void SaveScore(int numberLevel, Level.Level jsonConfig)
+        {
+            for (int i = 0; i < SaveData.LevelsConfig.Levels.Length; i++)
+            { 
+                if (SaveData.LevelsConfig.Levels[i].Number == numberLevel)
+                {
+                    SaveData.LevelsConfig.Levels[i] = jsonConfig;
+                    PlayerAccount.SetCloudSaveData(JsonUtility.ToJson(SaveData));
+                }
+            }
+        }
+
+        public void SaveAllLevelsConfig(LevelsConfig levelsConfig)
+        {
+            SaveData.LevelsConfig = levelsConfig;
+            
+            PlayerAccount.SetCloudSaveData(JsonUtility.ToJson(SaveData));
+        }
         
         public int GetSavedBoosterCount(Booster booster)
         {
@@ -70,6 +87,13 @@ namespace Sources.Common
             return 0;
         }
 
+        public void SaveShows(int shows)
+        {
+            SaveData.ShowsCount = shows;
+            
+            PlayerAccount.SetCloudSaveData(JsonUtility.ToJson(SaveData));
+        }
+
         private void Load()
         {
             PlayerAccount.GetCloudSaveData(onSuccessCallback: OnLoaded);
@@ -78,7 +102,6 @@ namespace Sources.Common
         private void OnLoaded(string jsonLoaded)
         {
             SaveData = JsonUtility.FromJson<SaveData>(jsonLoaded);
-            Loaded?.Invoke();
             IsLoaded = true;
         }
     }
@@ -86,9 +109,11 @@ namespace Sources.Common
     [Serializable]
     public class SaveData
     {
+        [field: Preserve] public int ShowsCount;
         [field: Preserve] public int MagicTrafficLightCount;
         [field: Preserve] public int MagicPotionCount;
         [field: Preserve] public float MusicVolumeValue;
         [field: Preserve] public bool MusicChanged;
+        [field: Preserve] public LevelsConfig LevelsConfig;
     }
 }

@@ -1,6 +1,4 @@
-using System;
 using Lean.Localization;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -53,10 +51,8 @@ namespace Sources.LevelMenu.Language
         {
             if (_localization.CurrentLanguage == Languages.Russian.ToString())
                 _image.sprite = _russianSprite;
-            
             else if (_localization.CurrentLanguage == Languages.English.ToString())
                 _image.sprite = _englishSprite;
-            
             else if (_localization.CurrentLanguage == Languages.Turkish.ToString())
                 _image.sprite = _turkishSprite;
         }

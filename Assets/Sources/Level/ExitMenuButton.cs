@@ -1,4 +1,5 @@
 using IJunior.TypedScenes;
+using Sources.Common;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,7 +24,7 @@ namespace Sources.Level
         {
             Time.timeScale = 1f;
             
-            LevelsMenu.Load();
+            AsyncLoadScene.Instance.Load(LevelsMenu.LoadAsync());
         }
     }
 }

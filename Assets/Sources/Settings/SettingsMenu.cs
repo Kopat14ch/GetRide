@@ -1,5 +1,4 @@
-﻿using System;
-using Sources.Bootstraps;
+﻿using Sources.Bootstraps;
 using Sources.Common;
 using Sources.Level;
 using UnityEngine;
@@ -20,7 +19,6 @@ namespace Sources.Settings
         private Panel _panel;
         private LevelMenuBootstrap _levelMenuBootstrap;
         
-
         public void Initialize(LevelMenuBootstrap levelMenuBootstrap)
         {
             if (Instance == null)
