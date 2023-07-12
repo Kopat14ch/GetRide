@@ -1,4 +1,5 @@
 using Lean.Localization;
+using Sources.StringController;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -8,6 +9,7 @@ namespace Sources.LevelMenu.Language
     [RequireComponent(typeof(Button))]
     public class LanguageButton : MonoBehaviour
     {
+        [Header(HeaderNames.Objects)]
         [SerializeField] private LeanLocalization _localization;
         
         public Languages LanguageSelect;
@@ -27,16 +29,10 @@ namespace Sources.LevelMenu.Language
                 DisableSuccessfully();
         }
 
-        private void OnEnable()
-        {
-            _button.onClick.AddListener(OnButtonClick);
-        }
+        private void OnEnable() => _button.onClick.AddListener(OnButtonClick);
 
-        private void OnDisable()
-        {
-            _button.onClick.RemoveListener(OnButtonClick);
-        }
-
+        private void OnDisable() => _button.onClick.RemoveListener(OnButtonClick);
+        
         public enum Languages
         {
             Russian,

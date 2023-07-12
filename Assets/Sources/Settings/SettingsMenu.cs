@@ -1,6 +1,8 @@
 ﻿using Sources.Bootstraps;
 using Sources.Common;
 using Sources.Level;
+using Sources.Music;
+using Sources.StringController;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,19 +10,22 @@ namespace Sources.Settings
 {
     public class SettingsMenu : MonoBehaviour
     {
+        [Header(HeaderNames.Objects)]
         [SerializeField] private Slider _audioSlider;
         [SerializeField] private Button _toggle;
         [SerializeField] private Sprite _enableSprite;
         [SerializeField] private Sprite _disableSpite;
         [SerializeField] private ExitMenuButton _exitMenuButton;
+        [SerializeField] private MusicController _musicController;
 
         public static SettingsMenu Instance { get; private set; }
 
         private Panel _panel;
-        private LevelMenuBootstrap _levelMenuBootstrap;
-        
-        public void Initialize(LevelMenuBootstrap levelMenuBootstrap)
+
+        public void Initialize()
         {
+            _musicController.Initialize();
+            
             if (Instance == null)
             {
                 transform.parent = null;
@@ -29,9 +34,8 @@ namespace Sources.Settings
                 
                 _panel = GetComponentInChildren<Panel>();
                 _toggle.GetComponent<Image>().sprite = _enableSprite;
-                _levelMenuBootstrap = levelMenuBootstrap;
 
-                _audioSlider.value = levelMenuBootstrap.GetMusicVolume;
+                _audioSlider.value = _musicController.GetVolume();
 
                 DisablePanel();
             }
@@ -53,14 +57,17 @@ namespace Sources.Settings
             _audioSlider.onValueChanged.RemoveListener(OnAudioSliderChangeValue);
         }
 
-        public void EnableMenuButton() => _exitMenuButton.Enable();
-        public void DisableMenuButton() => _exitMenuButton.Disable();
-
         public void DisablePanel()
         {
             _toggle.GetComponent<Image>().sprite = _enableSprite;
             _panel.Disable();
         }
+        
+        public void EnableMenuButton() => _exitMenuButton.Enable();
+        public void DisableMenuButton() => _exitMenuButton.Disable();
+
+        public void DisableMusic() => _musicController.DisableMusic();
+        public void EnableMusic() => _musicController.EnableMusic();
 
         private void EnablePanel()
         {
@@ -84,6 +91,6 @@ namespace Sources.Settings
             }
         }
 
-        private void OnAudioSliderChangeValue(float value) => _levelMenuBootstrap.SetAudioVolume(value);
+        private void OnAudioSliderChangeValue(float value) => _musicController.SetVolume(value);
     }
 }

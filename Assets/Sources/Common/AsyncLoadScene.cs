@@ -1,6 +1,8 @@
 using System.Collections;
 using Agava.YandexGames;
 using IJunior.TypedScenes;
+using Sources.Level;
+using Sources.StringController;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,7 +10,9 @@ namespace Sources.Common
 {
     public class AsyncLoadScene : MonoBehaviour
     {
+        [Header(HeaderNames.Objects)]
         [SerializeField] private Saver _saver;
+        [SerializeField] private LevelConfig _levelConfig;
         
         public static AsyncLoadScene Instance;
         
@@ -41,13 +45,15 @@ namespace Sources.Common
             }
         }
         
-        private IEnumerator Start()
+        private IEnumerator Start() 
         {
             yield return YandexGamesSdk.Initialize(Init);
         }
 
         public void Load(AsyncOperation operation)
         {
+            Time.timeScale = 1f;
+            
             if (_asyncLoadWork != null)
                 return;
             
@@ -57,10 +63,10 @@ namespace Sources.Common
         private void Init() 
         {
             _saver.Initialize();
+            _levelConfig.Initialize();
             _asyncLoadWork = StartCoroutine(LoadMainScene());
         }
         
-
         private IEnumerator LoadMainScene()
         {
             WaitForSecondsRealtime waitForSecondsRealtime = new WaitForSecondsRealtime(WaitForSeconds);

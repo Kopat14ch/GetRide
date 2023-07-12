@@ -1,9 +1,8 @@
-﻿using Sources.Bootstraps;
-using Sources.Common;
+﻿using Sources.Common;
 using Sources.Level;
+using Sources.StringController;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace Sources.LevelMenu
@@ -11,21 +10,18 @@ namespace Sources.LevelMenu
     [RequireComponent(typeof(Button))]
     public class LevelButton : MonoBehaviour
     {
-        [SerializeField] private LevelMenuBootstrap _levelMenuBootstrap;
+        [Header(HeaderNames.Objects)]
         [SerializeField] private TextMeshProUGUI _numberText;
         [SerializeField] private TextMeshProUGUI _scoreText;
         
         private Button _button;
         private int _number;
 
-        public UnityAction<int> ButtonClicked;
+        private void Awake() => _button = GetComponent<Button>();
 
-        public void Initialize()
-        {
-            _button = GetComponent<Button>();
+        private void OnEnable() => _button.onClick.AddListener(OnButtonClick);
 
-            _button.onClick.AddListener(OnButtonClick);
-        }
+        private void OnDisable() => _button.onClick.RemoveListener(OnButtonClick);
 
         public void SetNumber(int number)
         {
@@ -40,11 +36,6 @@ namespace Sources.LevelMenu
             _scoreText.text = score == -1 ? "0" : score.ToString();
         }
 
-        private void OnButtonClick()
-        {
-            ButtonClicked?.Invoke(_number);
-
-            AsyncLoadScene.Instance.Load(IJunior.TypedScenes.Level.LoadAsync(_levelMenuBootstrap));
-        }
+        private void OnButtonClick() => AsyncLoadScene.Instance.Load(IJunior.TypedScenes.Level.LoadAsync(_number));
     }
 }

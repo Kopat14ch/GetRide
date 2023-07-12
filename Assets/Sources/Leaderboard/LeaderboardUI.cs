@@ -1,4 +1,3 @@
-using System;
 using Agava.YandexGames;
 using Sources.Common;
 using Sources.StringController;
@@ -9,6 +8,7 @@ namespace Sources.Leaderboard
 {
     public class LeaderboardUI : MonoBehaviour
     {
+        [Header(HeaderNames.Objects)]
         [SerializeField] private LeaderboardPool _pool;
         [SerializeField] private Button _toggleButton;
         [SerializeField] private Button _rejectButton;

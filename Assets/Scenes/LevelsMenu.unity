@@ -415,7 +415,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 487b22d76c4342a394e7ac563354ff2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _levelMenuBootstrap: {fileID: 2102056474}
   _numberText: {fileID: 1080384600}
   _scoreText: {fileID: 460658521}
 --- !u!1 &143687666
@@ -763,7 +762,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 487b22d76c4342a394e7ac563354ff2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _levelMenuBootstrap: {fileID: 2102056474}
   _numberText: {fileID: 2077592606}
   _scoreText: {fileID: 1874425762}
 --- !u!1 &192259019
@@ -923,7 +921,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 487b22d76c4342a394e7ac563354ff2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _levelMenuBootstrap: {fileID: 2102056474}
   _numberText: {fileID: 18726692}
   _scoreText: {fileID: 1062564716}
 --- !u!1 &220088141
@@ -1342,7 +1339,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 487b22d76c4342a394e7ac563354ff2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _levelMenuBootstrap: {fileID: 2102056474}
   _numberText: {fileID: 1499598562}
   _scoreText: {fileID: 708904011}
 --- !u!1 &324703547
@@ -2424,7 +2420,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 487b22d76c4342a394e7ac563354ff2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _levelMenuBootstrap: {fileID: 2102056474}
   _numberText: {fileID: 2037315876}
   _scoreText: {fileID: 959720254}
 --- !u!1 &749653022
@@ -4034,7 +4029,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 487b22d76c4342a394e7ac563354ff2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _levelMenuBootstrap: {fileID: 2102056474}
   _numberText: {fileID: 1198622024}
   _scoreText: {fileID: 1074683915}
 --- !u!1 &1412464787
@@ -4696,7 +4690,6 @@ GameObject:
   - component: {fileID: 1734020638}
   - component: {fileID: 1734020637}
   - component: {fileID: 1734020636}
-  - component: {fileID: 1734020635}
   m_Layer: 5
   m_Name: RejectButton
   m_TagString: Untagged
@@ -4725,18 +4718,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -187}
   m_SizeDelta: {x: 400, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1734020635
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1734020633}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b56cbc46fcecdac41908beaaea2b2694, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1734020636
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5549,9 +5530,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _levelButtons: {fileID: 324703553}
-  _musicController: {fileID: 1179985402}
   _settings: {fileID: 165581598}
-  _levelConfig: {fileID: 1006057108}
   _leaderboardUI: {fileID: 749653027}
 --- !u!1001 &8076783374588600625
 PrefabInstance:
@@ -5608,6 +5587,10 @@ PrefabInstance:
       propertyPath: _enableSprite
       value: 
       objectReference: {fileID: -39664730, guid: 8252c67bce42cda4e860414a4bdd1dbd, type: 3}
+    - target: {fileID: 4122342697046134782, guid: 6425b2ded3862b143ac6fec0cc0f82f0, type: 3}
+      propertyPath: _musicController
+      value: 
+      objectReference: {fileID: 1179985402}
     - target: {fileID: 4214721167127695093, guid: 6425b2ded3862b143ac6fec0cc0f82f0, type: 3}
       propertyPath: m_IsActive
       value: 1

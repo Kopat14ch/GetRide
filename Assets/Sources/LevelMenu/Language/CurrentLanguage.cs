@@ -1,4 +1,5 @@
 using Lean.Localization;
+using Sources.StringController;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -9,6 +10,7 @@ namespace Sources.LevelMenu.Language
     [RequireComponent(typeof(Button))]
     public class CurrentLanguage : MonoBehaviour
     {
+        [Header(HeaderNames.Objects)]
         [SerializeField] private LeanLocalization _localization;
         [SerializeField] private Sprite _russianSprite;
         [SerializeField] private Sprite _englishSprite;
@@ -27,26 +29,9 @@ namespace Sources.LevelMenu.Language
             SetLanguage();
         }
 
-        private void OnEnable()
-        {
-            _button.onClick.AddListener(OnButtonClick);
-        }
+        private void OnEnable() => _button.onClick.AddListener(OnButtonClick);
+        private void OnDisable() => _button.onClick.RemoveListener(OnButtonClick);
 
-        private void OnDisable()
-        {
-            _button.onClick.RemoveListener(OnButtonClick);
-        }
-
-        public void Enable()
-        {
-            gameObject.SetActive(true);
-        }
-
-        public void Disable()
-        {
-            gameObject.SetActive(false);
-        }
-        
         public void SetLanguage()
         {
             if (_localization.CurrentLanguage == Languages.Russian.ToString())
@@ -56,6 +41,9 @@ namespace Sources.LevelMenu.Language
             else if (_localization.CurrentLanguage == Languages.Turkish.ToString())
                 _image.sprite = _turkishSprite;
         }
+        
+        public void Enable() => gameObject.SetActive(true);
+        public void Disable() => gameObject.SetActive(false);
 
         private enum Languages
         {

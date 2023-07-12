@@ -1,4 +1,5 @@
 ﻿using Sources.Common;
+using Sources.StringController;
 using TMPro;
 using UnityEngine;
 
@@ -6,6 +7,7 @@ namespace Sources.Leaderboard
 {
     public class PlayerLeaderboard : MonoBehaviour
     {
+        [Header(HeaderNames.Objects)]
         [SerializeField] private TextMeshProUGUI _name;
         [SerializeField] private TextMeshProUGUI _score;
         [SerializeField] private TextMeshProUGUI _rank;

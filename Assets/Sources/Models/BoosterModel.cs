@@ -1,5 +1,4 @@
 ﻿using System;
-using Agava.YandexGames;
 using Sources.Boosters;
 using Sources.Common;
 using Sources.Views;

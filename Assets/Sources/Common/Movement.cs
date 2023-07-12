@@ -1,11 +1,9 @@
-using Agava.YandexGames;
 using DG.Tweening;
 using Sources.EnemyScripts;
 using Sources.Level;
 using Sources.PlayerScripts;
 using Sources.Views;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace Sources.Common
 {
@@ -19,7 +17,6 @@ namespace Sources.Common
         private float _currentPosition;
 
         public PlayerView PlayerView { get; private set; }
-        public UnityAction MovedBack;
 
         private void OnDestroy() => PlayerView.Click -= Move;
         
@@ -75,10 +72,7 @@ namespace Sources.Common
             _tweener = transform.DOMove(_endPoint.GetPosition, _timeToEndPoint);
 
             if (TryGetComponent(out Character character))
-            {
                 _tweener.OnComplete(PlayerEnd);
-            }
-                
 
             TryUpdateChangePosition();
         }
@@ -89,17 +83,13 @@ namespace Sources.Common
                 _tweener.OnUpdate(ChangePosition);
         }
 
-        private void PlayerEnd()
-        {
-            PlayerView.ShowEndPanel();
-            
-        }
-
         private void OnRestartPlayer(PlayerView playerView)
         {
             playerView.EnablePlay();
             playerView.DisableGlitch();
         }
+        
+        private void PlayerEnd() => PlayerView.ShowEndPanel();
         
         private void OnRestartEnemy(EnemyTransformation enemyTransformation) => enemyTransformation.EnableDrag();
     }

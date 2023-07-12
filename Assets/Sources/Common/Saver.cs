@@ -61,6 +61,7 @@ namespace Sources.Common
                 if (SaveData.LevelsConfig.Levels[i].Number == numberLevel)
                 {
                     SaveData.LevelsConfig.Levels[i] = jsonConfig;
+                    
                     PlayerAccount.SetCloudSaveData(JsonUtility.ToJson(SaveData));
                 }
             }
@@ -109,9 +110,9 @@ namespace Sources.Common
     [Serializable]
     public class SaveData
     {
-        [field: Preserve] public int ShowsCount;
         [field: Preserve] public int MagicTrafficLightCount;
         [field: Preserve] public int MagicPotionCount;
+        [field: Preserve] public int ShowsCount;
         [field: Preserve] public float MusicVolumeValue;
         [field: Preserve] public bool MusicChanged;
         [field: Preserve] public LevelsConfig LevelsConfig;

@@ -7,14 +7,7 @@ namespace Sources.Boosters
         private const float BoostValue = 2.5f;
         private Character _character;
 
-        public override void Activate()
-        {
-            _character.SetTimeToEndPoint(BoostValue);
-        }
-
-        public void SetCharacter(Character character)
-        {
-            _character = character;
-        }
+        public override void Activate() => _character.SetTimeToEndPoint(BoostValue);
+        public void SetCharacter(Character character) => _character = character;
     }
 }

@@ -56,10 +56,7 @@ namespace Sources.EnemyScripts
             _currentRoad = road;
         }
 
-        public void Rotate(float rotateEnemyValue)
-        {
-            transform.Rotate(0,rotateEnemyValue,0);
-        }
+        public void Rotate(float rotateEnemyValue) => transform.Rotate(0,rotateEnemyValue,0);
 
         private void TryDrag()
         {

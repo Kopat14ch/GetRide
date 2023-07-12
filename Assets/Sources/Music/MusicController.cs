@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Sources.Common;
+using Sources.StringController;
 using UnityEngine;
 
 namespace Sources.Music
@@ -8,10 +9,10 @@ namespace Sources.Music
     [RequireComponent(typeof(AudioSource))]
     public class MusicController : MonoBehaviour
     {
+        [Header(HeaderNames.Objects)]
         [SerializeField] private List<AudioClip> _audioClips;
 
         private AudioSource _audioSource;
-        private Coroutine _audioSwitchWork;
         private int _currentClipIndex;
 
         private static bool s_isInitialize;
@@ -46,12 +47,15 @@ namespace Sources.Music
             Saver.Instance.SaveMusicVolume(value);
         }
 
+        public void DisableMusic() => _audioSource.mute = true;
+        public void EnableMusic() => _audioSource.mute = false;
+
         private void SetClip()
         {
             if (_currentClipIndex >= _audioClips.Count)
                 _currentClipIndex = 0;
-
-            _audioSwitchWork = StartCoroutine(AudioSwitch());
+            
+            StartCoroutine(AudioSwitch());
         }
 
         private IEnumerator AudioSwitch()
@@ -61,8 +65,7 @@ namespace Sources.Music
             _currentClipIndex = ++_currentClipIndex % _audioClips.Count;
 
             yield return new WaitUntil(() => _audioSource.isPlaying == false);
-
-            _audioSwitchWork = null;
+            
             SetClip();
         }
     }

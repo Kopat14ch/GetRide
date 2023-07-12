@@ -1,11 +1,13 @@
 using System.Collections.Generic;
 using Sources.Level;
+using Sources.StringController;
 using UnityEngine;
 
 namespace Sources.CameraScript
 {
     public class CameraPosition : MonoBehaviour
     {
+        [Header(HeaderNames.Objects)]
         [SerializeField] private LevelGenerator _generator;
 
         private void Start() => transform.position = Positions.Values[_generator.RoadCount-1];

@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
 using Agava.YandexGames;
 using Sources.Common;
+using Sources.StringController;
 using UnityEngine;
 
 namespace Sources.Leaderboard
 {
     public class LeaderboardPool : MonoBehaviour
     {
+        [Header(HeaderNames.Objects)]
         [SerializeField] private PlayerLeaderboard _prefabCurrentPlayer;
         [SerializeField] private PlayerLeaderboard _prefabPlayers;
         

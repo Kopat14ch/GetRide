@@ -8,6 +8,7 @@ namespace Sources.Level
 {
     public class LevelConfig : MonoBehaviour
     {
+        [Header(HeaderNames.Objects)]
         [SerializeField] private TextAsset _jsonFile;
         public static LevelConfig Instance { get; private set; }
 
@@ -77,13 +78,13 @@ namespace Sources.Level
             {
                 if (jsonConfig.Score < score)
                 {
-                    if (jsonConfig.Score == scoreWithExcess)
-                        tempScore = score - scoreWithExcess;
-                    else
-                        tempScore = score;
-
                     if (PlayerAccount.HasPersonalProfileDataPermission)
                     {
+                        if (jsonConfig.Score == scoreWithExcess)
+                            tempScore = score - scoreWithExcess;
+                        else
+                            tempScore = score;
+                        
                         Agava.YandexGames.Leaderboard.GetPlayerEntry(YandexGames.LeaderBoardName, result =>
                         {
                             Agava.YandexGames.Leaderboard.SetScore(YandexGames.LeaderBoardName, result.score += tempScore);
