@@ -1,3 +1,4 @@
+using Sources.StringController;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,6 +6,7 @@ namespace Sources.LevelMenu
 {
     public class ButtonsUI : MonoBehaviour
     {
+        [Header(HeaderNames.Objects)]
         [SerializeField] private Button _nextLevels;
         [SerializeField] private Button _previousLevels;
         [SerializeField] private LevelButtons _levelButtons;

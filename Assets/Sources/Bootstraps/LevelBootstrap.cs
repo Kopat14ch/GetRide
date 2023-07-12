@@ -3,13 +3,15 @@ using Sources.Boosters;
 using Sources.Level;
 using Sources.Settings;
 using Sources.Spawners;
+using Sources.StringController;
 using Sources.Views;
 using UnityEngine;
 
 namespace Sources.Bootstraps
 {
-    public class LevelBootstrap : MonoBehaviour, ISceneLoadHandler<LevelMenuBootstrap>
+    public class LevelBootstrap : MonoBehaviour, ISceneLoadHandler<int>
     {
+        [Header(HeaderNames.Objects)]
         [SerializeField] private EndPanel _endPanel;
         [SerializeField] private BoostersList _boostersList;
         [SerializeField] private PlayerView _playerView;
@@ -21,40 +23,37 @@ namespace Sources.Bootstraps
         private int _seed;
         private int _maxEnemiesDragging;
         private int _levelNumber;
-        private LevelMenuBootstrap _levelMenuBootstrap;
 
         private void Awake()
         {
             Time.timeScale = 1f;
             
-            _playerView.Initialize(_maxEnemiesDragging, _levelNumber);
+            _playerView.Initialize(_maxEnemiesDragging);
+            _boostersList.Initialize();
             
             _enemiesSpawner.Initialize(_seed);
             _levelGenerator.SetRoadCount(_roadCount);
-            
+
             foreach (var boosterView in _boostersList.BoosterViews)
                 boosterView.Initialize();
             
             foreach (var boosterSetup in _boostersList.BoosterSetups)
                 boosterSetup.Initialize(_playerView);
-            foreach (var boosterSetup in _boostersList.BoosterSetups)
-                boosterSetup.Initialize(_playerView);
-            
+
             _enemiesInvolvedSlider.Initialize(_maxEnemiesDragging);
+
+            _endPanel.Initialize(_levelNumber);
             
             SettingsMenu.Instance.EnableMenuButton();
-
-            _endPanel.Initialize(_levelMenuBootstrap);
         }
-
-        public void OnSceneLoaded(LevelMenuBootstrap levelMenuBootstrap)
+        
+        public void OnSceneLoaded(int levelNumber)
         {
-            _levelNumber = levelMenuBootstrap.GetLevelNumber();
-            _levelMenuBootstrap = levelMenuBootstrap;
-            
-            _roadCount = LevelConfig.Instance.GetRoads(levelMenuBootstrap.GetLevelNumber());
-            _seed = LevelConfig.Instance.GetSeed(levelMenuBootstrap.GetLevelNumber());
-            _maxEnemiesDragging = LevelConfig.Instance.GetMaxEnemiesDragging(levelMenuBootstrap.GetLevelNumber());
+            _levelNumber = levelNumber;
+
+            _roadCount = LevelConfig.Instance.GetRoads(levelNumber);
+            _seed = LevelConfig.Instance.GetSeed(levelNumber);
+            _maxEnemiesDragging = LevelConfig.Instance.GetMaxEnemiesDragging(levelNumber);
         }
     }
 }

@@ -20,11 +20,6 @@ namespace Sources.Level
 
         public void Disable() => gameObject.SetActive(false);
 
-        private void OnButtonClick()
-        {
-            Time.timeScale = 1f;
-            
-            AsyncLoadScene.Instance.Load(LevelsMenu.LoadAsync());
-        }
+        private void OnButtonClick() => AsyncLoadScene.Instance.Load(LevelsMenu.LoadAsync());
     }
 }

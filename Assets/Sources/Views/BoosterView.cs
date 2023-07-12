@@ -25,9 +25,9 @@ namespace Sources.Views
             _button = GetComponentInChildren<Button>();
             _countText = GetComponentInChildren<TextMeshProUGUI>();
             _videoImage = GetComponentInChildren<VideoImage>();
-
-            TryActiveVideoImage();
             
+            TryActiveVideoImage();
+
             _countText.text = Saver.Instance.GetSavedBoosterCount(_booster).ToString();
         }
 
@@ -50,24 +50,16 @@ namespace Sources.Views
         
         public void SetCount(int count)
         {
-            if (_countText == null)
-                return;
-            
             TryActiveVideoImage();
             _countText.text = count.ToString();
         }
 
-        public void ShowVideo() => VideoAd.Show(onOpenCallback: () => Time.timeScale = 0f, onRewardedCallback: () => VideoAwardReceived?.Invoke(), onCloseCallback: () => Time.timeScale = 1f);
+        public void ShowVideo() => VideoAd.Show(onOpenCallback: AdController.OnOpenAd, onRewardedCallback: () => VideoAwardReceived?.Invoke(), onCloseCallback: AdController.OnCloseAd);
 
         private void Validate()
         {
             if (_booster == null || _button == null)
                 throw new NullReferenceException();
-        }
-
-        private void OnButtonClicked()
-        {
-            BoosterActivated?.Invoke(_booster);
         }
 
         private void TryActiveVideoImage()
@@ -83,5 +75,7 @@ namespace Sources.Views
                 _videoImage.Disable();
             }
         }
+
+        private void OnButtonClicked() => BoosterActivated?.Invoke(_booster);
     }
 }

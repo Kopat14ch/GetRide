@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Sources.StringController;
 using UnityEngine;
 
 namespace Sources.LevelMenu.Language
 {
     public class LanguageButtons : MonoBehaviour
     {
+        [Header(HeaderNames.Objects)]
         [SerializeField] private CurrentLanguage _currentLanguage;
 
         private List<LanguageButton> _languageButtons = new List<LanguageButton>();

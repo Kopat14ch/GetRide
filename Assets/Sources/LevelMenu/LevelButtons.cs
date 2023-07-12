@@ -1,22 +1,22 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Sources.LevelMenu
 {
     public class LevelButtons : MonoBehaviour
     {
-        private readonly List<LevelButton> _levelButtons = new List<LevelButton>();
+        private List<LevelButton> _levelButtons = new List<LevelButton>();
 
         public const int MaxNumber = 30;
         private const int MinNumber = 0;
-        public int LevelNumber { get; private set; }
-        
+
         private static int s_maxLevelNumber;
         private static int s_minLevelNumber;
 
         public void Initialize()
         {
-            _levelButtons.AddRange(GetComponentsInChildren<LevelButton>());
+            _levelButtons = GetComponentsInChildren<LevelButton>().ToList();
             
             s_maxLevelNumber = _levelButtons.Count;
             s_minLevelNumber = MinNumber;
@@ -51,18 +51,11 @@ namespace Sources.LevelMenu
 
             foreach (var levelButton in _levelButtons)
             {
-                levelButton.Initialize();
                 levelButton.SetNumber(buttonIndex + 1);
                 levelButton.SetScore(buttonIndex + 1);
-                levelButton.ButtonClicked += SetCurrentNumber;
-                
+
                 buttonIndex++;
             }
-        }
-
-        private void SetCurrentNumber(int number)
-        {
-            LevelNumber = number;
         }
     }
 }

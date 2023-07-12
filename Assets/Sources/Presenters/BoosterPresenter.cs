@@ -33,24 +33,9 @@ namespace Sources.Presenters
             _view.VideoAwardReceived -= OnVideoAwardReceived;
         }
 
-        private void OnVideoShowed()
-        {
-            _view.ShowVideo();
-        }
-
-        private void OnVideoAwardReceived()
-        {
-            _model.AddBoost();
-        }
-        
-        private void OnCountChanged(int count)
-        {
-            _view.SetCount(count);
-        }
-
-        private void OnBoosterActivated(Booster booster)
-        {
-            _model.TryActivate();
-        }
+        private void OnVideoShowed() => _view.ShowVideo();
+        private void OnVideoAwardReceived() => _model.AddBoost();
+        private void OnCountChanged(int count) => _view.SetCount(count);
+        private void OnBoosterActivated(Booster booster) => _model.TryActivate();
     }
 }

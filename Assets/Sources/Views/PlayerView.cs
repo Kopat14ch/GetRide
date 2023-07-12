@@ -21,7 +21,6 @@ namespace Sources.Views
         private Camera _camera;
         private int _maxMoveEnemies;
         private int _enemyMoveCount;
-        private int _levelNumber;
         private bool _isUI;
 
         public event Action Click;
@@ -29,14 +28,12 @@ namespace Sources.Views
 
         public bool CanPlay { get; private set; }
 
-        public void Initialize(int maxMoveEnemies, int levelNumber)
+        public void Initialize(int maxMoveEnemies)
         {
             _playerInput = new PlayerInput();
             _camera = Camera.main;
             _maxMoveEnemies = maxMoveEnemies;
 
-            _levelNumber = levelNumber;
-            
             EnablePlay();
         }
         
@@ -65,7 +62,7 @@ namespace Sources.Views
         {
             bool isExcess = _enemyMoveCount > _maxMoveEnemies;
 
-            _endPanel.Show(_maxMoveEnemies, _enemyMoveCount, isExcess, _levelNumber);
+            _endPanel.Show(_maxMoveEnemies, _enemyMoveCount, isExcess);
         }
 
         public void SetProgressBarValue(float currentProgress) => _progressBar.value = currentProgress;

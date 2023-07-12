@@ -4,6 +4,7 @@ using Lean.Localization;
 using Sources.Bootstraps;
 using Sources.Common;
 using Sources.LevelMenu;
+using Sources.StringController;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,6 +13,7 @@ namespace Sources.Level
 {
     public class EndPanel : MonoBehaviour
     {
+        [Header(HeaderNames.Objects)]
         [SerializeField] private TextMeshProUGUI _movementsCountText;
         [SerializeField] private TextMeshProUGUI _scoreText;
         [SerializeField] private Button _menuButton;
@@ -26,7 +28,6 @@ namespace Sources.Level
         private const int ShowsToAdVideo = 4;
 
         private int _levelNumber;
-        private LevelMenuBootstrap _levelMenuBootstrap;
 
         private static int s_showsCount;
 
@@ -42,31 +43,31 @@ namespace Sources.Level
             _nextLevelButton.onClick.RemoveListener(SetNextLevel);
         }
         
-        public void Initialize(LevelMenuBootstrap levelMenuBootstrap)
+        public void Initialize(int levelNumber)
         {
             s_showsCount = Saver.Instance.SaveData.ShowsCount;
-            _levelMenuBootstrap = levelMenuBootstrap;
+            _levelNumber = levelNumber;
+            
             gameObject.SetActive(false);
         }
 
-        public void Show(int maxMovements ,int movementsCount, bool isExcess, int levelNumber)
+        public void Show(int maxMovements ,int movementsCount, bool isExcess)
         {
             if (s_showsCount == ShowsToAdPicture)
             {
-                InterstitialAd.Show(onOpenCallback: () => Time.timeScale = 0f);
+                InterstitialAd.Show(onOpenCallback: AdController.OnOpenAd, onOfflineCallback: AdController.OnCloseAd);
                 
                 s_showsCount++;
             }
             else if (s_showsCount == ShowsToAdVideo)
             {
-                VideoAd.Show(onOpenCallback: () => Time.timeScale = 0f, onRewardedCallback: () => s_showsCount = 0);
+                VideoAd.Show(onOpenCallback: AdController.OnOpenAd, onRewardedCallback: () => s_showsCount = 0, onCloseCallback: AdController.OnCloseAd);
             }
             else
             {
                 s_showsCount++;
             }
-
-            _levelNumber = levelNumber;
+            
             int score = isExcess ? ScoreWithExcess : ScoreWithoutExcess;
 
             gameObject.SetActive(true);
@@ -74,7 +75,7 @@ namespace Sources.Level
             _movementsCountText.text = $"{LeanLocalization.GetTranslationText(EnemiesMovementCount)}{movementsCount}{SeparationElement}{maxMovements}";
             _scoreText.text = $"{LeanLocalization.GetTranslationText(Score)}{score}";
             
-            LevelConfig.Instance.SetScore(score, levelNumber, ScoreWithExcess);
+            LevelConfig.Instance.SetScore(score, _levelNumber, ScoreWithExcess);
             
             Saver.Instance.SaveShows(s_showsCount);
             
@@ -83,10 +84,8 @@ namespace Sources.Level
 
         private void SetNextLevel()
         {
-            Time.timeScale = 1f;
-            
             if (_levelNumber + 1 <= LevelButtons.MaxNumber)
-                AsyncLoadScene.Instance.Load(IJunior.TypedScenes.Level.LoadAsync(_levelMenuBootstrap));
+                AsyncLoadScene.Instance.Load(IJunior.TypedScenes.Level.LoadAsync(_levelNumber));
         }
 
         private void SetMenuScene()
