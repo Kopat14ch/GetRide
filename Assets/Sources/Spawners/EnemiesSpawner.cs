@@ -18,17 +18,16 @@ namespace Sources.Spawners
         private float _maxTimeToEndPoint;
         private float _rotateValue = -90f;
 
-        public IReadOnlyList<EnemyTransformation> Enemies => _enemyList.Enemies;
+        public IEnumerable<EnemyTransformation> Enemies => _enemyList.Enemies;
 
-
-        public void Initialize(int seed)
-        {
-            _seed = seed;
-        }
+        public void Initialize(int seed) => _seed = seed;
 
         public void Spawn(IReadOnlyList<Road> roads, PlayerView playerView)
         {
-            Random.InitState(_seed);
+            int seed = System.DateTime.Now.Millisecond;
+            
+            Debug.Log(seed);
+            Random.InitState(seed);
             int step = 2;
             int nextIndex = 1;
             

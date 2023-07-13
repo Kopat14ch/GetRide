@@ -17,11 +17,11 @@ namespace Sources.CameraScript
             public static readonly List<Vector3> Values = new List<Vector3>
             {
                 new Vector3(20,70,-40),
-                new Vector3(25,70,-40),
-                new Vector3(35,70,-40),
-                new Vector3(43,80,-40),
-                new Vector3(50,90,-40),
-                new Vector3(55,100,-40)
+                new Vector3(30,70,-38),
+                new Vector3(35,80,-40),
+                new Vector3(40,90,-40),
+                new Vector3(50,95,-40),
+                new Vector3(55,110,-40)
             };
         }
     }

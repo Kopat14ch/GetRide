@@ -1,4 +1,5 @@
-﻿using Sources.Bootstraps;
+﻿using Agava.WebUtility;
+using Sources.Bootstraps;
 using Sources.Common;
 using Sources.Level;
 using Sources.Music;
@@ -12,13 +13,15 @@ namespace Sources.Settings
     {
         [Header(HeaderNames.Objects)]
         [SerializeField] private Slider _audioSlider;
-        [SerializeField] private Button _toggle;
+        [SerializeField] private Button _toggleMenu;
         [SerializeField] private Sprite _enableSprite;
         [SerializeField] private Sprite _disableSpite;
         [SerializeField] private ExitMenuButton _exitMenuButton;
         [SerializeField] private MusicController _musicController;
+        [SerializeField] private Toggle _toggleMusic;
 
         public static SettingsMenu Instance { get; private set; }
+        public bool IsToggleMusicEnabled { get; private set; }
 
         private Panel _panel;
 
@@ -33,9 +36,11 @@ namespace Sources.Settings
                 Instance = this;
                 
                 _panel = GetComponentInChildren<Panel>();
-                _toggle.GetComponent<Image>().sprite = _enableSprite;
+                _toggleMenu.GetComponent<Image>().sprite = _enableSprite;
 
                 _audioSlider.value = _musicController.GetVolume();
+
+                IsToggleMusicEnabled = _toggleMusic.isOn;
 
                 DisablePanel();
             }
@@ -47,19 +52,23 @@ namespace Sources.Settings
 
         private void OnEnable()
         {
-            _toggle.onClick.AddListener(Toggle);
+            _toggleMenu.onClick.AddListener(Toggle);
             _audioSlider.onValueChanged.AddListener(OnAudioSliderChangeValue);
+            _toggleMusic.onValueChanged.AddListener(OnToggleMusicValueChanged);
+            WebApplication.InBackgroundChangeEvent += OnBackgroundChangeEvent;
         }
 
         private void OnDisable()
         {
-            _toggle.onClick.RemoveListener(Toggle);
+            _toggleMenu.onClick.RemoveListener(Toggle);
             _audioSlider.onValueChanged.RemoveListener(OnAudioSliderChangeValue);
+            _toggleMusic.onValueChanged.RemoveListener(OnToggleMusicValueChanged);
+            WebApplication.InBackgroundChangeEvent -= OnBackgroundChangeEvent;
         }
 
         public void DisablePanel()
         {
-            _toggle.GetComponent<Image>().sprite = _enableSprite;
+            _toggleMenu.GetComponent<Image>().sprite = _enableSprite;
             _panel.Disable();
         }
         
@@ -69,9 +78,19 @@ namespace Sources.Settings
         public void DisableMusic() => _musicController.DisableMusic();
         public void EnableMusic() => _musicController.EnableMusic();
 
+        private void OnToggleMusicValueChanged(bool value)
+        {
+            if (value)
+                EnableMusic();
+            else
+                DisableMusic();
+            
+            IsToggleMusicEnabled = value;
+        }
+
         private void EnablePanel()
         {
-            _toggle.GetComponent<Image>().sprite = _disableSpite;
+            _toggleMenu.GetComponent<Image>().sprite = _disableSpite;
             _panel.Enable();
         }
 
@@ -89,6 +108,17 @@ namespace Sources.Settings
 
                 Time.timeScale = 0f;
             }
+        }
+
+        private void OnBackgroundChangeEvent(bool value)
+        {
+            if (IsToggleMusicEnabled == false)
+                return;
+
+            if (value)
+                DisableMusic();
+            else
+                EnableMusic();
         }
 
         private void OnAudioSliderChangeValue(float value) => _musicController.SetVolume(value);
