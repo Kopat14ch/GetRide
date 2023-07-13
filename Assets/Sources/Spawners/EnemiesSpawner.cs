@@ -24,10 +24,7 @@ namespace Sources.Spawners
 
         public void Spawn(IReadOnlyList<Road> roads, PlayerView playerView)
         {
-            int seed = System.DateTime.Now.Millisecond;
-            
-            Debug.Log(seed);
-            Random.InitState(seed);
+            Random.InitState(_seed);
             int step = 2;
             int nextIndex = 1;
             
