@@ -320,7 +320,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18.15
+  m_fontSize: 22.8
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -422,7 +422,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -150, y: -31}
+  m_AnchoredPosition: {x: -120, y: -90}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &65284395
@@ -491,34 +491,6 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!21 &113000349
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Hidden/FogPlus
-  m_Shader: {fileID: 4800000, guid: 39ef0b8c9be96494d9f8b2f2c54a28c5, type: 3}
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats: []
-    m_Colors: []
-  m_BuildTextureStacks: []
 --- !u!1 &169119145
 GameObject:
   m_ObjectHideFlags: 0
@@ -1133,10 +1105,10 @@ RectTransform:
   m_Father: {fileID: 2099031054}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.39048028, y: 0.063}
-  m_AnchorMax: {x: 0.60951966, y: 0.13847095}
-  m_AnchoredPosition: {x: 0, y: 1.5002441}
-  m_SizeDelta: {x: -2, y: -1}
+  m_AnchorMin: {x: 0.21630244, y: 0.056}
+  m_AnchorMax: {x: 0.4633138, y: 0.124000005}
+  m_AnchoredPosition: {x: 1.5, y: 1.5}
+  m_SizeDelta: {x: -3, y: -1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &425716767
 MonoBehaviour:
@@ -11054,7 +11026,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
+  m_fontSize: 28.25
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -11845,7 +11817,7 @@ MonoBehaviour:
   heightFogIntensity: 0
   useHeightFogOnSky: 0
   distanceHeightBlend: 0.5
-  material: {fileID: 113000349}
+  material: {fileID: 1114040580}
 --- !u!114 &963194231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11892,6 +11864,7 @@ MonoBehaviour:
   _levelGenerator: {fileID: 386300495}
   _enemiesSpawner: {fileID: 386300496}
   _enemiesInvolvedSlider: {fileID: 65284395}
+  _roadCount: 6
 --- !u!81 &963194234
 AudioListener:
   m_ObjectHideFlags: 0
@@ -11989,11 +11962,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8062019168810320988, guid: 34022b3a03583494f881a22f0d90b77c, type: 3}
       propertyPath: EmissionModule.rateOverTime.scalar
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8062019168810320988, guid: 34022b3a03583494f881a22f0d90b77c, type: 3}
       propertyPath: InitialModule.startLifetime.scalar
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8062019168810320988, guid: 34022b3a03583494f881a22f0d90b77c, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0.020927256
+      objectReference: {fileID: 0}
+    - target: {fileID: 8062019168810320988, guid: 34022b3a03583494f881a22f0d90b77c, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8062019168810320988, guid: 34022b3a03583494f881a22f0d90b77c, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.028301895
       objectReference: {fileID: 0}
     - target: {fileID: 8062019168810320988, guid: 34022b3a03583494f881a22f0d90b77c, type: 3}
       propertyPath: EmissionModule.rateOverDistance.scalar
@@ -12092,7 +12077,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
+  m_fontSize: 44
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -12277,11 +12262,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8062019168810320988, guid: 34022b3a03583494f881a22f0d90b77c, type: 3}
       propertyPath: EmissionModule.rateOverTime.scalar
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8062019168810320988, guid: 34022b3a03583494f881a22f0d90b77c, type: 3}
       propertyPath: InitialModule.startLifetime.scalar
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8062019168810320988, guid: 34022b3a03583494f881a22f0d90b77c, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0.020927256
+      objectReference: {fileID: 0}
+    - target: {fileID: 8062019168810320988, guid: 34022b3a03583494f881a22f0d90b77c, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8062019168810320988, guid: 34022b3a03583494f881a22f0d90b77c, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.028301895
       objectReference: {fileID: 0}
     - target: {fileID: 8062019168810320988, guid: 34022b3a03583494f881a22f0d90b77c, type: 3}
       propertyPath: EmissionModule.rateOverDistance.scalar
@@ -12376,6 +12373,34 @@ MonoBehaviour:
   - Language: Turkish
     Text: "Hareket say\u0131s\u0131: "
     Object: {fileID: 0}
+--- !u!21 &1114040580
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Hidden/FogPlus
+  m_Shader: {fileID: 4800000, guid: 39ef0b8c9be96494d9f8b2f2c54a28c5, type: 3}
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats: []
+    m_Colors: []
+  m_BuildTextureStacks: []
 --- !u!1 &1124920856
 GameObject:
   m_ObjectHideFlags: 0
@@ -12411,10 +12436,10 @@ RectTransform:
   m_Father: {fileID: 2099031054}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.74140704, y: 0.063}
-  m_AnchorMax: {x: 0.93900007, y: 0.13847095}
-  m_AnchoredPosition: {x: 0.19995117, y: 0.20007324}
-  m_SizeDelta: {x: -1.0099945, y: -1}
+  m_AnchorMin: {x: 0.595, y: 0.056}
+  m_AnchorMax: {x: 0.8156277, y: 0.124000005}
+  m_AnchoredPosition: {x: -2.5, y: 0.20007324}
+  m_SizeDelta: {x: -1.0100098, y: -1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1124920858
 MonoBehaviour:
@@ -12822,11 +12847,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8062019168810320988, guid: 34022b3a03583494f881a22f0d90b77c, type: 3}
       propertyPath: EmissionModule.rateOverTime.scalar
-      value: 12
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8062019168810320988, guid: 34022b3a03583494f881a22f0d90b77c, type: 3}
       propertyPath: InitialModule.startLifetime.scalar
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8062019168810320988, guid: 34022b3a03583494f881a22f0d90b77c, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0.020927256
+      objectReference: {fileID: 0}
+    - target: {fileID: 8062019168810320988, guid: 34022b3a03583494f881a22f0d90b77c, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8062019168810320988, guid: 34022b3a03583494f881a22f0d90b77c, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.028301895
       objectReference: {fileID: 0}
     - target: {fileID: 8062019168810320988, guid: 34022b3a03583494f881a22f0d90b77c, type: 3}
       propertyPath: ShapeModule.sphericalDirectionAmount
@@ -13693,7 +13730,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8062019168810320988, guid: 34022b3a03583494f881a22f0d90b77c, type: 3}
       propertyPath: ShapeModule.radiusThickness
-      value: 1.0000
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8062019168810320988, guid: 34022b3a03583494f881a22f0d90b77c, type: 3}
       propertyPath: InitialModule.startSpeed.scalar
@@ -13705,11 +13742,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8062019168810320988, guid: 34022b3a03583494f881a22f0d90b77c, type: 3}
       propertyPath: EmissionModule.rateOverTime.scalar
-      value: 15
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8062019168810320988, guid: 34022b3a03583494f881a22f0d90b77c, type: 3}
       propertyPath: InitialModule.startLifetime.scalar
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8062019168810320988, guid: 34022b3a03583494f881a22f0d90b77c, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0.020927256
+      objectReference: {fileID: 0}
+    - target: {fileID: 8062019168810320988, guid: 34022b3a03583494f881a22f0d90b77c, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8062019168810320988, guid: 34022b3a03583494f881a22f0d90b77c, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.028301895
       objectReference: {fileID: 0}
     - target: {fileID: 8062019168810320988, guid: 34022b3a03583494f881a22f0d90b77c, type: 3}
       propertyPath: EmissionModule.rateOverDistance.scalar
@@ -14248,10 +14297,10 @@ RectTransform:
   m_Father: {fileID: 851552112}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.25858116, y: 0.18336968}
-  m_AnchorMax: {x: 0.7414378, y: 0.81281334}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -3}
+  m_SizeDelta: {x: 692, y: 910}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2099031055
 MonoBehaviour:

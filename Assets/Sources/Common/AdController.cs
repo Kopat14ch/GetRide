@@ -7,14 +7,18 @@ namespace Sources.Common
     {
         public static void OnOpenAd()
         {
+            if (SettingsMenu.Instance.IsToggleMusicEnabled)
+                SettingsMenu.Instance.DisableMusic();
+            
             Time.timeScale = 0f;
-            SettingsMenu.Instance.DisableMusic();
         }
 
         public static void OnCloseAd()
         {
-            SettingsMenu.Instance.EnableMusic();
             Time.timeScale = 1f;
+            
+            if (SettingsMenu.Instance.IsToggleMusicEnabled)
+                SettingsMenu.Instance.EnableMusic();
         }
     }
 }

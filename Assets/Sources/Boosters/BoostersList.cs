@@ -27,7 +27,7 @@ namespace Sources.Boosters
             _magicPotion = GetComponentInChildren<MagicPotion>();
         }
 
-        public void InitBoosters(IReadOnlyList<EnemyTransformation> enemies, Character character)
+        public void InitBoosters(IEnumerable<EnemyTransformation> enemies, Character character)
         {
             _magicTrafficLight.SetEnemies(enemies);
             _magicPotion.SetCharacter(character);

@@ -19,6 +19,6 @@ namespace Sources.Boosters
             }
         }
         
-        public void SetEnemies(IReadOnlyList<EnemyTransformation> enemies) => _enemies.AddRange(enemies);
+        public void SetEnemies(IEnumerable<EnemyTransformation> enemies) => _enemies.AddRange(enemies);
     }
 }
