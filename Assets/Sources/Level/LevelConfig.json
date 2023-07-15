@@ -5,210 +5,240 @@
       "RoadsCount": 1,
       "Seed": 742,
       "MaxEnemiesDraggingCount": 1,
-      "Score": 0
+      "Score": 0,
+      "IsLock": false
     },
     {
       "Number": 2,
       "RoadsCount": 1,
       "Seed": 95,
       "MaxEnemiesDraggingCount": 1,
-      "Score": 0
+      "Score": 0,
+      "IsLock": true
     },
     {
       "Number": 3,
       "RoadsCount": 2,
       "Seed": 525,
       "MaxEnemiesDraggingCount": 1,
-      "Score": 0
+      "Score": 0,
+      "IsLock": true
     },
     {
       "Number": 4,
       "RoadsCount": 1,
       "Seed": 971,
       "MaxEnemiesDraggingCount": 1,
-      "Score": 0
+      "Score": 0,
+      "IsLock": true
     },
     {
       "Number": 5,
       "RoadsCount": 1,
       "Seed": 29,
       "MaxEnemiesDraggingCount": 1,
-      "Score": 0
+      "Score": 0,
+      "IsLock": true
     },
     {
       "Number": 6,
       "RoadsCount": 2,
       "Seed": 314,
       "MaxEnemiesDraggingCount": 2,
-      "Score": 0
+      "Score": 0,
+      "IsLock": true
     },
     {
       "Number": 7,
       "RoadsCount": 2,
       "Seed": 380,
       "MaxEnemiesDraggingCount": 2,
-      "Score": 0
+      "Score": 0,
+      "IsLock": true
     },
     {
       "Number": 8,
       "RoadsCount": 2,
       "Seed": 927,
       "MaxEnemiesDraggingCount": 1,
-      "Score": 0
+      "Score": 0,
+      "IsLock": true
     },
     {
       "Number": 9,
       "RoadsCount": 3,
       "Seed": 400,
       "MaxEnemiesDraggingCount": 1,
-      "Score": 0
+      "Score": 0,
+      "IsLock": true
     },
     {
       "Number": 10,
       "RoadsCount": 2,
       "Seed": 708,
       "MaxEnemiesDraggingCount": 1,
-      "Score": 0
+      "Score": 0,
+      "IsLock": true
     },
     {
       "Number": 11,
       "RoadsCount": 2,
       "Seed": 812,
       "MaxEnemiesDraggingCount": 2,
-      "Score": 0
+      "Score": 0,
+      "IsLock": true
     },
     {
       "Number": 12,
       "RoadsCount": 3,
       "Seed": 198,
       "MaxEnemiesDraggingCount": 2,
-      "Score": 0
+      "Score": 0,
+      "IsLock": true
     },
     {
       "Number": 13,
       "RoadsCount": 3,
       "Seed": 535,
       "MaxEnemiesDraggingCount": 2,
-      "Score": 0
+      "Score": 0,
+      "IsLock": true
     },
     {
       "Number": 14,
       "RoadsCount": 3,
       "Seed": 166,
       "MaxEnemiesDraggingCount": 2,
-      "Score": 0
+      "Score": 0,
+      "IsLock": true
     },
     {
       "Number": 15,
       "RoadsCount": 4,
       "Seed": 77,
       "MaxEnemiesDraggingCount": 2,
-      "Score": 0
+      "Score": 0,
+      "IsLock": true
     },
     {
       "Number": 16,
       "RoadsCount": 3,
       "Seed": 855,
       "MaxEnemiesDraggingCount": 3,
-      "Score": 0
+      "Score": 0,
+      "IsLock": true
     },
     {
       "Number": 17,
       "RoadsCount": 3,
       "Seed": 182,
       "MaxEnemiesDraggingCount": 2,
-      "Score": 0
+      "Score": 0,
+      "IsLock": true
     },
     {
       "Number": 18,
       "RoadsCount": 4,
       "Seed": 987,
       "MaxEnemiesDraggingCount": 2,
-      "Score": 0
+      "Score": 0,
+      "IsLock": true
     },
     {
       "Number": 19,
       "RoadsCount": 4,
       "Seed": 286,
       "MaxEnemiesDraggingCount": 1,
-      "Score": 0
+      "Score": 0,
+      "IsLock": true
     },
     {
       "Number": 20,
       "RoadsCount": 4,
       "Seed": 711,
       "MaxEnemiesDraggingCount": 2,
-      "Score": 0
+      "Score": 0,
+      "IsLock": true
     },
     {
       "Number": 21,
       "RoadsCount": 5,
       "Seed": 347,
       "MaxEnemiesDraggingCount": 3,
-      "Score": 0
+      "Score": 0,
+      "IsLock": true
     },
     {
       "Number": 22,
       "RoadsCount": 4,
       "Seed": 508,
       "MaxEnemiesDraggingCount": 1,
-      "Score": 0
+      "Score": 0,
+      "IsLock": true
     },
     {
       "Number": 23,
       "RoadsCount": 4,
       "Seed": 691,
       "MaxEnemiesDraggingCount": 1,
-      "Score": 0
+      "Score": 0,
+      "IsLock": true
     },
     {
       "Number": 24,
       "RoadsCount": 5,
       "Seed": 454,
       "MaxEnemiesDraggingCount": 2,
-      "Score": 0
+      "Score": 0,
+      "IsLock": true
     },
     {
       "Number": 25,
       "RoadsCount": 5,
       "Seed": 959,
       "MaxEnemiesDraggingCount": 2,
-      "Score": 0
+      "Score": 0,
+      "IsLock": true
     },
     {
       "Number": 26,
       "RoadsCount": 5,
       "Seed": 41,
       "MaxEnemiesDraggingCount": 2,
-      "Score": 0
+      "Score": 0,
+      "IsLock": true
     },
     {
       "Number": 27,
       "RoadsCount": 6,
       "Seed": 859,
       "MaxEnemiesDraggingCount": 3,
-      "Score": 0
+      "Score": 0,
+      "IsLock": true
     },
     {
       "Number": 28,
       "RoadsCount": 5,
       "Seed": 184,
       "MaxEnemiesDraggingCount": 1,
-      "Score": 0
+      "Score": 0,
+      "IsLock": true
     },
     {
       "Number": 29,
       "RoadsCount": 5,
       "Seed": 977,
       "MaxEnemiesDraggingCount": 3,
-      "Score": 0
+      "Score": 0,
+      "IsLock": true
     },
     {
       "Number": 30,
       "RoadsCount": 6,
       "Seed": 258,
       "MaxEnemiesDraggingCount": 2,
-      "Score": 0
+      "Score": 0,
+      "IsLock": true
     }
   ]
 }

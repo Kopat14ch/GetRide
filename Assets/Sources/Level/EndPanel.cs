@@ -1,9 +1,10 @@
 ﻿using Agava.YandexGames;
 using IJunior.TypedScenes;
 using Lean.Localization;
-using Sources.Bootstraps;
 using Sources.Common;
+using Sources.Leaderboard;
 using Sources.LevelMenu;
+using Sources.Settings;
 using Sources.StringController;
 using TMPro;
 using UnityEngine;
@@ -25,7 +26,6 @@ namespace Sources.Level
         private const int ScoreWithoutExcess = 750;
         private const int ScoreWithExcess = 450;
         private const int ShowsToAdPicture = 2;
-        private const int ShowsToAdVideo = 4;
 
         private int _levelNumber;
 
@@ -53,45 +53,47 @@ namespace Sources.Level
 
         public void Show(int maxMovements ,int movementsCount, bool isExcess)
         {
+            LeaderboardUI.Instance.SetEndPanelBlock(true);
+            SoundController.Instance.PlayEndPanel();
+
+            if (LevelConfig.Instance.GetLevelsCount() >= _levelNumber + 1)
+                LevelConfig.Instance.UnLock(_levelNumber + 1);
+
             if (s_showsCount == ShowsToAdPicture)
             {
-                InterstitialAd.Show(onOpenCallback: AdController.OnOpenAd, onOfflineCallback: AdController.OnCloseAd);
-                
-                s_showsCount++;
+                InterstitialAd.Show(onOpenCallback: AdController.OnOpenAd, onCloseCallback: (bool value) => AdController.OnCloseAd());
+                s_showsCount = 0;
             }
-            else if (s_showsCount == ShowsToAdVideo)
-            {
-                VideoAd.Show(onOpenCallback: AdController.OnOpenAd, onRewardedCallback: () => s_showsCount = 0, onCloseCallback: AdController.OnCloseAd);
-            }
-            else
-            {
-                s_showsCount++;
-            }
-            
+
             int score = isExcess ? ScoreWithExcess : ScoreWithoutExcess;
 
             gameObject.SetActive(true);
             
             _movementsCountText.text = $"{LeanLocalization.GetTranslationText(EnemiesMovementCount)}{movementsCount}{SeparationElement}{maxMovements}";
             _scoreText.text = $"{LeanLocalization.GetTranslationText(Score)}{score}";
+            s_showsCount++;
             
             LevelConfig.Instance.SetScore(score, _levelNumber, ScoreWithExcess);
             
             Saver.Instance.SaveShows(s_showsCount);
-            
+
             Time.timeScale = 0f;
         }
 
         private void SetNextLevel()
         {
             if (_levelNumber + 1 <= LevelButtons.MaxNumber)
-                AsyncLoadScene.Instance.Load(IJunior.TypedScenes.Level.LoadAsync(_levelNumber));
+            {
+                AsyncLoadScene.Instance.Load(IJunior.TypedScenes.Level.LoadAsync(_levelNumber + 1));
+                LeaderboardUI.Instance.SetEndPanelBlock(false);
+            }
         }
 
         private void SetMenuScene()
         {
             Time.timeScale = 1f;
             
+            LeaderboardUI.Instance.SetEndPanelBlock(false);
             AsyncLoadScene.Instance.Load(LevelsMenu.LoadAsync());
         }
     }

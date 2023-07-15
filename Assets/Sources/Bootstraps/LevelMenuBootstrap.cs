@@ -1,4 +1,5 @@
 ﻿using Sources.Leaderboard;
+using Sources.Level;
 using Sources.LevelMenu;
 using Sources.Settings;
 using Sources.StringController;
@@ -12,11 +13,13 @@ namespace Sources.Bootstraps
         [SerializeField] private LevelButtons _levelButtons;
         [SerializeField] private SettingsMenu _settings;
         [SerializeField] private LeaderboardUI _leaderboardUI;
-        
+        [SerializeField] private LevelConfig _levelConfig;
+
         private void Awake()
         {
-            _settings.Initialize();
+            _levelConfig.Initialize();
             _levelButtons.Initialize();
+            _settings.Initialize();
             _leaderboardUI.Initialize();
 
             SettingsMenu.Instance.DisableMenuButton();

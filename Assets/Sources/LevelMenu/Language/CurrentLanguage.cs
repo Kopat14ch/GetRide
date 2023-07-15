@@ -1,4 +1,5 @@
 using Lean.Localization;
+using Sources.Common;
 using Sources.StringController;
 using UnityEngine;
 using UnityEngine.Events;
@@ -44,13 +45,7 @@ namespace Sources.LevelMenu.Language
         
         public void Enable() => gameObject.SetActive(true);
         public void Disable() => gameObject.SetActive(false);
-
-        private enum Languages
-        {
-            Russian,
-            English,
-            Turkish
-        }
+        
 
         private void OnButtonClick()
         {

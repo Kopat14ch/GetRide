@@ -54,7 +54,7 @@ namespace Sources.Common
             PlayerAccount.SetCloudSaveData(JsonUtility.ToJson(SaveData));
         }
 
-        public void SaveScore(int numberLevel, Level.Level jsonConfig)
+        public void SaveLevel(int numberLevel, Level.Level jsonConfig)
         {
             for (int i = 0; i < SaveData.LevelsConfig.Levels.Length; i++)
             { 
@@ -66,7 +66,7 @@ namespace Sources.Common
                 }
             }
         }
-
+        
         public void SaveAllLevelsConfig(LevelsConfig levelsConfig)
         {
             SaveData.LevelsConfig = levelsConfig;

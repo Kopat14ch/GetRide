@@ -13,15 +13,15 @@ namespace Sources.LevelMenu
         [Header(HeaderNames.Objects)]
         [SerializeField] private TextMeshProUGUI _numberText;
         [SerializeField] private TextMeshProUGUI _scoreText;
-        
-        private Button _button;
+        [SerializeField] private Lock _lock;
+
         private int _number;
+        
+        private Button Button => GetComponent<Button>();
 
-        private void Awake() => _button = GetComponent<Button>();
+        private void OnEnable() => Button.onClick.AddListener(OnButtonClick);
 
-        private void OnEnable() => _button.onClick.AddListener(OnButtonClick);
-
-        private void OnDisable() => _button.onClick.RemoveListener(OnButtonClick);
+        private void OnDisable() => Button.onClick.RemoveListener(OnButtonClick);
 
         public void SetNumber(int number)
         {
@@ -33,7 +33,21 @@ namespace Sources.LevelMenu
         {
             int score = LevelConfig.Instance.GetScore(number);
 
-            _scoreText.text = score == -1 ? "0" : score.ToString();
+            _scoreText.text = score.ToString();
+        }
+
+        public void SetLock(bool value)
+        {
+            if (value)
+            {
+                _lock.Enable();
+                Button.interactable = false;
+            }
+            else
+            {
+                _lock.Disable();
+                Button.interactable = true;
+            }
         }
 
         private void OnButtonClick() => AsyncLoadScene.Instance.Load(IJunior.TypedScenes.Level.LoadAsync(_number));
