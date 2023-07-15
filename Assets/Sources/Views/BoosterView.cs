@@ -54,12 +54,19 @@ namespace Sources.Views
             _countText.text = count.ToString();
         }
 
-        public void ShowVideo() => VideoAd.Show(onOpenCallback: AdController.OnOpenAd, onRewardedCallback: () => VideoAwardReceived?.Invoke(), onCloseCallback: AdController.OnCloseAd);
+        public void ShowVideo() => OnShowVideo();
 
+        
         private void Validate()
         {
             if (_booster == null || _button == null)
                 throw new NullReferenceException();
+        }
+
+        private void OnShowVideo()
+        {
+            VideoAd.Show(onOpenCallback: AdController.OnOpenAd, onRewardedCallback: () => VideoAwardReceived?.Invoke(), onCloseCallback: AdController.OnCloseAd);
+            InterstitialAd.Show(onOpenCallback: AdController.OnOpenAd, onCloseCallback: (bool value) => AdController.OnCloseAd());
         }
 
         private void TryActiveVideoImage()

@@ -43,7 +43,7 @@ namespace Sources.Level
             if (TryGetJsonConfig(number, out Level jsonConfig))
                 return jsonConfig.RoadsCount;
             
-            return -1;
+            throw new NullReferenceException();
         }
 
         public int GetSeed(int number)
@@ -51,7 +51,7 @@ namespace Sources.Level
             if (TryGetJsonConfig(number, out Level jsonConfig))
                 return jsonConfig.Seed;
 
-            return -1;
+            throw new NullReferenceException();
         }
 
         public int GetMaxEnemiesDragging(int number)
@@ -59,7 +59,7 @@ namespace Sources.Level
             if (TryGetJsonConfig(number, out Level jsonConfig))
                 return jsonConfig.MaxEnemiesDraggingCount;
 
-            return -1;
+            throw new NullReferenceException();
         }
 
         public int GetScore(int number)
@@ -67,7 +67,29 @@ namespace Sources.Level
             if (TryGetJsonConfig(number, out Level jsonConfig))
                 return jsonConfig.Score;
 
-            return -1;
+            throw new NullReferenceException();
+        }
+
+        public bool GetLock(int number)
+        {
+            if (TryGetJsonConfig(number, out Level jsonConfig))
+                return jsonConfig.IsLock;
+            
+            throw new NullReferenceException();
+        }
+
+        public void UnLock(int number)
+        {
+            if (TryGetJsonConfig(number, out Level jsonConfig))
+            {
+                jsonConfig.IsLock = false;
+                Saver.Instance.SaveLevel(number, jsonConfig);
+            }
+            else
+            {
+                throw new NullReferenceException();
+            }
+            
         }
 
         public void SetScore(int score, int number, int scoreWithExcess)
@@ -93,10 +115,12 @@ namespace Sources.Level
 
                     jsonConfig.Score = score;
 
-                    Saver.Instance.SaveScore(number, jsonConfig);
+                    Saver.Instance.SaveLevel(number, jsonConfig);
                 }
             }
         }
+
+        public int GetLevelsCount() => _jsonConfig.Levels.Length;
 
         private bool TryGetJsonConfig(int number, out Level outJsonConfig)
         {
@@ -122,6 +146,7 @@ namespace Sources.Level
         public int Seed;
         public int MaxEnemiesDraggingCount;
         public int Score;
+        public bool IsLock;
     }
         
     [Serializable]

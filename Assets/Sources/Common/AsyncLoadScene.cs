@@ -1,7 +1,6 @@
 using System.Collections;
 using Agava.YandexGames;
 using IJunior.TypedScenes;
-using Sources.Level;
 using Sources.StringController;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,8 +11,7 @@ namespace Sources.Common
     {
         [Header(HeaderNames.Objects)]
         [SerializeField] private Saver _saver;
-        [SerializeField] private LevelConfig _levelConfig;
-        
+
         public static AsyncLoadScene Instance;
         
         private const float MaxAsyncOperationValue = 0.9f;
@@ -31,7 +29,7 @@ namespace Sources.Common
             if (Instance == null)
             {
                 YandexGamesSdk.CallbackLogging = true;
-                
+
                 transform.parent = null;
                 DontDestroyOnLoad(gameObject);
                 Instance = this;
@@ -60,10 +58,9 @@ namespace Sources.Common
             _asyncLoadWork = StartCoroutine(AsyncLoad(operation));
         }
         
-        private void Init() 
+        private void Init()
         {
             _saver.Initialize();
-            _levelConfig.Initialize();
             _asyncLoadWork = StartCoroutine(LoadMainScene());
         }
         
@@ -72,9 +69,9 @@ namespace Sources.Common
             WaitForSecondsRealtime waitForSecondsRealtime = new WaitForSecondsRealtime(WaitForSeconds);
             _panel.Enable();
 
-            while (_progressValue <= _progressBar.maxValue || YandexGamesSdk.IsInitialized == false || Saver.IsLoaded == false)
+            while (_progressValue <= _progressBar.maxValue || Saver.IsLoaded == false)
             {
-                if (YandexGamesSdk.IsInitialized == false || Saver.IsLoaded == false)
+                if (Saver.IsLoaded == false)
                     _progressValue += Random.Range(0,FakeAddNotInitProgress);
                 else
                     _progressValue += Random.Range(0,FakeAddInitProgress);;
@@ -83,9 +80,8 @@ namespace Sources.Common
 
                 yield return waitForSecondsRealtime;
             }
-
             SetDefaultValues();
-            
+
             LevelsMenu.Load();
         }
 
@@ -100,7 +96,6 @@ namespace Sources.Common
                 
                 yield return null;
             }
-            
             SetDefaultValues();
         }
 

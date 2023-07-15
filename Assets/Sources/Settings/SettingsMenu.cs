@@ -1,6 +1,6 @@
 ﻿using Agava.WebUtility;
-using Sources.Bootstraps;
 using Sources.Common;
+using Sources.Leaderboard;
 using Sources.Level;
 using Sources.Music;
 using Sources.StringController;
@@ -41,8 +41,6 @@ namespace Sources.Settings
                 _audioSlider.value = _musicController.GetVolume();
 
                 IsToggleMusicEnabled = _toggleMusic.isOn;
-
-                DisablePanel();
             }
             else
             {
@@ -81,9 +79,18 @@ namespace Sources.Settings
         private void OnToggleMusicValueChanged(bool value)
         {
             if (value)
+            {
                 EnableMusic();
+                foreach (var gameObjectTemp in _toggleMusic.GetComponentsInChildren<GameObject>())
+                    gameObjectTemp.SetActive(true);
+            }
             else
+            {
+                foreach (var gameObjectTemp in _toggleMusic.GetComponentsInChildren<GameObject>())
+                    gameObjectTemp.SetActive(false);
+
                 DisableMusic();
+            }
             
             IsToggleMusicEnabled = value;
         }
@@ -105,6 +112,7 @@ namespace Sources.Settings
             else
             {
                 EnablePanel();
+                LeaderboardUI.Instance.Disable();
 
                 Time.timeScale = 0f;
             }

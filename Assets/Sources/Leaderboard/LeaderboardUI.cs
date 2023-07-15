@@ -1,5 +1,6 @@
 using Agava.YandexGames;
 using Sources.Common;
+using Sources.Settings;
 using Sources.StringController;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,19 +19,20 @@ namespace Sources.Leaderboard
         [SerializeField] private GameObject _authorized;
         [SerializeField] private GameObject _notAuthorized;
 
-        private static LeaderboardUI s_instance;
+        private bool _canOpen;
+        
+        public static LeaderboardUI Instance { get; private set; }
         
         public void Initialize()
         {
             Enable();
 
-            if (s_instance == null)
+            if (Instance == null)
             {
                 transform.parent = null;
                 DontDestroyOnLoad(gameObject);
-                s_instance = this;
-                
-                Disable();
+                Instance = this;
+                _canOpen = true;
             }
             else
             {
@@ -52,16 +54,36 @@ namespace Sources.Leaderboard
             _acceptButton.onClick.RemoveListener(Accept);
         }
 
+        public void Disable()
+        {
+            Time.timeScale = 1f;
+            
+            _authorized.gameObject.SetActive(false);
+            _notAuthorized.gameObject.SetActive(false);
+            _pool.DisablePlayers();
+            _panel.Disable();
+        }
+
+        public void SetEndPanelBlock(bool value) => _canOpen = value;
+
         private void Toggle()
         {
             if (_panel.isActiveAndEnabled)
+            {
                 Disable();
+            }
             else
+            {
                 Enable();
+                SettingsMenu.Instance.DisablePanel();
+            }
         }
 
         private void Enable()
         {
+            if (_canOpen == false)
+                return;
+
             _panel.Enable();
             
             if (PlayerAccount.HasPersonalProfileDataPermission == false)
@@ -89,16 +111,6 @@ namespace Sources.Leaderboard
             PlayerAccount.RequestPersonalProfileDataPermission();
             Disable();
             Enable();
-        }
-
-        private void Disable()
-        {
-            Time.timeScale = 1f;
-            
-            _authorized.gameObject.SetActive(false);
-            _notAuthorized.gameObject.SetActive(false);
-            _pool.DisablePlayers();
-            _panel.Disable();
         }
     }
 }

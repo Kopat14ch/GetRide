@@ -3,6 +3,7 @@ using Agava.YandexGames;
 using Kino;
 using Sources.EnemyScripts;
 using Sources.Level;
+using Sources.Settings;
 using Sources.StringController;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -68,8 +69,18 @@ namespace Sources.Views
         public void SetProgressBarValue(float currentProgress) => _progressBar.value = currentProgress;
         public void SetMaxSliderValue(Vector3 startPos, Vector3 endPos) => _progressBar.maxValue = Vector2.Distance(startPos, endPos);
         public void EnablePlay() => CanPlay = true;
-        public void EnableGlitch() => _glitch.enabled = true;
-        public void DisableGlitch() => _glitch.enabled = false;
+
+        public void EnableGlitch()
+        {
+            SoundController.Instance.PlayGlitch();
+            _glitch.enabled = true;
+        }
+
+        public void DisableGlitch()
+        {
+            SoundController.Instance.StopPlay();
+            _glitch.enabled = false;
+        }
 
         private void Validate()
         {

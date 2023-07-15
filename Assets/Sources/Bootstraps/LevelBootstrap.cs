@@ -19,7 +19,7 @@ namespace Sources.Bootstraps
         [SerializeField] private EnemiesSpawner _enemiesSpawner;
         [SerializeField] private EnemiesInvolvedSlider _enemiesInvolvedSlider;
 
-        [SerializeField,Range(1,6)] private int _roadCount;
+        private int _roadCount;
         private int _seed;
         private int _maxEnemiesDragging;
         private int _levelNumber;

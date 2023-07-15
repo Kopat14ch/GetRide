@@ -28,9 +28,7 @@ namespace Sources.Music
             _audioSource = GetComponent<AudioSource>();
 
             if (Saver.Instance.SaveData.MusicChanged)
-            {
                 _audioSource.volume = Saver.Instance.SaveData.MusicVolumeValue;
-            }
 
             _currentClipIndex = 0;
             SetClip();
