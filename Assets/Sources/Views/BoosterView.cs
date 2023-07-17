@@ -11,12 +11,15 @@ namespace Sources.Views
     [RequireComponent(typeof(Booster))]
     public class BoosterView : MonoBehaviour
     {
+        [SerializeField] private PlayerView _playerView;
+        
         private VideoImage _videoImage;
         private Booster _booster;
         private Button _button;
         private TextMeshProUGUI _countText;
 
         public event Action<Booster> BoosterActivated;
+        public event Action BoosterActivatedTraining;
         public event Action VideoAwardReceived;
 
         public void Initialize()
@@ -63,11 +66,7 @@ namespace Sources.Views
                 throw new NullReferenceException();
         }
 
-        private void OnShowVideo()
-        {
-            VideoAd.Show(onOpenCallback: AdController.OnOpenAd, onRewardedCallback: () => VideoAwardReceived?.Invoke(), onCloseCallback: AdController.OnCloseAd);
-            InterstitialAd.Show(onOpenCallback: AdController.OnOpenAd, onCloseCallback: (bool value) => AdController.OnCloseAd());
-        }
+        private void OnShowVideo() => VideoAd.Show(onOpenCallback: AdController.OnOpenAd, onRewardedCallback: () => VideoAwardReceived?.Invoke(), onCloseCallback: AdController.OnCloseAd);
 
         private void TryActiveVideoImage()
         {
@@ -83,6 +82,23 @@ namespace Sources.Views
             }
         }
 
-        private void OnButtonClicked() => BoosterActivated?.Invoke(_booster);
+        private void OnButtonClicked()
+        {
+            if (Saver.Instance.SaveData.IsTrained)
+            {
+                if (_playerView.CanPlay == false)
+                {
+                    BoosterActivated?.Invoke(_booster);
+                }
+            }
+            else
+            {
+                if (_playerView.CanActivateBoosterInTraining)
+                {
+                    BoosterActivated?.Invoke(_booster);
+                    BoosterActivatedTraining?.Invoke();
+                }
+            }
+        }
     }
 }

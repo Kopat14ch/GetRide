@@ -10,6 +10,8 @@ namespace Sources.Common
 {
     public class Saver : MonoBehaviour
     {
+        private const int StartBoosterValue = 1;
+        
         public static Saver Instance { get; private set; }
         public static bool IsLoaded { get; private set; }
         public SaveData SaveData { get; private set; }
@@ -95,15 +97,25 @@ namespace Sources.Common
             PlayerAccount.SetCloudSaveData(JsonUtility.ToJson(SaveData));
         }
 
-        private void Load()
+        public void EndTraining()
         {
-            PlayerAccount.GetCloudSaveData(onSuccessCallback: OnLoaded);
+            SaveData.IsTrained = true;
+            
+            PlayerAccount.SetCloudSaveData(JsonUtility.ToJson(SaveData));
         }
+
+        private void Load() => PlayerAccount.GetCloudSaveData(onSuccessCallback: OnLoaded);
 
         private void OnLoaded(string jsonLoaded)
         {
             SaveData = JsonUtility.FromJson<SaveData>(jsonLoaded);
             IsLoaded = true;
+
+            if (SaveData.IsTrained == false && SaveData.MagicPotionCount < StartBoosterValue && SaveData.MagicTrafficLightCount < StartBoosterValue)
+            {
+                SaveData.MagicPotionCount = StartBoosterValue;
+                SaveData.MagicTrafficLightCount = StartBoosterValue;
+            }
         }
     }
     
@@ -115,6 +127,7 @@ namespace Sources.Common
         [field: Preserve] public int ShowsCount;
         [field: Preserve] public float MusicVolumeValue;
         [field: Preserve] public bool MusicChanged;
+        [field: Preserve] public bool IsTrained;
         [field: Preserve] public LevelsConfig LevelsConfig;
     }
 }

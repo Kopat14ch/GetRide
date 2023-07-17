@@ -17,20 +17,16 @@ namespace Sources.Models
         
         public int Count { get; private set; }
 
-        public BoosterModel(Booster booster, ParticleSystem particleSystem, PlayerView playerView)
+        public BoosterModel(Booster booster, ParticleSystem particleSystem)
         {
             _booster = booster;
             _particleSystem = particleSystem;
-            _playerView = playerView;
 
             Count = Saver.Instance.GetSavedBoosterCount(booster);
         }
 
         public void TryActivate()
         {
-            if (_playerView.CanPlay == false)
-                return;
-
             if (Count <= 0)
             {
                 VideoShowed?.Invoke();

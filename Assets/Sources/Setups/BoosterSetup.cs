@@ -15,12 +15,12 @@ namespace Sources.Setups
         private BoosterView _view;
         private BoosterPresenter _presenter;
 
-        public void Initialize(PlayerView playerView)
+        public void Initialize()
         {
             _booster = GetComponent<Booster>();
             _particleSystem = GetComponentInChildren<ParticleSystem>();
             _view = GetComponent<BoosterView>();
-            _model = new BoosterModel(_booster, _particleSystem, playerView);
+            _model = new BoosterModel(_booster, _particleSystem);
 
             _presenter = new BoosterPresenter(_model, _view);
         }

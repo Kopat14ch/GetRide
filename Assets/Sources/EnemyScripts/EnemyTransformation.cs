@@ -63,7 +63,7 @@ namespace Sources.EnemyScripts
             Ray ray = _camera.ScreenPointToRay(_playerInput.Player.Position.ReadValue<Vector2>());
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit) && hit.collider.TryGetComponent(out EnemyTransformation enemy) && enemy == this && _canDrag)
+            if (Physics.Raycast(ray, out hit) && hit.collider.TryGetComponent(out EnemyTransformation enemy) && enemy == this && _canDrag && _playerView.CanPlay)
                 StartCoroutine(Drag());
         }
 
