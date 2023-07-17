@@ -81,13 +81,12 @@ namespace Sources.Settings
             if (value)
             {
                 EnableMusic();
-                foreach (var gameObjectTemp in _toggleMusic.GetComponentsInChildren<GameObject>())
-                    gameObjectTemp.SetActive(true);
+                
+                _toggleMusic.isOn = true;
             }
             else
             {
-                foreach (var gameObjectTemp in _toggleMusic.GetComponentsInChildren<GameObject>())
-                    gameObjectTemp.SetActive(false);
+                _toggleMusic.isOn = false;
 
                 DisableMusic();
             }
@@ -120,7 +119,7 @@ namespace Sources.Settings
 
         private void OnBackgroundChangeEvent(bool value)
         {
-            if (IsToggleMusicEnabled == false)
+            if (IsToggleMusicEnabled == false || AdController.IsOpen)
                 return;
 
             if (value)

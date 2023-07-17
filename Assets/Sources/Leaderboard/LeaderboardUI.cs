@@ -14,6 +14,7 @@ namespace Sources.Leaderboard
         [SerializeField] private Button _toggleButton;
         [SerializeField] private Button _rejectButton;
         [SerializeField] private Button _acceptButton;
+        [SerializeField] private Button _closeButton;
         [SerializeField] private Panel _panel;
         [SerializeField] private Panel _content;
         [SerializeField] private GameObject _authorized;
@@ -33,6 +34,8 @@ namespace Sources.Leaderboard
                 DontDestroyOnLoad(gameObject);
                 Instance = this;
                 _canOpen = true;
+                
+                Disable();
             }
             else
             {
@@ -45,6 +48,7 @@ namespace Sources.Leaderboard
             _toggleButton.onClick.AddListener(Toggle);
             _rejectButton.onClick.AddListener(Disable);
             _acceptButton.onClick.AddListener(Accept);
+            _closeButton.onClick.AddListener(Disable);
         }
 
         private void OnDisable()
@@ -52,6 +56,7 @@ namespace Sources.Leaderboard
             _toggleButton.onClick.RemoveListener(Toggle);
             _rejectButton.onClick.RemoveListener(Disable);
             _acceptButton.onClick.RemoveListener(Accept);
+            _closeButton.onClick.RemoveListener(Disable);
         }
 
         public void Disable()
@@ -64,7 +69,7 @@ namespace Sources.Leaderboard
             _panel.Disable();
         }
 
-        public void SetEndPanelBlock(bool value) => _canOpen = value;
+        public void SetCanOpen(bool value) => _canOpen = value;
 
         private void Toggle()
         {

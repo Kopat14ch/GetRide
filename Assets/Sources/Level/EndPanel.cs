@@ -1,4 +1,5 @@
-﻿using Agava.YandexGames;
+﻿using System;
+using Agava.YandexGames;
 using IJunior.TypedScenes;
 using Lean.Localization;
 using Sources.Common;
@@ -47,13 +48,13 @@ namespace Sources.Level
         {
             s_showsCount = Saver.Instance.SaveData.ShowsCount;
             _levelNumber = levelNumber;
-            
+
             gameObject.SetActive(false);
         }
 
         public void Show(int maxMovements ,int movementsCount, bool isExcess)
         {
-            LeaderboardUI.Instance.SetEndPanelBlock(true);
+            LeaderboardUI.Instance.SetCanOpen(false);
             SoundController.Instance.PlayEndPanel();
 
             if (LevelConfig.Instance.GetLevelsCount() >= _levelNumber + 1)
@@ -76,6 +77,7 @@ namespace Sources.Level
             LevelConfig.Instance.SetScore(score, _levelNumber, ScoreWithExcess);
             
             Saver.Instance.SaveShows(s_showsCount);
+            Saver.Instance.EndTraining();
 
             Time.timeScale = 0f;
         }
@@ -84,8 +86,8 @@ namespace Sources.Level
         {
             if (_levelNumber + 1 <= LevelButtons.MaxNumber)
             {
+                LeaderboardUI.Instance.SetCanOpen(true);
                 AsyncLoadScene.Instance.Load(IJunior.TypedScenes.Level.LoadAsync(_levelNumber + 1));
-                LeaderboardUI.Instance.SetEndPanelBlock(false);
             }
         }
 
@@ -93,7 +95,7 @@ namespace Sources.Level
         {
             Time.timeScale = 1f;
             
-            LeaderboardUI.Instance.SetEndPanelBlock(false);
+            LeaderboardUI.Instance.SetCanOpen(true);
             AsyncLoadScene.Instance.Load(LevelsMenu.LoadAsync());
         }
     }

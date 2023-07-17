@@ -38,7 +38,7 @@ namespace Sources.Bootstraps
                 boosterView.Initialize();
             
             foreach (var boosterSetup in _boostersList.BoosterSetups)
-                boosterSetup.Initialize(_playerView);
+                boosterSetup.Initialize();
 
             _enemiesInvolvedSlider.Initialize(_maxEnemiesDragging);
 

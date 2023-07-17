@@ -1,6 +1,7 @@
 using System;
 using Agava.YandexGames;
 using Kino;
+using Sources.Common;
 using Sources.EnemyScripts;
 using Sources.Level;
 using Sources.Settings;
@@ -28,16 +29,19 @@ namespace Sources.Views
         public event Action DraggingEnemy;
 
         public bool CanPlay { get; private set; }
+        public bool CanActivateBoosterInTraining { get; private set; }
 
         public void Initialize(int maxMoveEnemies)
         {
+            CanActivateBoosterInTraining = Saver.Instance.SaveData.IsTrained;
+
             _playerInput = new PlayerInput();
             _camera = Camera.main;
             _maxMoveEnemies = maxMoveEnemies;
 
             EnablePlay();
         }
-        
+
         private void OnEnable()
         {
             try
@@ -66,10 +70,6 @@ namespace Sources.Views
             _endPanel.Show(_maxMoveEnemies, _enemyMoveCount, isExcess);
         }
 
-        public void SetProgressBarValue(float currentProgress) => _progressBar.value = currentProgress;
-        public void SetMaxSliderValue(Vector3 startPos, Vector3 endPos) => _progressBar.maxValue = Vector2.Distance(startPos, endPos);
-        public void EnablePlay() => CanPlay = true;
-
         public void EnableGlitch()
         {
             SoundController.Instance.PlayGlitch();
@@ -81,7 +81,12 @@ namespace Sources.Views
             SoundController.Instance.StopPlay();
             _glitch.enabled = false;
         }
-
+        
+        public void SetProgressBarValue(float currentProgress) => _progressBar.value = currentProgress;
+        public void SetMaxSliderValue(Vector3 startPos, Vector3 endPos) => _progressBar.maxValue = Vector2.Distance(startPos, endPos);
+        public void EnablePlay() => CanPlay = true;
+        public void DisablePlay() => CanPlay = false;
+        public void EnableActivateBoosterInTraining() => CanActivateBoosterInTraining = true;
         private void Validate()
         {
             if (_progressBar == null)
@@ -109,7 +114,5 @@ namespace Sources.Views
                 }
             }
         }
-
-        private void DisablePlay() => CanPlay = false;
     }
 }
