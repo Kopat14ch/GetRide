@@ -123,9 +123,15 @@ namespace Sources.Settings
                 return;
 
             if (value)
+            {
                 DisableMusic();
+                Time.timeScale = 0f;
+            }
             else
+            {
                 EnableMusic();
+                Time.timeScale = 1f;
+            }
         }
 
         private void OnAudioSliderChangeValue(float value) => _musicController.SetVolume(value);
