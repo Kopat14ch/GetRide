@@ -14,10 +14,14 @@ namespace Sources.Training
         [SerializeField] private List<Image> _boosterImages;
 
         private const int BoosterTextIndex = 2;
+        
         private void Awake()
         {
             if (Saver.Instance.SaveData.IsTrained)
+            {
+                DisableBoosterImages();
                 Destroy(gameObject);
+            }
             else
             {
                 DisableBoosterImages();

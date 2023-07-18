@@ -86,7 +86,7 @@ namespace Sources.Views
         {
             if (Saver.Instance.SaveData.IsTrained)
             {
-                if (_playerView.CanPlay == false)
+                if (_playerView.CanPlay)
                 {
                     BoosterActivated?.Invoke(_booster);
                 }
