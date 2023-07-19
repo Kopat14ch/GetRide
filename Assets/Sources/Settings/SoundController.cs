@@ -42,7 +42,10 @@ namespace Sources.Settings
 
         public void StopPlay() => _audioSource.Stop();
 
-        public void SetMute(bool value) => _audioSource.mute = value;
+        public void SetMute (bool value) => _audioSource.mute = value;
+        public void SetVolume(float value) => _audioSource.volume = value;
+        public void Pause() => _audioSource.Pause();
+        public void UnPause() => _audioSource.UnPause();
     }
 }
 

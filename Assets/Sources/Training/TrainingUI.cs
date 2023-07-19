@@ -13,5 +13,7 @@ namespace Sources.Training
         [SerializeField] protected Button NextButton;
         
         protected int TextIndex;
+        
+        public bool IsDisabled { get; protected set; }
     }
 }

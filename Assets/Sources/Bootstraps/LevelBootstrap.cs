@@ -1,11 +1,16 @@
+using System.Collections.Generic;
 using IJunior.TypedScenes;
 using Sources.Boosters;
+using Sources.Common;
+using Sources.Leaderboard;
 using Sources.Level;
 using Sources.Settings;
 using Sources.Spawners;
 using Sources.StringController;
+using Sources.Training;
 using Sources.Views;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Sources.Bootstraps
 {
@@ -18,6 +23,7 @@ namespace Sources.Bootstraps
         [SerializeField] private LevelGenerator _levelGenerator;
         [SerializeField] private EnemiesSpawner _enemiesSpawner;
         [SerializeField] private EnemiesInvolvedSlider _enemiesInvolvedSlider;
+        [SerializeField] private TrainingUI _trainingUI;
 
         private int _roadCount;
         private int _seed;
@@ -26,6 +32,10 @@ namespace Sources.Bootstraps
 
         private void Awake()
         {
+            LeaderboardUI.Instance.SetCanOpen(true);
+            LeaderboardUI.Instance.SetTrainingUI(_trainingUI);
+            SettingsMenu.Instance.SetTrainingUI(_trainingUI);
+
             Time.timeScale = 1f;
             
             _playerView.Initialize(_maxEnemiesDragging);

@@ -2,6 +2,7 @@ using Agava.YandexGames;
 using Sources.Common;
 using Sources.Settings;
 using Sources.StringController;
+using Sources.Training;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,6 +22,7 @@ namespace Sources.Leaderboard
         [SerializeField] private GameObject _notAuthorized;
 
         private bool _canOpen;
+        private TrainingUI _trainingUI;
         
         public static LeaderboardUI Instance { get; private set; }
         
@@ -34,7 +36,7 @@ namespace Sources.Leaderboard
                 DontDestroyOnLoad(gameObject);
                 Instance = this;
                 _canOpen = true;
-                
+
                 Disable();
             }
             else
@@ -69,6 +71,12 @@ namespace Sources.Leaderboard
             _panel.Disable();
         }
 
+        public void SetTrainingUI(TrainingUI trainingUI)
+        {
+            if (Saver.Instance.SaveData.IsTrained == false)
+                _trainingUI = trainingUI;
+        }
+
         public void SetCanOpen(bool value) => _canOpen = value;
 
         private void Toggle()
@@ -76,11 +84,17 @@ namespace Sources.Leaderboard
             if (_panel.isActiveAndEnabled)
             {
                 Disable();
+
+                if (Saver.Instance.SaveData.IsTrained == false && _trainingUI.IsDisabled == false)
+                    _trainingUI.gameObject.SetActive(true);
             }
             else
             {
                 Enable();
                 SettingsMenu.Instance.DisablePanel();
+
+                if (Saver.Instance.SaveData.IsTrained == false && _trainingUI.IsDisabled == false)
+                    _trainingUI.gameObject.SetActive(false);
             }
         }
 
