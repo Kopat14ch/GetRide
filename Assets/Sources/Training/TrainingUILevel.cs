@@ -52,6 +52,7 @@ namespace Sources.Training
             if (TextIndex + 1 > TrainingTexts.Count)
             {
                 _playerView.EnablePlay();
+                IsDisabled = true;
                 gameObject.SetActive(false);
 
                 return;

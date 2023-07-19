@@ -55,6 +55,7 @@ namespace Sources.Level
         public void Show(int maxMovements ,int movementsCount, bool isExcess)
         {
             LeaderboardUI.Instance.SetCanOpen(false);
+            
             SoundController.Instance.PlayEndPanel();
 
             if (LevelConfig.Instance.GetLevelsCount() >= _levelNumber + 1)
@@ -85,17 +86,14 @@ namespace Sources.Level
         private void SetNextLevel()
         {
             if (_levelNumber + 1 <= LevelButtons.MaxNumber)
-            {
-                LeaderboardUI.Instance.SetCanOpen(true);
                 AsyncLoadScene.Instance.Load(IJunior.TypedScenes.Level.LoadAsync(_levelNumber + 1));
-            }
+            
         }
 
         private void SetMenuScene()
         {
             Time.timeScale = 1f;
             
-            LeaderboardUI.Instance.SetCanOpen(true);
             AsyncLoadScene.Instance.Load(LevelsMenu.LoadAsync());
         }
     }
