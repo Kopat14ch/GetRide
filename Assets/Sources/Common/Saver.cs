@@ -90,14 +90,7 @@ namespace Sources.Common
             return 0;
         }
 
-        public void SaveShows(int shows)
-        {
-            SaveData.ShowsCount = shows;
-            
-            PlayerAccount.SetCloudSaveData(JsonUtility.ToJson(SaveData));
-        }
-
-        public void EndTraining()
+        public void SetEndTraining()
         {
             SaveData.IsTrained = true;
             
@@ -124,7 +117,6 @@ namespace Sources.Common
     {
         [field: Preserve] public int MagicTrafficLightCount;
         [field: Preserve] public int MagicPotionCount;
-        [field: Preserve] public int ShowsCount;
         [field: Preserve] public float MusicVolumeValue;
         [field: Preserve] public bool MusicChanged;
         [field: Preserve] public bool IsTrained;

@@ -11,6 +11,7 @@ namespace Sources.Common
     {
         [Header(HeaderNames.Objects)]
         [SerializeField] private Saver _saver;
+        [SerializeField] private Localization _localization;
 
         public static AsyncLoadScene Instance;
         
@@ -81,6 +82,7 @@ namespace Sources.Common
                 yield return waitForSecondsRealtime;
             }
             SetDefaultValues();
+            _localization.SetLanguageAll();
 
             LevelsMenu.Load();
         }

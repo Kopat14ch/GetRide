@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using Agava.YandexGames;
 using IJunior.TypedScenes;
 using Sources.Boosters;
 using Sources.Common;
@@ -10,7 +10,6 @@ using Sources.StringController;
 using Sources.Training;
 using Sources.Views;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Sources.Bootstraps
 {
@@ -32,6 +31,9 @@ namespace Sources.Bootstraps
 
         private void Awake()
         {
+            if (Saver.Instance.SaveData.IsTrained)
+                InterstitialAd.Show(onOpenCallback: AdController.OnOpenAd, onCloseCallback: (value) => AdController.OnCloseAd());
+
             LeaderboardUI.Instance.SetCanOpen(true);
             LeaderboardUI.Instance.SetTrainingUI(_trainingUI);
             SettingsMenu.Instance.SetTrainingUI(_trainingUI);

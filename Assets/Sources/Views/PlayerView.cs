@@ -1,5 +1,4 @@
 using System;
-using Agava.YandexGames;
 using Kino;
 using Sources.Common;
 using Sources.EnemyScripts;
@@ -87,6 +86,7 @@ namespace Sources.Views
         public void EnablePlay() => CanPlay = true;
         public void DisablePlay() => CanPlay = false;
         public void EnableActivateBoosterInTraining() => CanActivateBoosterInTraining = true;
+        
         private void Validate()
         {
             if (_progressBar == null)

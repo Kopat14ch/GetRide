@@ -25,7 +25,7 @@ namespace Sources.Bootstraps
             _settings.SetTrainingUI(_trainingUI);
             _leaderboardUI.Initialize();
             _leaderboardUI.SetTrainingUI(_trainingUI);
-            
+
             LeaderboardUI.Instance.SetCanOpen(true);
             SettingsMenu.Instance.DisableMenuButton();
             SettingsMenu.Instance.DisablePanel();
