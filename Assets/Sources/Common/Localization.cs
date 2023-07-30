@@ -6,9 +6,7 @@ namespace Sources.Common
 {
     public class Localization : MonoBehaviour
     {
-        private void Awake() => SetLanguageAll();
-
-        private void SetLanguageAll()
+        public void SetLanguageAll()
         {
             switch (YandexGamesSdk.Environment.i18n.lang)
             {

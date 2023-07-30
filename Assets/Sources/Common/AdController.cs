@@ -12,19 +12,25 @@ namespace Sources.Common
             IsOpen = true;
             
             if (SettingsMenu.Instance.IsToggleMusicEnabled)
+            {
                 SettingsMenu.Instance.DisableMusic();
+                SettingsMenu.Instance.PauseSound();
+            }
             
             Time.timeScale = 0f;
         }
 
         public static void OnCloseAd()
         {
-            Time.timeScale = 1f;
-            
             IsOpen = false;
             
+            Time.timeScale = 1f;
+            
             if (SettingsMenu.Instance.IsToggleMusicEnabled)
+            {
                 SettingsMenu.Instance.EnableMusic();
+                SettingsMenu.Instance.UnPauseSound();
+            }
         }
     }
 }

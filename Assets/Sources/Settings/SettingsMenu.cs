@@ -26,6 +26,7 @@ namespace Sources.Settings
 
         private Panel _panel;
         private TrainingUI _trainingUI;
+        private bool _canSetTimeScale;
         
         public static SettingsMenu Instance { get; private set; }
         public bool IsToggleMusicEnabled { get; private set; }
@@ -33,6 +34,7 @@ namespace Sources.Settings
         public void Initialize(TrainingUI trainingUI = null)
         {
             _musicController.Initialize();
+            _canSetTimeScale = true;
             
             if (Instance == null)
             {
@@ -87,12 +89,11 @@ namespace Sources.Settings
         
         public void EnableMenuButton() => _exitMenuButton.Enable();
         public void DisableMenuButton() => _exitMenuButton.Disable();
-
         public void DisableMusic() => _musicController.DisableMusic();
         public void EnableMusic() => _musicController.EnableMusic();
-        
-        private void EnableSound() => _soundController.SetMute(false);
-        private void DisableSound() => _soundController.SetMute(true);
+        public void PauseSound() => _soundController.Pause();
+        public void UnPauseSound() => _soundController.UnPause();
+        public void DisableTimeScaleSet() => _canSetTimeScale = false;
 
         private void OnToggleMusicValueChanged(bool value)
         {
@@ -139,24 +140,25 @@ namespace Sources.Settings
             if (_panel.isActiveAndEnabled)
             {
                 DisablePanel();
-                _soundController.UnPause();
+                UnPauseSound();
                 
                 if (Saver.Instance.SaveData.IsTrained == false && _trainingUI.IsDisabled == false)
                     _trainingUI.gameObject.SetActive(true);
 
-                Time.timeScale = 1f;
+                Time.timeScale = _canSetTimeScale ? 1f : 0f;
             }
             else
             {
                 EnablePanel();
-                _soundController.Pause();
+                PauseSound();
                 
                 if (Saver.Instance.SaveData.IsTrained == false && _trainingUI.IsDisabled == false)
                     _trainingUI.gameObject.SetActive(false);
                 
                 LeaderboardUI.Instance.Disable();
 
-                Time.timeScale = 0f;
+                if (_canSetTimeScale)
+                    Time.timeScale = 0f;
             }
         }
 
@@ -179,5 +181,7 @@ namespace Sources.Settings
 
         private void OnMusicSliderChangeValue (float value) => _musicController.SetVolume(value);
         private void OnSoundSliderChangeValue(float value) => _soundController.SetVolume(value);
+        private void EnableSound() => _soundController.SetMute(false);
+        private void DisableSound() => _soundController.SetMute(true);
     }
 }

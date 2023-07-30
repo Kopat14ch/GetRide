@@ -59,14 +59,13 @@ namespace Sources.Views
 
         public void ShowVideo() => OnShowVideo();
 
-        
         private void Validate()
         {
             if (_booster == null || _button == null)
                 throw new NullReferenceException();
         }
 
-        private void OnShowVideo() => VideoAd.Show(onOpenCallback: AdController.OnOpenAd, onRewardedCallback: () => VideoAwardReceived?.Invoke(), onCloseCallback: AdController.OnCloseAd);
+        private void OnShowVideo() => VideoAd.Show(onOpenCallback: () => AdController.OnOpenAd(), onRewardedCallback: () => VideoAwardReceived?.Invoke(), onCloseCallback: () => AdController.OnCloseAd());
 
         private void TryActiveVideoImage()
         {

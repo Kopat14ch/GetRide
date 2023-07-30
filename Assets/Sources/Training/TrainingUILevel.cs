@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Sources.Common;
-using Sources.Level;
 using Sources.Views;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,8 +18,8 @@ namespace Sources.Training
         {
             if (Saver.Instance.SaveData.IsTrained)
             {
-                DisableBoosterImages();
                 Destroy(gameObject);
+                DisableBoosterImages();
             }
             else
             {
@@ -54,6 +53,9 @@ namespace Sources.Training
                 _playerView.EnablePlay();
                 IsDisabled = true;
                 gameObject.SetActive(false);
+                
+                foreach (var image in _boosterImages)
+                    image.gameObject.SetActive(false);
 
                 return;
             }
@@ -70,7 +72,6 @@ namespace Sources.Training
                         image.gameObject.SetActive(true);
 
                     _playerView.EnableActivateBoosterInTraining();
-                    NextButton.interactable = false;
                 }
                 
                 TrainingTexts[TextIndex - 1].gameObject.SetActive(false);
